@@ -1,0 +1,88 @@
+body,
+html,
+.theme,
+.body {
+  --min-page-width: 300px;
+  box-sizing: border-box;
+  display: grid;
+  margin: 0;
+  min-height: 100vh;
+  min-width: var(--min-page-width);
+  padding: 0;
+  position: relative;
+}
+
+html {
+  overflow-y: scroll;
+  overscroll-behavior: none;
+  overscroll-behavior-y: none;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-attachment: scroll;
+}
+
+:root {
+  --theme-color: #202127;
+  --text-color: #d7dadc;
+  --card-color: #2e2e33;
+  --header-footer-color: #16181d;
+  --cyan: #00ffff;
+  --magenta: #ff00ff;
+  --yellow: #ffff00;
+}
+
+/* html[data-theme='light'], */
+#theme-toggle:checked ~ .theme {
+  --theme-color: #d7dadc;
+  --text-color: #202127;
+  --card-color: #ffffff;
+  --header-footer-color: #a1a5a7;
+  --cyan: #00ffff;
+  --magenta: #b200b2;
+  --yellow: #ffff00;
+}
+
+.theme {
+  background-color: var(--theme-color);
+}
+
+/* #sun {
+  opacity: 1;
+  transform: rotate(45deg);
+}
+#moon {
+  opacity: 0;
+  transform: rotate(45deg);
+}
+:is(html[data-theme='light'], #theme-toggle:checked ~ .theme) #sun {
+  opacity: 0;
+  transform: rotate(-360deg);
+}
+:is(html[data-theme='light'], #theme-toggle:checked ~ .theme) #moon {
+  opacity: 1;
+  transform: rotate(-360deg);
+} */
+
+/* .theme,
+.header,
+.footer,
+.card,
+#sun,
+#moon,
+.theme-toggle-label {
+  transition-duration: 333ms;
+  transition-timing-function: ease-in-out;
+}
+.theme,
+.header,
+.footer,
+.card {
+  transition-property: background-color;
+}
+#sun,
+#moon,
+.theme-toggle-label {
+  transition-property: transform, opacity;
+} */

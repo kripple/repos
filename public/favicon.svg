@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-23 -23 22 22" >
+  <path class="top" d="M -5,-15 -3.75,-17.75 -1,-19 -3.75,-20.25 -5,-23 -6.25,-20.25 -9,-19 l 2.75,1.25 z" />
+  <path class="middle" d="m -12.5,-14.5 -2.5,-5.5 -2.5,5.5 -5.5,2.5 5.5,2.5 2.5,5.5 2.5,-5.5 5.5,-2.5 z" />
+  <path class="bottom" d="M -5,-9 -6.25,-6.25 -9,-5 -6.25,-3.75 -5,-1 -3.75,-3.75 -1,-5 -3.75,-6.25 Z" />
+  <style>
+    path.top { fill: #3F37C9 }
+    path.middle { fill: #7209B7 }
+    path.bottom { fill: #480CA8 }
+    @media (prefers-color-scheme: dark) {
+      path.top { fill: #BEEFFA }
+      path.middle { fill: #4CC9F0 }
+      path.bottom { fill: #4361EE }
+    }
+  </style>
+</svg>

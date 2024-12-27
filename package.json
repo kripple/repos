@@ -1,0 +1,37 @@
+{
+  "name": "meta",
+  "version": "0.0.0",
+  "author": "Kelly Ripple",
+  "type": "module",
+  "scripts": {
+    "start": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint . && stylelint '**/*.css' && prettier --check .",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@types/node": "*",
+    "@types/react": "*",
+    "@types/react-dom": "*",
+    "@typescript-eslint/eslint-plugin": "7.16.1",
+    "@typescript-eslint/parser": "7.16.1",
+    "@vitejs/plugin-react": "*",
+    "eslint": "8.56.0",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-plugin-import": "2.31.0",
+    "eslint-plugin-react": "7.37.2",
+    "eslint-plugin-react-hooks": "5.0.0",
+    "eslint-plugin-react-refresh": "0.4.14",
+    "prettier": "*",
+    "react": "*",
+    "react-dom": "*",
+    "rollup-plugin-visualizer": "*",
+    "sharp": "*",
+    "stylelint": "*",
+    "stylelint-order": "*",
+    "stylelint-prettier": "*",
+    "typescript": "*",
+    "vite": "*",
+    "vite-plugin-singlefile": "*"
+  }
+}
