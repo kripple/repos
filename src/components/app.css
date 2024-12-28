@@ -45,3 +45,14 @@
   grid-auto-rows: min-content 1fr;
   justify-content: center;
 } */
+
+.app {
+  grid-template-rows: max-content 1fr max-content;
+}
+
+.header {
+  border-bottom: 1px solid var(--border-color);
+}
+.footer {
+  border-top: 1px solid var(--border-color);
+}

@@ -9,11 +9,9 @@ export function App() {
 
   return (
     <Theme toggleId={id}>
-      <div className="body">
-        <Header toggleId={id} />
-        <main className="main"></main>
-        <Footer />
-      </div>
+      <Header toggleId={id} />
+      <main className="main"></main>
+      <Footer />
     </Theme>
   );
 }

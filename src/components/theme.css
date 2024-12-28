@@ -1,7 +1,7 @@
-body,
 html,
-.theme,
-.body {
+body,
+#root,
+.theme {
   --min-page-width: 300px;
   box-sizing: border-box;
   display: grid;
@@ -23,66 +23,40 @@ body {
   background-attachment: scroll;
 }
 
-:root {
-  --theme-color: #202127;
-  --text-color: #d7dadc;
-  --card-color: #2e2e33;
-  --header-footer-color: #16181d;
-  --cyan: #00ffff;
-  --magenta: #ff00ff;
-  --yellow: #ffff00;
+.theme {
+  --theme-color: rgb(15, 18, 20);
+  --text-color: #ffffff;
+  --text-accent-color: rgb(102, 179, 255);
+  --border-color: hsla(210, 14%, 22%, 0.5);
+  --box-shadow: hsla(210, 14%, 22%, 0.3) 0 1px 0 inset,
+    hsl(200, 10%, 4%) 0 -1px 0 inset, hsl(200, 10%, 4%) 0 1px 2px 0;
+  --hover-color: rgba(29, 33, 38, 0.8);
+  --hover-border-color: rgb(48, 56, 64);
 }
 
-/* html[data-theme='light'], */
-#theme-toggle:checked ~ .theme {
-  --theme-color: #d7dadc;
-  --text-color: #202127;
-  --card-color: #ffffff;
-  --header-footer-color: #a1a5a7;
-  --cyan: #00ffff;
-  --magenta: #b200b2;
-  --yellow: #ffff00;
+html[data-theme='light'],
+#root > input:checked ~ .theme {
+  --theme-color: rgba(255, 255, 255, 0.8);
+  --text-color: #000000;
+  --text-accent-color: rgb(0, 115, 230);
+  --border-color: rgb(217, 222, 226);
+  --box-shadow: #ffffff 0 1px 0 inset, hsla(215, 15%, 89%, 0.4) 0 -1px 0 inset,
+    hsla(215, 15%, 89%, 0.5) 0 1px 2px 0;
+  --hover-color: rgb(246, 247, 248);
+  --hover-border-color: rgb(202, 208, 216);
 }
 
 .theme {
   background-color: var(--theme-color);
+  color: var(--text-color);
 }
 
-/* #sun {
-  opacity: 1;
-  transform: rotate(45deg);
+:is(html[data-theme='light'], #root > input:checked ~ .theme) #light-mode,
+#dark-mode {
+  display: none;
 }
-#moon {
-  opacity: 0;
-  transform: rotate(45deg);
-}
-:is(html[data-theme='light'], #theme-toggle:checked ~ .theme) #sun {
-  opacity: 0;
-  transform: rotate(-360deg);
-}
-:is(html[data-theme='light'], #theme-toggle:checked ~ .theme) #moon {
-  opacity: 1;
-  transform: rotate(-360deg);
-} */
 
-/* .theme,
-.header,
-.footer,
-.card,
-#sun,
-#moon,
-.theme-toggle-label {
-  transition-duration: 333ms;
-  transition-timing-function: ease-in-out;
+:is(html[data-theme='light'], #root > input:checked ~ .theme) #dark-mode,
+#light-mode {
+  display: inline-flex;
 }
-.theme,
-.header,
-.footer,
-.card {
-  transition-property: background-color;
-}
-#sun,
-#moon,
-.theme-toggle-label {
-  transition-property: transform, opacity;
-} */
