@@ -1,33 +1,36 @@
 :root {
   --px: 6px;
-  --px-border: 1px;
-  --px-radius: calc(var(--px) * 2);
-  --px-svg-size: calc(var(--px) * 3);
-  --px-label-size: calc(var(--px) * 5 + var(--px-border) + var(--px-border));
+  --px-border: calc(var(--px) * 2);
+  --px-svg: calc(var(--px) * 3);
 }
-.header .theme-toggle-label,
-.header svg {
+
+.header .box {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.header .box > * {
+  display: inline-flex;
+}
+
+.header :is(.theme-toggle-label, svg) {
+  border-radius: var(--px-border);
   box-sizing: content-box;
 }
-.header .theme-toggle-label {
-  display: block;
-  height: var(--px-label-size);
-  width: var(--px-label-size);
-}
+
 .header svg {
-  border: var(--px-border) solid var(--border-color);
-  border-radius: var(--px-radius);
+  border: 1px solid var(--border-color);
   box-shadow: var(--box-shadow);
   cursor: pointer;
   fill: var(--text-accent-color);
-  height: var(--px-svg-size);
+  height: var(--px-svg);
   padding: var(--px);
-  width: var(--px-svg-size);
+  width: var(--px-svg);
 }
-.header svg:hover {
+
+.header .theme-toggle-label:hover {
   background-color: var(--hover-color);
   border-color: var(--hover-border-color);
-}
-.header svg:focus {
-  outline: none;
 }

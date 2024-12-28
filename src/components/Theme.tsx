@@ -2,18 +2,12 @@ import type { ReactNode } from 'react';
 
 import '@/components/theme.css';
 
-export function Theme({
-  children,
-  toggleId,
-}: {
-  children: ReactNode;
-  toggleId: string;
-}) {
+export function Theme({ children, id }: { children: ReactNode; id: string }) {
   return (
     <>
       <input
         aria-hidden={true}
-        id={toggleId}
+        id={id}
         style={{ display: 'none' }}
         type="checkbox"
       />

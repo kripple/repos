@@ -1,18 +1,37 @@
 body {
-  font-family: 'Noto Sans';
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans',
+    Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+svg:focus {
+  outline: none;
+}
+a.button {
+  border: 1px solid var(--text-color);
+  border-radius: 6px;
+  /* box-shadow: var(--box-shadow); */
+  /* box-sizing: border-box; */
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 8px 12px;
+  text-decoration: none;
+}
+a.button:hover {
+  background-color: var(--hover-color);
+  /* border-color: var(--text-accent-color);
+  color: var(--text-accent-color); */
 }
 
 .app {
   grid-template-rows: max-content 1fr max-content;
 }
 
-.header {
-  border-bottom: 1px solid var(--border-color);
-}
 .footer {
-  border-top: 1px solid var(--border-color);
   font-size: 12px;
   font-weight: 200;
+  text-align: center;
 }
 
 .header,
@@ -20,4 +39,12 @@ body {
 .footer {
   display: block;
   padding: 16px;
+}
+
+.avatar {
+  background-color: var(--border-color);
+  border: 1px solid var(--text-color);
+  border-radius: 50%;
+  height: 44px;
+  width: 44px;
 }

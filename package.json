@@ -9,6 +9,12 @@
     "lint": "eslint . && stylelint '**/*.css' && prettier --check .",
     "preview": "vite preview"
   },
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.5.0",
+    "react": "*",
+    "react-dom": "*",
+    "react-redux": "^9.2.0"
+  },
   "devDependencies": {
     "@types/node": "*",
     "@types/react": "*",
@@ -23,15 +29,11 @@
     "eslint-plugin-react-hooks": "5.0.0",
     "eslint-plugin-react-refresh": "0.4.14",
     "prettier": "*",
-    "react": "*",
-    "react-dom": "*",
-    "rollup-plugin-visualizer": "*",
     "sharp": "*",
     "stylelint": "*",
     "stylelint-order": "*",
     "stylelint-prettier": "*",
     "typescript": "*",
-    "vite": "*",
-    "vite-plugin-singlefile": "*"
+    "vite": "*"
   }
 }
