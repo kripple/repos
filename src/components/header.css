@@ -27,16 +27,25 @@
   grid-row: 1 / 2;
 } */
 
+:root {
+  --px: 6px;
+  --px-radius: calc(var(--px) * 2);
+  --px-svg-size: calc(var(--px) * 3);
+  --px-label-size: calc(var(--px) * 4);
+}
+.header .theme-toggle-label {
+  height: var(--px-label-size);
+  width: var(--px-label-size);
+}
 .header svg {
   border: 1px solid var(--border-color);
-  border-radius: 12px;
+  border-radius: var(--px-radius);
   box-shadow: var(--box-shadow);
   cursor: pointer;
   fill: var(--text-accent-color);
-  height: 18px;
-  margin: 5px;
-  padding: 6px;
-  width: 18px;
+  height: var(--px-svg-size);
+  padding: var(--px);
+  width: var(--px-svg-size);
 }
 .header svg:hover {
   background-color: var(--hover-color);
