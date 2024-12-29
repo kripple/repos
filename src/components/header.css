@@ -1,7 +1,6 @@
 :root {
   --px: 6px;
   --px-border: calc(var(--px) * 2);
-  --px-svg: calc(var(--px) * 3);
 }
 
 .header .box {
@@ -25,9 +24,7 @@
   box-shadow: var(--box-shadow);
   cursor: pointer;
   fill: var(--text-accent-color);
-  height: var(--px-svg);
   padding: var(--px);
-  width: var(--px-svg);
 }
 
 .header .theme-toggle-label:hover {
