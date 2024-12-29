@@ -7,7 +7,8 @@
     "start": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . && stylelint '**/*.css' && prettier --check .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "redraw": "tsx src/scripts/redraw"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.0",
@@ -28,11 +29,13 @@
     "eslint-plugin-react": "7.37.2",
     "eslint-plugin-react-hooks": "5.0.0",
     "eslint-plugin-react-refresh": "0.4.14",
+    "pathfit": "^1.0.4",
     "prettier": "*",
     "sharp": "*",
     "stylelint": "*",
     "stylelint-order": "*",
     "stylelint-prettier": "*",
+    "tsx": "*",
     "typescript": "*",
     "vite": "*"
   }
