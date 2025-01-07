@@ -5,7 +5,7 @@ import '@/components/header.css';
 export function Header({ id }: { id: string }) {
   return (
     <header className="header">
-      <div className="box">
+      <div className="contents">
         <label
           aria-hidden="true"
           className="theme-toggle-label"

@@ -1,0 +1,43 @@
+:root {
+  --avatar-size: 100px;
+  --frame-size: calc(var(--avatar-size) - var(--offset));
+}
+
+.avatar {
+  padding: var(--offset);
+  position: relative;
+}
+
+.avatar > .contents {
+  aspect-ratio: 1;
+  display: flex;
+  position: relative;
+}
+
+.avatar img,
+.avatar > .contents > svg {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.avatar img {
+  height: 100%;
+  width: 100%;
+}
+
+.avatar > .contents > img {
+  /* height: var(--avatar-size);
+  width: var(--avatar-size); */
+}
+
+.avatar > .contents > svg {
+  fill: var(--text-accent-color);
+  /* height: var(--frame-size); */
+  /* left: var(--gap); */
+  /* overflow: visible; */
+  /* top: var(--gap); */
+  /* width: var(--frame-size); */
+}

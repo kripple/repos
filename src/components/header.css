@@ -1,21 +1,16 @@
-:root {
-  --px: 6px;
-  --px-border: calc(var(--px) * 2);
-}
-
-.header .box {
+.header .contents {
   align-items: center;
   display: flex;
   gap: 8px;
   justify-content: flex-end;
 }
 
-.header .box > * {
+.header .contents > * {
   display: inline-flex;
 }
 
 .header :is(.theme-toggle-label, svg) {
-  border-radius: var(--px-border);
+  border-radius: var(--offset);
   box-sizing: content-box;
 }
 
@@ -24,7 +19,7 @@
   box-shadow: var(--box-shadow);
   cursor: pointer;
   fill: var(--text-accent-color);
-  padding: var(--px);
+  padding: var(--gap);
 }
 
 .header .theme-toggle-label:hover {

@@ -16,7 +16,7 @@ const gitString = (type: 'branch' | 'hash') => {
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/meta/',
+  base: '/repos/',
   build: {
     outDir: 'docs',
   },

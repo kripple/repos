@@ -1,0 +1,48 @@
+import { HttpResponse, http } from 'msw';
+
+import { imageData } from '@/data/avatar';
+import { profile } from '@/data/profile';
+import { isRepo, repo } from '@/data/repo';
+import { repos } from '@/data/repos';
+import { toArrayBuffer } from '@/scripts/utils';
+
+export const handlers = [
+  http.get('https://api.github.com/users/:username', () => {
+    return HttpResponse.json(profile);
+  }),
+
+  // ?per_page=82&page=0&sort=updated
+  http.get('https://api.github.com/users/:username/repos', () => {
+    return HttpResponse.json(repos);
+  }),
+
+  http.get('https://avatars.githubusercontent.com/u/11916341', () => {
+    return HttpResponse.arrayBuffer(toArrayBuffer(imageData));
+  }),
+
+  http.get('https://api.github.com/repos/:username/:name', ({ params }) => {
+    const name = params.name;
+    if (!isRepo(name)) {
+      return new HttpResponse('Not found', {
+        status: 404,
+        headers: {
+          'Content-Type': 'text/plain',
+        },
+      });
+    }
+    return HttpResponse.json(repo[name]);
+  }),
+
+  // http.get('https://api.github.com/repos/*/${repoId}/languages', () => {
+  //   return HttpResponse.json({
+  //     id: 'c7b3d8e0-5e0b-4b0f-8b3a-3b9f4b3d3b3d',
+  //     firstName: 'John',
+  //     lastName: 'Maverick',
+  //   });
+  // }),
+
+  // http.get('/resource', () => {
+  //   // Respond with a network error.
+  //   return HttpResponse.error()
+  // }),
+];
