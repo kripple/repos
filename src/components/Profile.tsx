@@ -5,7 +5,7 @@ import { useProfile } from '@/hooks/useProfile';
 import '@/components/profile.css';
 
 export function Profile() {
-  const { websiteUrl, name, username, location, repos } = useProfile();
+  const { websiteUrl, name, location, repos } = useProfile();
 
   return (
     <div className="profile">
@@ -13,12 +13,6 @@ export function Profile() {
       <div className="contents">
         <div className="title">{name}</div>
         <div className="details">
-          {/* <div>
-            <SvgIcon icon="octocat" />
-            <span className="label">Username: </span>
-            {username}
-          </div> */}
-
           <div>
             <SvgIcon icon="location" />
             <span className="label">Location: </span>

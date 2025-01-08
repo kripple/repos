@@ -14,7 +14,6 @@ export const handlers = [
   http.get('https://api.github.com/users/:username/repos', ({ request }) => {
     const url = new URL(request.url);
     const page = url.searchParams.get('page');
-    
 
     if (!isPage(page)) {
       return new HttpResponse('Not found', {

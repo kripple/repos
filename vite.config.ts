@@ -9,7 +9,9 @@ dns.setDefaultResultOrder('verbatim');
 
 const gitString = (type: 'branch' | 'hash') => {
   const command =
-    type === 'branch' ? 'git branch --show-current' : 'git rev-parse --short HEAD';
+    type === 'branch'
+      ? 'git branch --show-current'
+      : 'git rev-parse --short HEAD';
   const value = childProcess.execSync(command).toString().trimEnd();
   return JSON.stringify(value);
 };

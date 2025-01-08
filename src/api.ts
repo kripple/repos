@@ -31,12 +31,7 @@ export type Repo = {
   size: number;
   language: string | null;
   has_pages: boolean;
-  license: {
-    key: string;
-    name: string;
-    spdx_id: string;
-    url: string;
-  } | null;
+  license: License | null;
   default_branch: string;
 };
 
