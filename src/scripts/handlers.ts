@@ -1,9 +1,9 @@
 import { HttpResponse, http } from 'msw';
 
 import { imageData } from '@/data/avatar';
+import { isPage, pages } from '@/data/pages';
 import { profile } from '@/data/profile';
-import { isRepo, repo } from '@/data/repo';
-import { isPage, pages } from '@/data/repos';
+import { isRepo, repos } from '@/data/repos';
 import { toArrayBuffer } from '@/scripts/utils';
 
 export const handlers = [
@@ -41,7 +41,7 @@ export const handlers = [
         },
       });
     }
-    return HttpResponse.json(repo[name]);
+    return HttpResponse.json(repos[name]);
   }),
 
   // http.get('https://api.github.com/repos/*/${repoId}/languages', () => {

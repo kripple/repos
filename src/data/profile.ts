@@ -1,5 +1,6 @@
-// https://api.github.com/users/kripple
+import { repos } from '@/data/repos';
 
+const total = Object.keys(repos).length;
 export const profile = {
   login: 'kripple',
   avatar_url: 'https://avatars.githubusercontent.com/u/11916341?v=4',
@@ -12,7 +13,7 @@ export const profile = {
   email: null,
   hireable: null,
   bio: null,
-  public_repos: 17,
+  public_repos: total,
   created_at: '2015-04-12T23:57:52Z',
   updated_at: '2024-12-28T23:40:53Z',
 };
