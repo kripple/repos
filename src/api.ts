@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const userId = 'kripple';
+const userId = 'kripple' as const;
+export const itemsPerPage = 10 as const;
 
 type Profile = {
   avatar_url: string;
@@ -9,7 +10,7 @@ type Profile = {
   location: string;
   login: string;
   name: string;
-  public_repos: string;
+  public_repos: number;
 };
 
 type License = {
@@ -19,21 +20,24 @@ type License = {
   url: string;
 };
 
-type Repo = {
-  id: number;
+export type Repo = {
   name: string;
   html_url: string;
   description: string | null;
-  size: number;
-  language: string;
-  homepage: string | null;
-  has_pages: boolean;
-  license?: License;
   created_at: string;
   updated_at: string;
   pushed_at: string;
-  tags_url: string;
-  languages_url: string;
+  homepage: string | null;
+  size: number;
+  language: string | null;
+  has_pages: boolean;
+  license: {
+    key: string;
+    name: string;
+    spdx_id: string;
+    url: string;
+  } | null;
+  default_branch: string;
 };
 
 type CacheKey = string | undefined;
@@ -44,9 +48,9 @@ export const api = createApi({
     getProfile: builder.query<Profile, CacheKey>({
       query: () => `/users/${userId}`,
     }),
-    getRepos: builder.query<Repo[], { page: number; perPage: string }>({
-      query: ({ page, perPage }) =>
-        `/users/${userId}/repos?per_page=${perPage}&page=${page}&sort=updated`,
+    getRepos: builder.query<Repo[], { page: number; itemsPerPage: number }>({
+      query: ({ page, itemsPerPage }) =>
+        `/users/${userId}/repos?per_page=${itemsPerPage}&page=${page}&sort=updated`,
     }),
     getRepo: builder.query<Repo, CacheKey>({
       query: (repoId: string) => `/repos/${userId}/${repoId}`,
@@ -56,3 +60,5 @@ export const api = createApi({
     }),
   }),
 });
+
+export type Api = typeof api;

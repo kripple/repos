@@ -1,43 +1,63 @@
 :root {
-  --avatar-size: 100px;
-  --frame-size: calc(var(--avatar-size) - var(--offset));
+  --zoom: 12px;
+  --image-size: calc(var(--profile-height) - var(--offset) + var(--zoom));
 }
 
 .avatar {
+  border-radius: 50%;
+  box-sizing: border-box;
+  display: flex;
   padding: var(--offset);
   position: relative;
+  transform-style: preserve-3d;
+  width: var(--profile-height);
 }
 
 .avatar > .contents {
-  aspect-ratio: 1;
   display: flex;
   position: relative;
-}
-
-.avatar img,
-.avatar > .contents > svg {
-  bottom: 0;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-
-.avatar img {
-  height: 100%;
   width: 100%;
-}
-
-.avatar > .contents > img {
-  /* height: var(--avatar-size);
-  width: var(--avatar-size); */
 }
 
 .avatar > .contents > svg {
   fill: var(--text-accent-color);
-  /* height: var(--frame-size); */
-  /* left: var(--gap); */
-  /* overflow: visible; */
-  /* top: var(--gap); */
-  /* width: var(--frame-size); */
+}
+
+.avatar .image {
+  background-position: center;
+  background-size: var(--image-size) var(--image-size);
+  height: 100%;
+  width: 100%;
+}
+
+.circle-crop {
+  border-radius: 50%;
+  height: inherit;
+  overflow: hidden;
+  width: inherit;
+}
+
+.avatar:before {
+  border-radius: inherit;
+  bottom: 0;
+  box-sizing: border-box;
+  content: '';
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.avatar:before {
+  /* background: linear-gradient(
+    123deg,
+    yellow,
+    magenta 50%,
+    var(--text-accent-color)
+  ); */
+  background-clip: content-box;
+  background-color: var(--text-accent-color);
+  filter: blur(var(--gap));
+  padding: var(--gap);
+  transform: translateZ(-1px);
 }

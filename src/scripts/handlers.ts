@@ -3,7 +3,7 @@ import { HttpResponse, http } from 'msw';
 import { imageData } from '@/data/avatar';
 import { profile } from '@/data/profile';
 import { isRepo, repo } from '@/data/repo';
-import { repos } from '@/data/repos';
+import { isPage, pages } from '@/data/repos';
 import { toArrayBuffer } from '@/scripts/utils';
 
 export const handlers = [
@@ -11,9 +11,21 @@ export const handlers = [
     return HttpResponse.json(profile);
   }),
 
-  // ?per_page=82&page=0&sort=updated
-  http.get('https://api.github.com/users/:username/repos', () => {
-    return HttpResponse.json(repos);
+  http.get('https://api.github.com/users/:username/repos', ({ request }) => {
+    const url = new URL(request.url);
+    const page = url.searchParams.get('page');
+    
+
+    if (!isPage(page)) {
+      return new HttpResponse('Not found', {
+        status: 404,
+        headers: {
+          'Content-Type': 'text/plain',
+        },
+      });
+    }
+
+    return HttpResponse.json(pages[page]);
   }),
 
   http.get('https://avatars.githubusercontent.com/u/11916341', () => {

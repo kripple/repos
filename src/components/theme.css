@@ -31,10 +31,10 @@ body {
 
 .theme {
   --theme-color: rgb(15, 18, 20);
-  --text-color: #b6bec9;
+  --text-color: #cdd6e2;
   --title-color: #ffffff;
   --text-accent-color: rgb(102, 179, 255);
-  --border-color: hsla(210, 14%, 22%, 0.5);
+  --border-color: hsla(210, 14%, 31%, 0.5);
   --box-shadow: hsla(210, 14%, 22%, 0.3) 0 1px 0 inset,
     hsl(200, 10%, 4%) 0 -1px 0 inset, hsl(200, 10%, 4%) 0 1px 2px 0;
   --hover-color: rgba(29, 33, 38, 0.8);
@@ -54,7 +54,7 @@ html[data-theme='light'],
 #root > input:checked ~ .theme {
   --theme-color: rgba(255, 255, 255, 0.8);
   --text-color: #303741;
-  --title-color: #000000;
+  --title-color: hsl(210, 100%, 23%);
   --text-accent-color: rgb(0, 115, 230);
   --border-color: rgb(217, 222, 226);
   --box-shadow: #ffffff 0 1px 0 inset, hsla(215, 15%, 89%, 0.4) 0 -1px 0 inset,

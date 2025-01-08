@@ -5,7 +5,7 @@ export const repo = {
   'kripple.github.io': {
     name: 'kripple.github.io',
   },
-};
+} as const;
 
 export const isRepo = (name: unknown): name is keyof typeof repo => {
   if (typeof name !== 'string') return false;

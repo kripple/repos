@@ -8,7 +8,7 @@ export const useProfile = () => {
       websiteUrl: currentData?.blog || '',
       githubUrl: currentData?.html_url || '',
       location: currentData?.location || '',
-      repos: currentData?.public_repos || '',
+      repos: currentData?.public_repos || 0,
       avatarUrl: currentData?.avatar_url || '',
     }),
   });

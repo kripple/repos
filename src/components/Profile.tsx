@@ -12,13 +12,12 @@ export function Profile() {
       <Avatar />
       <div className="contents">
         <div className="title">{name}</div>
-
         <div className="details">
-          <div>
+          {/* <div>
             <SvgIcon icon="octocat" />
             <span className="label">Username: </span>
             {username}
-          </div>
+          </div> */}
 
           <div>
             <SvgIcon icon="location" />

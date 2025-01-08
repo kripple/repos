@@ -3,22 +3,20 @@
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { Profile } from '@/components/Profile';
-import { Repo } from '@/components/Repo';
+import { ReposList } from '@/components/ReposList';
 import { Theme } from '@/components/Theme';
 import { useProfile } from '@/hooks/useProfile';
-import { useRepos } from '@/hooks/useRepos';
 
 import '@/components/app.css';
 
 export function App() {
   const id = 'theme-toggle';
 
-  const { repos: count } = useProfile();
-  const { repos } = useRepos(count);
+  const { repos: itemsMax } = useProfile();
 
   // useEffect(() => {
-  //   console.log(profile);
-  // }, [profile]);
+  //   console.log({itemsMax});
+  // }, [itemsMax]);
 
   // useEffect(() => {
   //   console.log(repos);
@@ -30,10 +28,7 @@ export function App() {
       <main className="main">
         <div className="contents">
           <Profile />
-          {repos.map((repo) => (
-            <Repo key={repo.name} name={repo.name} />
-          ))}
-          {/* {repos[0]?.name ? <Repo name={repos[0].name} /> : null} */}
+          {itemsMax > 0 ? <ReposList itemsMax={itemsMax} /> : null}
         </div>
       </main>
       <Footer />

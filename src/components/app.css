@@ -43,7 +43,8 @@ a:hover svg {
 }
 
 .main > .contents {
-  align-items: center;
+  /* align-items: stretch; */
   display: flex;
   flex-direction: column;
+  gap: 32px;
 }

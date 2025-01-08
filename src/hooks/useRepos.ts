@@ -1,13 +1,27 @@
-import { api } from '@/api';
+import { useMemo } from 'react';
 
-export const useRepos = (max: string) => {
-  return api.useGetReposQuery(
-    { page: 0, perPage: max },
-    {
-      selectFromResult: ({ currentData }) => ({
-        repos: currentData ? [...currentData] : [],
-      }),
-      skip: !max,
-    },
+import { api, itemsPerPage } from '@/api';
+
+export const useRepos = ({
+  itemsMax,
+  page,
+}: {
+  itemsMax: number;
+  page: number;
+}) => {
+  const params = useMemo(
+    () => ({
+      page,
+      itemsPerPage,
+    }),
+    [page],
   );
+
+  return api.useGetReposQuery(params, {
+    selectFromResult: ({ currentData, isFetching }) => ({
+      currentData,
+      isFetching,
+    }),
+    skip: !itemsMax || !itemsPerPage,
+  });
 };
