@@ -16,13 +16,14 @@
 }
 
 .circle-crop {
+  border: 2px solid var(--title-color);
   border-radius: 50%;
   height: inherit;
   overflow: hidden;
   width: inherit;
 }
 
-.avatar:before {
+/* .avatar:before {
   border-radius: inherit;
   bottom: 0;
   box-sizing: border-box;
@@ -32,17 +33,17 @@
   position: absolute;
   right: 0;
   top: 0;
-}
-.avatar:before {
-  /* background: linear-gradient(
+} */
+/* background: linear-gradient(
     123deg,
     yellow,
     magenta 50%,
     var(--text-accent-color)
   ); */
+/* .avatar:before {
   background-clip: content-box;
   background-color: var(--text-accent-color);
   filter: blur(var(--gap));
   padding: var(--gap);
   transform: translateZ(-1px);
-}
+} */

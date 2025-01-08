@@ -1,5 +1,6 @@
 .repo {
   display: flex;
+  flex-direction: column;
   flex-grow: 1;
   justify-content: center;
   position: relative;
@@ -11,6 +12,7 @@
   width: 100%;
 }
 
+.repo,
 .search-bar,
 .repo.selected,
 .search-bar input,
@@ -18,7 +20,7 @@
 .repo option.repo-contents {
   box-sizing: border-box;
   font-size: var(--font-size);
-  line-height: calc(var(--font-size) + 2px);
+  line-height: var(--line-height);
 }
 
 .repo {
@@ -29,14 +31,6 @@
 }
 .repo.selected {
   order: 1;
-}
-
-.repo.selected option.repo-contents {
-  font-size: inherit;
-  font-weight: bold;
-  line-height: inherit;
-  padding-left: 45px;
-  padding-right: 45px;
 }
 
 option.repo-contents {
@@ -58,6 +52,22 @@ option.repo-contents {
   white-space: normal;
   /* word-wrap: break-word; */
 }
+.repo.selected option.repo-contents {
+  border-bottom: none;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  font-size: inherit;
+  font-weight: bold;
+  line-height: inherit;
+  padding-left: 45px;
+  padding-right: 45px;
+}
+.repo.selected .repo-details {
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+}
 
 .repo.selected {
   color: var(--title-color);
@@ -66,6 +76,7 @@ option.repo-contents {
 
 .repo .close-button {
   display: none;
+  position: absolute;
 }
 
 .repo.selected .close-button {
@@ -73,22 +84,15 @@ option.repo-contents {
   align-self: flex-end;
   aspect-ratio: 1;
   background-color: transparent;
-  /* border: 1px solid red; */
   border: none;
   border-radius: 50%;
   box-sizing: border-box;
   cursor: pointer;
   display: flex;
-  height: 100%;
+  height: calc(var(--line-height) + var(--offset) + var(--offset));
   justify-content: center;
-  position: absolute;
-  /* right: var(--gap);
-  top: var(--gap); */
-
   right: 0;
   top: 0;
-  /* height: var(--font-size);
-  width: var(--font-size); */
 }
 .repo.selected .close-button svg {
   fill: var(--text-color);
@@ -97,9 +101,24 @@ option.repo-contents {
   width: var(--offset);
 }
 
-/* .repo.selected .close-button  {
+.repo-details {
+  display: none;
+}
+.repo.selected .repo-details {
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--padding);
+}
+.repo.selected .repo-details > * {
+  align-items: start;
   box-sizing: border-box;
-  font-size: var(--font-size);
-  line-height: var(--font-size);
-  transform: rotate(45deg);
-} */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: var(--offset) var(--padding);
+}
+.repo.selected .repo-details .label {
+  font-weight: bold;
+}
