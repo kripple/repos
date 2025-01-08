@@ -7,7 +7,8 @@ import { SvgIcon } from '@/components/SvgIcon';
 import '@/components/repo.css';
 
 export function Repo({
-  data: { name, ...repo },
+  data: { name },
+  // data: { name, ...repo },
   hide,
   highlight,
   selected,
