@@ -10,7 +10,7 @@ export function Profile() {
   return (
     <div className="profile">
       <Avatar />
-      <div className="contents">
+      <div className="profile-contents">
         <div className="title">{name}</div>
         <div className="details">
           <div>

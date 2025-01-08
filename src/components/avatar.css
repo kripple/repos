@@ -1,8 +1,3 @@
-:root {
-  --zoom: 12px;
-  --image-size: calc(var(--profile-height) - var(--offset) + var(--zoom));
-}
-
 .avatar {
   border-radius: 50%;
   box-sizing: border-box;
@@ -13,21 +8,11 @@
   width: var(--profile-height);
 }
 
-.avatar > .contents {
-  display: flex;
-  position: relative;
-  width: 100%;
-}
-
-.avatar > .contents > svg {
-  fill: var(--text-accent-color);
-}
-
 .avatar .image {
   background-position: center;
   background-size: var(--image-size) var(--image-size);
-  height: 100%;
-  width: 100%;
+  height: var(--frame-size);
+  width: var(--frame-size);
 }
 
 .circle-crop {

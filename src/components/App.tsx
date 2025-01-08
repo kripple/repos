@@ -26,7 +26,7 @@ export function App() {
     <Theme id={id}>
       <Header id={id} />
       <main className="main">
-        <div className="contents">
+        <div className="main-contents">
           <Profile />
           {itemsMax > 0 ? <ReposList itemsMax={itemsMax} /> : null}
         </div>

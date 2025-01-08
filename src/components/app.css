@@ -1,6 +1,6 @@
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans',
-    Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+  font-family: var(--font);
+  font-size: var(--font-size);
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -39,12 +39,12 @@ a:hover svg {
 .main,
 .footer {
   display: block;
-  padding: 16px;
+  padding: var(--padding);
 }
 
-.main > .contents {
-  /* align-items: stretch; */
+.main-contents {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: calc(var(--padding) * 2);
 }
