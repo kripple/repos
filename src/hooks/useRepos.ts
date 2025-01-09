@@ -7,7 +7,7 @@ export const useRepos = ({
   itemsMax,
   page,
 }: {
-  itemsMax: number;
+  itemsMax?: number;
   page: number;
 }) => {
   const params = useMemo(

@@ -8,7 +8,6 @@ import { toArrayBuffer } from '@/utils/toArrayBuffer';
 
 export const handlers = [
   http.all('*', async () => {
-    // await delay('infinite');
     await delay('real');
   }),
 

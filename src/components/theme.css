@@ -59,6 +59,7 @@ body {
     var(--dark-blue) 0%,
     hsl(210, 14%, 7%) 100%
   );
+  --skeleton-color: rgba(255, 255, 255, 0.11);
   /* --color-1: #beeffa;
   --color-2: #4cc9f0;
   --color-3: #4361ee; */
@@ -81,6 +82,7 @@ html[data-theme='light'],
     hsl(215, 15%, 97%) 0%,
     hsl(210, 100%, 96%) 100%
   );
+  --skeleton-color: rgba(0, 0, 0, 0.11);
   /* --color-1: #3f37c9;
   --color-2: #7209b7;
   --color-3: #480ca8; */

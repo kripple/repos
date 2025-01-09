@@ -1,3 +1,5 @@
+import Skeleton from '@mui/material/Skeleton';
+
 import { useProfile } from '@/hooks/useProfile';
 
 import '@/components/avatar.css';
@@ -14,7 +16,13 @@ export function Avatar() {
             className="image"
             style={{ backgroundImage: `url(${avatarUrl})` }}
           ></div>
-        ) : null}
+        ) : (
+          <Skeleton
+            animation="wave"
+            className="image skeleton"
+            variant="circular"
+          ></Skeleton>
+        )}
       </div>
     </div>
   );

@@ -48,3 +48,17 @@ a:hover svg {
   flex-direction: column;
   gap: calc(var(--padding) * 2);
 }
+
+.theme .skeleton {
+  background-color: var(--skeleton-color);
+}
+.theme .skeleton.text {
+  height: 18px;
+  /* transform: none; */
+  width: 100px;
+}
+.theme .skeleton.title-text {
+  height: 52px;
+  /* transform: none; */
+  width: 150px;
+}

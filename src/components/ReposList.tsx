@@ -10,7 +10,7 @@ import { useRepos } from '@/hooks/useRepos';
 
 import '@/components/repos-list.css';
 
-export function ReposList({ itemsMax }: { itemsMax: number }) {
+export function ReposList({ itemsMax }: { itemsMax?: number }) {
   if (itemsMax === 0) throw Error('no.');
 
   const [selectedRepo, setSelectedRepo] = useState<string>();
@@ -27,6 +27,7 @@ export function ReposList({ itemsMax }: { itemsMax: number }) {
     itemsMax,
     page,
   });
+  const isDisabled = Object.keys(repos).length === 0;
 
   useEffect(() => {
     // function doStuff() {}
@@ -50,43 +51,49 @@ export function ReposList({ itemsMax }: { itemsMax: number }) {
   }, [currentData]);
 
   useEffect(() => {
+    if (!itemsMax) return;
     const lastPage = Math.ceil(itemsMax / config.itemsPerPage);
     if (!currentData || currentData.length === 0 || isFetching) return;
 
     setPage((currentPage) =>
       currentPage === lastPage ? currentPage : currentPage + 1,
     );
-  }, [currentData, isFetching]);
+  }, [currentData, itemsMax, isFetching]);
 
   return (
     <datalist className="repos-list">
       <div
-        className={`search-bar${isFocused ? ' focus-visible' : ''}`}
+        className={`search-bar${isFocused ? ' focus-visible' : ''}${isDisabled ? ' disabled' : ''}`}
         style={selectedRepo ? { display: 'none' } : undefined}
       >
         <div className="search-bar-contents">
           <label htmlFor="search-bar">
             <SvgIcon icon="search" />
           </label>
-
           <input
+            autoComplete="off"
+            disabled={isDisabled}
             id="search-bar"
             onBlur={() => setIsFocused(false)}
             onChange={(event) => {
               const searchInputValue = event.target.value;
               console.log({ searchInputValue });
               setRepos((current) => {
-                const draft = { ...current };
+                const draft: typeof current = {};
 
                 Object.values(current).map((item) => {
                   const match = item.name.includes(event.target.value);
-                  draft[item.name].highlight = match
-                    ? searchInputValue
-                    : undefined;
-                  draft[item.name].hide = !match;
+                  draft[item.name] = {
+                    ...current[item.name],
+                    highlight: match ? searchInputValue : undefined,
+                    hide: !match,
+                  };
                 });
 
-                return draft;
+                return {
+                  ...current,
+                  ...draft,
+                };
               });
             }}
             onFocus={() => setIsFocused(true)}

@@ -20,7 +20,7 @@ import '@/components/app.css';
 export function App() {
   const id = 'theme-toggle';
   const { currentData } = useProfile();
-  const itemsMax = currentData?.public_repos || 0;
+  const itemsMax = currentData?.public_repos;
 
   return (
     <Theme id={id}>
@@ -28,7 +28,7 @@ export function App() {
       <main className="main">
         <div className="main-contents">
           <Profile />
-          {itemsMax > 0 ? <ReposList itemsMax={itemsMax} /> : null}
+          {itemsMax === 0 ? null : <ReposList itemsMax={itemsMax} />}
         </div>
       </main>
       <Footer />

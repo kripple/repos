@@ -2,10 +2,12 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--gap);
+  width: 100%;
 }
 
 .search-bar {
   align-items: center;
+  border-radius: 50px;
   display: flex;
   flex-wrap: nowrap;
   gap: 8px;
@@ -53,6 +55,10 @@
 
 .search-bar.focus-visible {
   outline: blue auto 1px;
+}
+
+.search-bar.disabled {
+  outline: none;
 }
 
 input#search-bar:focus-visible {

@@ -7,7 +7,8 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'https://api.github.com' }),
   endpoints: (builder) => ({
     getLanguages: builder.query({
-      query: (repoId: string) => `/repos/${config.username}/${repoId}/languages`,
+      query: (repoId: string) =>
+        `/repos/${config.username}/${repoId}/languages`,
     }),
     getProfile: builder.query<Profile, CacheKey>({
       query: () => `/users/${config.username}`,
