@@ -3,7 +3,8 @@ import { useProfile } from '@/hooks/useProfile';
 import '@/components/avatar.css';
 
 export function Avatar() {
-  const { avatarUrl } = useProfile();
+  const { currentData } = useProfile();
+  const avatarUrl = currentData?.avatar_url;
 
   return (
     <div className="avatar">

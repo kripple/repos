@@ -1,12 +1,17 @@
-import { HttpResponse, http } from 'msw';
+import { HttpResponse, delay, http } from 'msw';
 
 import { imageData } from '@/data/avatar';
 import { isPage, pages } from '@/data/pages';
 import { profile } from '@/data/profile';
 import { isRepo, repos } from '@/data/repos';
-import { toArrayBuffer } from '@/scripts/utils';
+import { toArrayBuffer } from '@/utils/toArrayBuffer';
 
 export const handlers = [
+  http.all('*', async () => {
+    // await delay('infinite');
+    await delay('real');
+  }),
+
   http.get('https://api.github.com/users/:username', () => {
     return HttpResponse.json(profile);
   }),

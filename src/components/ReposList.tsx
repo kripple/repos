@@ -2,8 +2,8 @@
 // import debounce from 'just-debounce';
 import { useEffect, useState } from 'react';
 
-import type { Repo as RepoType } from '@/api';
-import { itemsPerPage } from '@/api';
+import { config } from '@/api/config';
+import type { Repo as RepoType } from '@/api/types';
 import { Repo } from '@/components/Repo';
 import { SvgIcon } from '@/components/SvgIcon';
 import { useRepos } from '@/hooks/useRepos';
@@ -50,7 +50,7 @@ export function ReposList({ itemsMax }: { itemsMax: number }) {
   }, [currentData]);
 
   useEffect(() => {
-    const lastPage = Math.ceil(itemsMax / itemsPerPage);
+    const lastPage = Math.ceil(itemsMax / config.itemsPerPage);
     if (!currentData || currentData.length === 0 || isFetching) return;
 
     setPage((currentPage) =>

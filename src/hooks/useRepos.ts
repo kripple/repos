@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
-import { api, itemsPerPage } from '@/api';
+import { config } from '@/api/config';
+import { api } from '@/api/createApi';
 
 export const useRepos = ({
   itemsMax,
@@ -12,7 +13,7 @@ export const useRepos = ({
   const params = useMemo(
     () => ({
       page,
-      itemsPerPage,
+      itemsPerPage: config.itemsPerPage,
     }),
     [page],
   );
@@ -22,6 +23,6 @@ export const useRepos = ({
       currentData,
       isFetching,
     }),
-    skip: !itemsMax || !itemsPerPage,
+    skip: !itemsMax,
   });
 };

@@ -8,7 +8,7 @@
     "build": "tsc && vite build",
     "lint": "eslint . && stylelint '**/*.css' && prettier --check .",
     "preview": "vite preview",
-    "redraw": "tsx src/scripts/redraw"
+    "redraw": "tsx src/utils/redrawSvg"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.0",

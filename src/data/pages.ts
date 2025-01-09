@@ -1,16 +1,16 @@
-import { itemsPerPage } from '@/api';
+import { config } from '@/api/config';
 import { repos } from '@/data/repos';
 
 const all = Object.values(repos);
-const pageCount = Math.ceil(all.length / itemsPerPage);
+const pageCount = Math.ceil(all.length / config.itemsPerPage);
 
 type Pages = { [key: string]: typeof all };
 export const pages = Array.from({ length: pageCount }).reduce(
   (result: Pages, _, i) => {
     const index = i;
     result[(index + 1).toString()] = all.slice(
-      index * itemsPerPage,
-      (index + 1) * itemsPerPage,
+      index * config.itemsPerPage,
+      (index + 1) * config.itemsPerPage,
     );
     return result;
   },

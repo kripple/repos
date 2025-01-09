@@ -5,7 +5,13 @@ import { useProfile } from '@/hooks/useProfile';
 import '@/components/profile.css';
 
 export function Profile() {
-  const { websiteUrl, name, location, repos } = useProfile();
+  const { currentData } = useProfile();
+  const {
+    blog: websiteUrl,
+    name,
+    location,
+    public_repos: repos,
+  } = currentData || {};
 
   return (
     <div className="profile">
@@ -28,7 +34,7 @@ export function Profile() {
           <a href={websiteUrl} rel="noreferrer" tabIndex={0} target="_blank">
             <SvgIcon icon="link" />
             <span className="label">Website: </span>
-            {websiteUrl.replace('https://', '')}
+            {websiteUrl?.replace('https://', '')}
           </a>
         </div>
       </div>

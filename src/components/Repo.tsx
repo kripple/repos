@@ -1,7 +1,7 @@
 // import { useRepo } from '@/hooks/useRepo';
 import type { MouseEventHandler } from 'react';
 
-import type { Repo as RepoType } from '@/api';
+import type { Repo as RepoType } from '@/api/types';
 import { SvgIcon } from '@/components/SvgIcon';
 
 import '@/components/repo.css';
