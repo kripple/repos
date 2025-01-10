@@ -1,8 +1,6 @@
 /* eslint-disable react/jsx-no-bind */
-// import debounce from 'just-debounce';
 import { useEffect, useState } from 'react';
 
-import { config } from '@/api/config';
 import type { Repo as RepoType } from '@/api/types';
 import { Repo } from '@/components/Repo';
 import { SvgIcon } from '@/components/SvgIcon';
@@ -22,18 +20,10 @@ export function ReposList({ itemsMax }: { itemsMax?: number }) {
     };
   }>({});
 
-  const [page, setPage] = useState<number>(1);
-  const { currentData, isFetching } = useRepos({
+  const { currentData } = useRepos({
     itemsMax,
-    page,
   });
   const isDisabled = Object.keys(repos).length === 0;
-
-  useEffect(() => {
-    // function doStuff() {}
-    // window.addEventListener('resize', debounce(doStuff, 200, true));
-    // doStuff();
-  }, []);
 
   useEffect(() => {
     if (!currentData || currentData.length === 0) return;
@@ -49,16 +39,6 @@ export function ReposList({ itemsMax }: { itemsMax?: number }) {
     // const names = currentData.map(({ name }) => name);
     // setSortOrder(names);
   }, [currentData]);
-
-  useEffect(() => {
-    if (!itemsMax) return;
-    const lastPage = Math.ceil(itemsMax / config.itemsPerPage);
-    if (!currentData || currentData.length === 0 || isFetching) return;
-
-    setPage((currentPage) =>
-      currentPage === lastPage ? currentPage : currentPage + 1,
-    );
-  }, [currentData, itemsMax, isFetching]);
 
   return (
     <datalist className="repos-list">
