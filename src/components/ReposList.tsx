@@ -41,7 +41,7 @@ export function ReposList({ itemsMax }: { itemsMax?: number }) {
   }, [currentData]);
 
   return (
-    <datalist className="repos-list">
+    <div className="repos-list">
       <div
         className={`search-bar${isFocused ? ' focus-visible' : ''}${isDisabled ? ' disabled' : ''}`}
         style={selectedRepo ? { display: 'none' } : undefined}
@@ -105,6 +105,6 @@ export function ReposList({ itemsMax }: { itemsMax?: number }) {
           />
         );
       })}
-    </datalist>
+    </div>
   );
 }

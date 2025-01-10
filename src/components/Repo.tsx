@@ -63,13 +63,12 @@ export function Repo({
       className={`repo${selected ? ' selected' : ''}${show ? ' show' : ''}`}
       style={hide ? { display: 'none' } : undefined}
     >
-      <option
+      <button
         className="repo-contents"
         dangerouslySetInnerHTML={{ __html }}
-        onClick={select as unknown as MouseEventHandler<HTMLOptionElement>}
-        role={selected ? undefined : 'button'}
+        onClick={select as unknown as MouseEventHandler<HTMLButtonElement>}
         value={name}
-      ></option>
+      ></button>
       <div className="repo-details">
         {description ? (
           <div>

@@ -18,7 +18,7 @@
 .repo.selected,
 .search-bar input,
 .search-bar label,
-.repo option.repo-contents {
+.repo button.repo-contents {
   box-sizing: border-box;
   font-size: var(--font-size);
   line-height: var(--line-height);
@@ -34,7 +34,7 @@
   order: 1;
 }
 
-option.repo-contents {
+button.repo-contents {
   align-items: center;
   background-color: var(--background-color);
   border: 1px solid var(--border-color);
@@ -53,7 +53,7 @@ option.repo-contents {
   white-space: normal;
   /* word-wrap: break-word; */
 }
-.repo.selected option.repo-contents {
+.repo.selected button.repo-contents {
   border-bottom: none;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
@@ -66,11 +66,12 @@ option.repo-contents {
   padding-right: 45px;
 }
 .repo.selected .repo-details {
+  align-items: flex-start;
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
 }
 
-.repo.selected {
+.repo.selected .repo-contents {
   color: var(--title-color);
   cursor: default;
 }
