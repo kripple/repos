@@ -11,9 +11,6 @@
     "redraw": "tsx src/utils/redrawSvg"
   },
   "dependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.0",
-    "@mui/material": "^6.3.1",
     "@reduxjs/toolkit": "^2.5.0",
     "just-debounce": "^1.1.0",
     "react": "*",
