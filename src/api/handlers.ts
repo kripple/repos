@@ -37,7 +37,14 @@ export const handlers = (() => {
       const page = url.searchParams.get('page');
       if (!isPage(page)) return ErrorResponse.NotFound();
 
-      return HttpResponse.json(pages[page]);
+      const currentPage = pages[page];
+      const itemsPerPage = url.searchParams.get('per_page') || '0';
+
+      if (page === '1' && parseInt(itemsPerPage) > currentPage.length) {
+        return HttpResponse.json(Object.values(repos));
+      } else {
+        return HttpResponse.json(pages[page]);
+      }
     }),
 
     http.get('https://avatars.githubusercontent.com/u/11916341', () => {
