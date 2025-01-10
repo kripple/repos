@@ -1,8 +1,10 @@
 // import { useRepo } from '@/hooks/useRepo';
 import type { MouseEventHandler } from 'react';
+import { useRef, useState } from 'react';
 
 import type { Repo as RepoType } from '@/api/types';
 import { SvgIcon } from '@/components/SvgIcon';
+import { useEffectOnce } from '@/hooks/useEffectOnce';
 
 import '@/components/repo.css';
 
@@ -22,6 +24,7 @@ export function Repo({
   },
   hide,
   highlight,
+  order,
   selected,
   select,
   close,
@@ -30,10 +33,23 @@ export function Repo({
   hide?: boolean;
   highlight?: string;
   selected?: boolean;
+  order: number;
   select: OnClick;
   close: OnClick;
 }) {
+  const handler = useRef<NodeJS.Timeout>(null);
+  const [show, setShow] = useState<boolean>(false);
   // const { currentData } = useRepo(name);
+
+  useEffectOnce(() => {
+    handler.current = setTimeout(() => {
+      setShow(true);
+    }, 70 * order);
+
+    return () => {
+      handler.current && clearTimeout(handler.current);
+    };
+  });
 
   const __html = highlight
     ? name.replace(
@@ -44,7 +60,7 @@ export function Repo({
 
   return (
     <div
-      className={`repo${selected ? ' selected' : ''}`}
+      className={`repo${selected ? ' selected' : ''}${show ? ' show' : ''}`}
       style={hide ? { display: 'none' } : undefined}
     >
       <option

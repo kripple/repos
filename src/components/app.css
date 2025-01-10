@@ -48,3 +48,7 @@ a:hover svg {
   flex-direction: column;
   gap: calc(var(--padding) * 2);
 }
+
+.show {
+  opacity: 1;
+}

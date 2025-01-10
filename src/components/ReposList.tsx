@@ -85,7 +85,7 @@ export function ReposList({ itemsMax }: { itemsMax?: number }) {
         <button></button>
         <button></button> */}
       </div>
-      {Object.values(repos)?.map((repo) => {
+      {Object.values(repos)?.map((repo, index) => {
         const selected = repo.name === selectedRepo;
 
         return (
@@ -97,6 +97,7 @@ export function ReposList({ itemsMax }: { itemsMax?: number }) {
             hide={repo.hide}
             highlight={repo.highlight}
             key={repo.name}
+            order={index}
             select={(event) => {
               setSelectedRepo(event.target.value);
             }}
