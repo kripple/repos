@@ -1,4 +1,4 @@
-import { api } from '@/api/createApi';
+import { api } from '@/api/endpoints';
 
 export const useRateLimit = () => {
   const timestamp = Date.now().toString();

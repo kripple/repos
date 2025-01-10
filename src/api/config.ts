@@ -1,4 +1,5 @@
 export const config = {
-  username: 'kripple',
+  baseUrl: 'https://api.github.com',
   itemsPerPage: 10,
+  username: 'kripple',
 } as const;

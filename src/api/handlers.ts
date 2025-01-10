@@ -1,63 +1,49 @@
 import { HttpResponse, delay, http } from 'msw';
 
+import { ErrorResponse } from '@/api/errorResponse';
 import { imageData } from '@/data/avatar';
 import { isPage, pages } from '@/data/pages';
 import { profile } from '@/data/profile';
 import { isRepo, repos } from '@/data/repos';
 import { toArrayBuffer } from '@/utils/toArrayBuffer';
 
+const enable: { [key: string]: boolean } = {
+  // rateLimit: true,
+  // infiniteLoading: true,
+};
+
 export const handlers = [
   http.all('*', async () => {
-    await delay('real');
+    await delay(enable.infiniteLoading ? 'infinite' : 'real');
   }),
 
   http.get('https://api.github.com/users/:username', () => {
-    return HttpResponse.json(profile);
+    return enable.rateLimit
+      ? ErrorResponse.RateLimit()
+      : HttpResponse.json(profile);
   }),
 
   http.get('https://api.github.com/users/:username/repos', ({ request }) => {
-    const url = new URL(request.url);
-    const page = url.searchParams.get('page');
+    if (enable.rateLimit) return ErrorResponse.RateLimit();
 
-    if (!isPage(page)) {
-      return new HttpResponse('Not found', {
-        status: 404,
-        headers: {
-          'Content-Type': 'text/plain',
-        },
-      });
-    }
+    const url = new URL(request.url); // search params
+    const page = url.searchParams.get('page');
+    if (!isPage(page)) return ErrorResponse.NotFound();
 
     return HttpResponse.json(pages[page]);
   }),
 
   http.get('https://avatars.githubusercontent.com/u/11916341', () => {
+    if (enable.rateLimit) return ErrorResponse.RateLimit();
     return HttpResponse.arrayBuffer(toArrayBuffer(imageData));
   }),
 
   http.get('https://api.github.com/repos/:username/:name', ({ params }) => {
-    const name = params.name;
-    if (!isRepo(name)) {
-      return new HttpResponse('Not found', {
-        status: 404,
-        headers: {
-          'Content-Type': 'text/plain',
-        },
-      });
-    }
+    if (enable.rateLimit) return ErrorResponse.RateLimit();
+
+    const name = params.name; // path params
+    if (!isRepo(name)) return ErrorResponse.NotFound();
+
     return HttpResponse.json(repos[name]);
   }),
-
-  // http.get('https://api.github.com/repos/*/${repoId}/languages', () => {
-  //   return HttpResponse.json({
-  //     id: 'c7b3d8e0-5e0b-4b0f-8b3a-3b9f4b3d3b3d',
-  //     firstName: 'John',
-  //     lastName: 'Maverick',
-  //   });
-  // }),
-
-  // http.get('/resource', () => {
-  //   // Respond with a network error.
-  //   return HttpResponse.error()
-  // }),
 ];

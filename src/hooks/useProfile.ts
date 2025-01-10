@@ -1,5 +1,5 @@
-import { api } from '@/api/createApi';
+import { api } from '@/api/endpoints';
 
 export const useProfile = () => {
-  return api.useGetProfileQuery('profile');
+  return api.useGetProfileQuery();
 };

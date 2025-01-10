@@ -1,28 +1,39 @@
-import Skeleton from '@mui/material/Skeleton';
+/* eslint-disable react/jsx-no-bind */
+import { useState } from 'react';
 
 import { useProfile } from '@/hooks/useProfile';
 
 import '@/components/avatar.css';
 
 export function Avatar() {
-  const { currentData } = useProfile();
+  const { currentData, isLoading } = useProfile();
   const avatarUrl = currentData?.avatar_url;
+
+  const [lastShimmer, setLastShimmer] = useState<boolean>(false);
+  const loaded = !isLoading && avatarUrl && lastShimmer;
 
   return (
     <div className="avatar">
       <div className="circle-crop fancy-hover-effect">
-        {avatarUrl ? (
+        <div
+          className="image"
+          style={{
+            backgroundImage: loaded ? `url(${avatarUrl})` : undefined,
+          }}
+        >
           <div
-            className="image"
-            style={{ backgroundImage: `url(${avatarUrl})` }}
+            className={`avatar-shimmer${loaded ? ' loaded' : ''}`}
+            onAnimationIteration={
+              !lastShimmer
+                ? () => {
+                    if (!isLoading) {
+                      setLastShimmer(true);
+                    }
+                  }
+                : undefined
+            }
           ></div>
-        ) : (
-          <Skeleton
-            animation="wave"
-            className="image skeleton"
-            variant="circular"
-          ></Skeleton>
-        )}
+        </div>
       </div>
     </div>
   );

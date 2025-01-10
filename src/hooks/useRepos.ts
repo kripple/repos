@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { config } from '@/api/config';
-import { api } from '@/api/createApi';
+import { api } from '@/api/endpoints';
 
 export const useRepos = ({
   itemsMax,

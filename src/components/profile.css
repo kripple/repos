@@ -41,24 +41,27 @@
   color: var(--title-color);
   font-size: 24px;
   font-weight: bold;
+  /* height: 52px;
+  min-width: 250px; */
 }
 
 .profile .label {
   font-weight: bold;
 }
 
-@media screen and (max-width: 600px) {
-  .profile {
-    /* flex-wrap: wrap; */
-    /* grid-template-columns: 1fr;
-    grid-template-rows: repeat(2, 1fr); */
-  }
-  .profile .title {
-    /* border-bottom: 1px solid var(--border-color);
-    justify-content: center; */
-  }
-  .profile-contents {
-    /* border-left: none;
-    border-top: 1px solid var(--border-color); */
-  }
+.profile .text {
+  /* height: 19px;
+  min-width: 150px; */
+}
+
+.title,
+.label,
+.text {
+  flex-shrink: 0;
+}
+
+.title,
+.text {
+  /* background-color: var(--overlay-color); */
+  border-radius: 4px;
 }
