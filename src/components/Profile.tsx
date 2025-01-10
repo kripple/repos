@@ -5,7 +5,10 @@ import { useProfile } from '@/hooks/useProfile';
 import '@/components/profile.css';
 
 export function Profile() {
-  const { currentData, isLoading } = useProfile();
+  const {
+    currentData,
+    // isLoading
+  } = useProfile();
   const {
     blog: websiteUrl,
     name,

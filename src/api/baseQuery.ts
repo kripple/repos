@@ -12,17 +12,33 @@ export const baseQuery = retry(
       api,
       extraOptions,
     );
+    const meta = {
+      ...result.meta,
+      rateLimit: result.meta?.response?.headers?.get('x-ratelimit-limit'),
+      rateLimitRemaining: result.meta?.response?.headers?.get(
+        'x-ratelimit-remaining',
+      ),
+      rateLimitUsed: result.meta?.response?.headers?.get('x-ratelimit-used'),
+      rateLimitReset: result.meta?.response?.headers?.get('x-ratelimit-reset'),
+      rateLimitResource: result.meta?.response?.headers?.get(
+        'x-ratelimit-resource',
+      ),
+    };
+    const errorCode = result.error?.status;
 
     // bail out of re-tries immediately if rate limited,
     // because we know successive re-retries would be redundant
     if (
-      (result.error?.status === 403 || result.error?.status === 429) &&
-      result.meta?.response?.headers.get('x-ratelimit-remaining') === '0'
+      (errorCode === 403 || errorCode === 429) &&
+      meta.rateLimitRemaining === '0'
     ) {
-      retry.fail(result.error, result.meta);
+      retry.fail(result.error, meta);
     }
 
-    return result;
+    return {
+      ...result,
+      meta,
+    };
   },
   {
     maxRetries: 5,

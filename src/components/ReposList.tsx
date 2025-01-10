@@ -77,7 +77,7 @@ export function ReposList({ itemsMax }: { itemsMax?: number }) {
             onBlur={() => setIsFocused(false)}
             onChange={(event) => {
               const searchInputValue = event.target.value;
-              console.log({ searchInputValue });
+
               setRepos((current) => {
                 const draft: typeof current = {};
 

@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 import { config } from '@/api/config';
 import { api } from '@/api/endpoints';
 
@@ -10,19 +8,18 @@ export const useRepos = ({
   itemsMax?: number;
   page: number;
 }) => {
-  const params = useMemo(
-    () => ({
-      page,
+  return api.useGetReposQuery(
+    {
       itemsPerPage: config.itemsPerPage,
-    }),
-    [page],
+      page,
+      username: config.username,
+    },
+    {
+      selectFromResult: ({ currentData, isFetching }) => ({
+        currentData,
+        isFetching,
+      }),
+      skip: !itemsMax,
+    },
   );
-
-  return api.useGetReposQuery(params, {
-    selectFromResult: ({ currentData, isFetching }) => ({
-      currentData,
-      isFetching,
-    }),
-    skip: !itemsMax,
-  });
 };

@@ -1,4 +1,4 @@
-import { HttpResponse, delay, http } from 'msw';
+import { HttpResponse, delay, http, passthrough } from 'msw';
 
 import { ErrorResponse } from '@/api/errorResponse';
 import { imageData } from '@/data/avatar';
@@ -10,40 +10,52 @@ import { toArrayBuffer } from '@/utils/toArrayBuffer';
 const enable: { [key: string]: boolean } = {
   // rateLimit: true,
   // infiniteLoading: true,
+  // passthrough: true,
 };
 
-export const handlers = [
-  http.all('*', async () => {
-    await delay(enable.infiniteLoading ? 'infinite' : 'real');
-  }),
+const passthroughHandler = http.all('*', () => {
+  console.log('[MSW] Passthrough enabled.');
+  return passthrough();
+});
 
-  http.get('https://api.github.com/users/:username', () => {
-    return enable.rateLimit
-      ? ErrorResponse.RateLimit()
-      : HttpResponse.json(profile);
-  }),
+export const handlers = (() => {
+  const items = [
+    http.all('*', async () => {
+      await delay(enable.infiniteLoading ? 'infinite' : 'real');
+    }),
 
-  http.get('https://api.github.com/users/:username/repos', ({ request }) => {
-    if (enable.rateLimit) return ErrorResponse.RateLimit();
+    http.get('https://api.github.com/users/:username', () => {
+      return enable.rateLimit
+        ? ErrorResponse.RateLimit()
+        : HttpResponse.json(profile);
+    }),
 
-    const url = new URL(request.url); // search params
-    const page = url.searchParams.get('page');
-    if (!isPage(page)) return ErrorResponse.NotFound();
+    http.get('https://api.github.com/users/:username/repos', ({ request }) => {
+      if (enable.rateLimit) return ErrorResponse.RateLimit();
 
-    return HttpResponse.json(pages[page]);
-  }),
+      const url = new URL(request.url); // search params
+      const page = url.searchParams.get('page');
+      if (!isPage(page)) return ErrorResponse.NotFound();
 
-  http.get('https://avatars.githubusercontent.com/u/11916341', () => {
-    if (enable.rateLimit) return ErrorResponse.RateLimit();
-    return HttpResponse.arrayBuffer(toArrayBuffer(imageData));
-  }),
+      return HttpResponse.json(pages[page]);
+    }),
 
-  http.get('https://api.github.com/repos/:username/:name', ({ params }) => {
-    if (enable.rateLimit) return ErrorResponse.RateLimit();
+    http.get('https://avatars.githubusercontent.com/u/11916341', () => {
+      if (enable.rateLimit) return ErrorResponse.RateLimit();
+      return HttpResponse.arrayBuffer(toArrayBuffer(imageData));
+    }),
 
-    const name = params.name; // path params
-    if (!isRepo(name)) return ErrorResponse.NotFound();
+    http.get('https://api.github.com/repos/:username/:name', ({ params }) => {
+      if (enable.rateLimit) return ErrorResponse.RateLimit();
 
-    return HttpResponse.json(repos[name]);
-  }),
-];
+      const name = params.name; // path params
+      if (!isRepo(name)) return ErrorResponse.NotFound();
+
+      return HttpResponse.json(repos[name]);
+    }),
+  ];
+  if (enable.passthrough) {
+    items.unshift(passthroughHandler);
+  }
+  return items;
+})();
