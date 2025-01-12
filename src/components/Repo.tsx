@@ -122,11 +122,6 @@ export function Repo({
           {default_branch}
         </div>
 
-        {/* <div>
-          <span className="label">Size: </span>
-          {size}
-        </div> */}
-
         <div>
           <span className="label">Created On: </span>
           {created_at}

@@ -51,7 +51,6 @@ button.repo-title,
 }
 
 .repo-button {
-  /* aspect-ratio: 1; */
   border-bottom-right-radius: 50px;
   border-left: none;
   border-top-right-radius: 50px;
@@ -67,17 +66,9 @@ button.repo-title {
   font-size: inherit;
   gap: 4px;
   white-space: normal;
-  /* word-wrap: break-word; */
-}
-.repo-name {
-  /* align-items: center;
-  display: flex;
-  justify-content: center; */
-  /* flex-grow: 1; */
 }
 
 .repo-button ~ button.repo-title {
-  /* background-color: blue !important; */
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
