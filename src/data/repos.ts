@@ -1,36 +1,8 @@
-const mit = {
-  key: 'mit',
-  name: 'MIT License',
-  spdx_id: 'MIT',
-  url: 'https://api.github.com/licenses/mit',
-};
-const gpl = {
-  key: 'gpl-3.0',
-  name: 'GNU General Public License v3.0',
-  spdx_id: 'GPL-3.0',
-  url: 'https://api.github.com/licenses/gpl-3.0',
-};
-const other = {
-  key: 'other',
-  name: 'Other',
-  spdx_id: 'NOASSERTION',
-  url: null,
-};
-const agpl = {
-  key: 'agpl-3.0',
-  name: 'GNU Affero General Public License v3.0',
-  spdx_id: 'AGPL-3.0',
-  url: 'https://api.github.com/licenses/agpl-3.0',
-};
-const wtfpl = {
-  key: 'wtfpl',
-  name: 'Do What The F*ck You Want To Public License',
-  spdx_id: 'WTFPL',
-  url: 'https://api.github.com/licenses/wtfpl',
-};
+import { licenses } from '@/data/licenses';
 
-export const repos = {
-  '2048': {
+export const repos = [
+  {
+    id: 156144659,
     name: '2048',
     html_url: 'https://github.com/kripple/2048',
     description: null,
@@ -41,10 +13,11 @@ export const repos = {
     size: 1,
     language: null,
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  'screen-inspector': {
+  {
+    id: 912156033,
     name: 'screen-inspector',
     html_url: 'https://github.com/kripple/screen-inspector',
     description: null,
@@ -55,10 +28,11 @@ export const repos = {
     size: 173,
     language: 'TypeScript',
     has_pages: true,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'main',
   },
-  'release-calendar-filter-for-crunchyroll': {
+  {
+    id: 911774403,
     name: 'release-calendar-filter-for-crunchyroll',
     html_url:
       'https://github.com/kripple/release-calendar-filter-for-crunchyroll',
@@ -70,10 +44,11 @@ export const repos = {
     size: 26596,
     language: null,
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'main',
   },
-  pokematch: {
+  {
+    id: 911179665,
     name: 'pokematch',
     html_url: 'https://github.com/kripple/pokematch',
     description: null,
@@ -84,10 +59,11 @@ export const repos = {
     size: 773,
     language: 'HTML',
     has_pages: true,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'main',
   },
-  repos: {
+  {
+    id: 909163090,
     name: 'repos',
     html_url: 'https://github.com/kripple/repos',
     description: null,
@@ -98,10 +74,11 @@ export const repos = {
     size: 757,
     language: 'TypeScript',
     has_pages: true,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'main',
   },
-  'coffee-friends-2': {
+  {
+    id: 899671815,
     name: 'coffee-friends-2',
     html_url: 'https://github.com/kripple/coffee-friends-2',
     description: null,
@@ -115,7 +92,8 @@ export const repos = {
     license: null,
     default_branch: 'main',
   },
-  'palette-builder': {
+  {
+    id: 896274183,
     name: 'palette-builder',
     html_url: 'https://github.com/kripple/palette-builder',
     description: null,
@@ -126,10 +104,11 @@ export const repos = {
     size: 142,
     language: 'JavaScript',
     has_pages: true,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'main',
   },
-  'web-colors': {
+  {
+    id: 892323785,
     name: 'web-colors',
     html_url: 'https://github.com/kripple/web-colors',
     description: null,
@@ -140,10 +119,11 @@ export const repos = {
     size: 93,
     language: 'HTML',
     has_pages: true,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'main',
   },
-  dx: {
+  {
+    id: 830148468,
     name: 'dx',
     html_url: 'https://github.com/kripple/dx',
     description: null,
@@ -154,10 +134,11 @@ export const repos = {
     size: 75,
     language: 'TypeScript',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'main',
   },
-  'map-slicer': {
+  {
+    id: 800160571,
     name: 'map-slicer',
     html_url: 'https://github.com/kripple/map-slicer',
     description: null,
@@ -171,7 +152,8 @@ export const repos = {
     license: null,
     default_branch: 'main',
   },
-  'css-selectors': {
+  {
+    id: 780617565,
     name: 'css-selectors',
     html_url: 'https://github.com/kripple/css-selectors',
     description: null,
@@ -182,10 +164,11 @@ export const repos = {
     size: 34,
     language: 'HTML',
     has_pages: true,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'main',
   },
-  'css-grid': {
+  {
+    id: 780617442,
     name: 'css-grid',
     html_url: 'https://github.com/kripple/css-grid',
     description: null,
@@ -196,10 +179,11 @@ export const repos = {
     size: 107,
     language: 'HTML',
     has_pages: true,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'main',
   },
-  flexbox: {
+  {
+    id: 780617327,
     name: 'flexbox',
     html_url: 'https://github.com/kripple/flexbox',
     description: null,
@@ -210,10 +194,11 @@ export const repos = {
     size: 202,
     language: 'HTML',
     has_pages: true,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'main',
   },
-  'point-buy': {
+  {
+    id: 780604430,
     name: 'point-buy',
     html_url: 'https://github.com/kripple/point-buy',
     description: null,
@@ -224,10 +209,11 @@ export const repos = {
     size: 16,
     language: 'JavaScript',
     has_pages: true,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'main',
   },
-  wordle: {
+  {
+    id: 780596503,
     name: 'wordle',
     html_url: 'https://github.com/kripple/wordle',
     description: null,
@@ -238,10 +224,11 @@ export const repos = {
     size: 88,
     language: 'HTML',
     has_pages: true,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'main',
   },
-  'spell-scroll-generator': {
+  {
+    id: 780538540,
     name: 'spell-scroll-generator',
     html_url: 'https://github.com/kripple/spell-scroll-generator',
     description: null,
@@ -255,7 +242,8 @@ export const repos = {
     license: null,
     default_branch: 'main',
   },
-  concentration: {
+  {
+    id: 780525891,
     name: 'concentration',
     html_url: 'https://github.com/kripple/concentration',
     description: null,
@@ -266,10 +254,11 @@ export const repos = {
     size: 674,
     language: 'HTML',
     has_pages: true,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'main',
   },
-  'cckb-site': {
+  {
+    id: 731170667,
     name: 'cckb-site',
     html_url: 'https://github.com/kripple/cckb-site',
     description: 'Company website for Cricket Creek Kitchens & Baths',
@@ -280,10 +269,11 @@ export const repos = {
     size: 14,
     language: null,
     has_pages: false,
-    license: gpl,
+    license: licenses['gpl-3.0'],
     default_branch: 'main',
   },
-  'split-image': {
+  {
+    id: 659299604,
     name: 'split-image',
     html_url: 'https://github.com/kripple/split-image',
     description: null,
@@ -294,10 +284,11 @@ export const repos = {
     size: 291,
     language: 'TypeScript',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'main',
   },
-  'hello-world': {
+  {
+    id: 485913295,
     name: 'hello-world',
     html_url: 'https://github.com/kripple/hello-world',
     description: null,
@@ -308,10 +299,11 @@ export const repos = {
     size: 1,
     language: 'HTML',
     has_pages: true,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'main',
   },
-  'slack-bot-v1': {
+  {
+    id: 463325223,
     name: 'slack-bot-v1',
     html_url: 'https://github.com/kripple/slack-bot-v1',
     description: null,
@@ -322,10 +314,11 @@ export const repos = {
     size: 3,
     language: 'HCL',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  'data-1': {
+  {
+    id: 461692453,
     name: 'data-1',
     html_url: 'https://github.com/kripple/data-1',
     description: null,
@@ -336,10 +329,11 @@ export const repos = {
     size: 9,
     language: null,
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'main',
   },
-  data: {
+  {
+    id: 461551910,
     name: 'data',
     html_url: 'https://github.com/kripple/data',
     description: null,
@@ -350,10 +344,11 @@ export const repos = {
     size: 2,
     language: null,
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'main',
   },
-  'task-assigner': {
+  {
+    id: 461068634,
     name: 'task-assigner',
     html_url: 'https://github.com/kripple/task-assigner',
     description: 'A fairer way to voluntell.',
@@ -364,10 +359,11 @@ export const repos = {
     size: 52,
     language: 'JavaScript',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'main',
   },
-  'word-master': {
+  {
+    id: 455744935,
     name: 'word-master',
     html_url: 'https://github.com/kripple/word-master',
     description: 'A Mastermind-like word guessing game',
@@ -378,10 +374,11 @@ export const repos = {
     size: 3327,
     language: null,
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'main',
   },
-  AirConnect: {
+  {
+    id: 225261065,
     name: 'AirConnect',
     html_url: 'https://github.com/kripple/AirConnect',
     description: 'Use AirPlay to stream to UPnP/Sonos & Chromecast devices',
@@ -392,10 +389,11 @@ export const repos = {
     size: 110213,
     language: null,
     has_pages: false,
-    license: other,
+    license: licenses['other'],
     default_branch: 'master',
   },
-  'node-js-sample': {
+  {
+    id: 194083403,
     name: 'node-js-sample',
     html_url: 'https://github.com/kripple/node-js-sample',
     description: 'A barebones Node.js app using the Express framework.',
@@ -409,7 +407,8 @@ export const repos = {
     license: null,
     default_branch: 'master',
   },
-  'wizards-unite': {
+  {
+    id: 193984145,
     name: 'wizards-unite',
     html_url: 'https://github.com/kripple/wizards-unite',
     description:
@@ -424,7 +423,8 @@ export const repos = {
     license: null,
     default_branch: 'master',
   },
-  'wizard-map': {
+  {
+    id: 193975085,
     name: 'wizard-map',
     html_url: 'https://github.com/kripple/wizard-map',
     description: null,
@@ -435,10 +435,11 @@ export const repos = {
     size: 2,
     language: 'HTML',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  PokeAlarm: {
+  {
+    id: 184827850,
     name: 'PokeAlarm',
     html_url: 'https://github.com/kripple/PokeAlarm',
     description:
@@ -450,10 +451,11 @@ export const repos = {
     size: 20439,
     language: 'Python',
     has_pages: false,
-    license: agpl,
+    license: licenses['agpl-3.0'],
     default_branch: 'master',
   },
-  RealDeviceMap: {
+  {
+    id: 184793760,
     name: 'RealDeviceMap',
     html_url: 'https://github.com/kripple/RealDeviceMap',
     description:
@@ -465,10 +467,11 @@ export const repos = {
     size: 627,
     language: 'Swift',
     has_pages: false,
-    license: gpl,
+    license: licenses['gpl-3.0'],
     default_branch: 'master',
   },
-  'RealDeviceMap-UIControl': {
+  {
+    id: 184783207,
     name: 'RealDeviceMap-UIControl',
     html_url: 'https://github.com/kripple/RealDeviceMap-UIControl',
     description:
@@ -480,10 +483,11 @@ export const repos = {
     size: 513,
     language: 'Swift',
     has_pages: false,
-    license: gpl,
+    license: licenses['gpl-3.0'],
     default_branch: 'master',
   },
-  'kripple.github.io': {
+  {
+    id: 184447626,
     name: 'kripple.github.io',
     html_url: 'https://github.com/kripple/kripple.github.io',
     description: null,
@@ -494,10 +498,11 @@ export const repos = {
     size: 9203,
     language: 'TypeScript',
     has_pages: true,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'main',
   },
-  material2: {
+  {
+    id: 166280732,
     name: 'material2',
     html_url: 'https://github.com/kripple/material2',
     description: 'Material Design components for Angular',
@@ -508,10 +513,11 @@ export const repos = {
     size: 22787,
     language: 'TypeScript',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  VueToDo: {
+  {
+    id: 156469088,
     name: 'VueToDo',
     html_url: 'https://github.com/kripple/VueToDo',
     description: null,
@@ -522,10 +528,11 @@ export const repos = {
     size: 3,
     language: 'HTML',
     has_pages: true,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  sudoku: {
+  {
+    id: 156140179,
     name: 'sudoku',
     html_url: 'https://github.com/kripple/sudoku',
     description: null,
@@ -536,10 +543,11 @@ export const repos = {
     size: 2,
     language: 'HTML',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  hangman: {
+  {
+    id: 156137098,
     name: 'hangman',
     html_url: 'https://github.com/kripple/hangman',
     description: null,
@@ -550,10 +558,11 @@ export const repos = {
     size: 18,
     language: 'JavaScript',
     has_pages: true,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  'discord-gym-bot': {
+  {
+    id: 133191080,
     name: 'discord-gym-bot',
     html_url: 'https://github.com/kripple/discord-gym-bot',
     description: null,
@@ -564,10 +573,11 @@ export const repos = {
     size: 4,
     language: 'Python',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  'blog-backup': {
+  {
+    id: 130283690,
     name: 'blog-backup',
     html_url: 'https://github.com/kripple/blog-backup',
     description: null,
@@ -578,10 +588,11 @@ export const repos = {
     size: 33621,
     language: 'HTML',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  'hugo-blog-dist': {
+  {
+    id: 129936732,
     name: 'hugo-blog-dist',
     html_url: 'https://github.com/kripple/hugo-blog-dist',
     description: null,
@@ -595,7 +606,8 @@ export const repos = {
     license: null,
     default_branch: 'master',
   },
-  beautifulhugo: {
+  {
+    id: 129928179,
     name: 'beautifulhugo',
     html_url: 'https://github.com/kripple/beautifulhugo',
     description: 'Theme for the Hugo static website generator',
@@ -606,10 +618,11 @@ export const repos = {
     size: 2487,
     language: 'HTML',
     has_pages: false,
-    license: other,
+    license: licenses['other'],
     default_branch: 'master',
   },
-  'webpack-workshop-2018': {
+  {
+    id: 129925002,
     name: 'webpack-workshop-2018',
     html_url: 'https://github.com/kripple/webpack-workshop-2018',
     description:
@@ -621,10 +634,11 @@ export const repos = {
     size: 372,
     language: null,
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  Linkly: {
+  {
+    id: 113377967,
     name: 'Linkly',
     html_url: 'https://github.com/kripple/Linkly',
     description: 'Convert URLs containing coordinates to Google Maps links.',
@@ -635,10 +649,11 @@ export const repos = {
     size: 28,
     language: 'JavaScript',
     has_pages: true,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  discordGoogleSheets: {
+  {
+    id: 107338289,
     name: 'discordGoogleSheets',
     html_url: 'https://github.com/kripple/discordGoogleSheets',
     description: 'Chat bot to pull data from Google sheets',
@@ -652,7 +667,8 @@ export const repos = {
     license: null,
     default_branch: 'master',
   },
-  'poke-vue': {
+  {
+    id: 102983057,
     name: 'poke-vue',
     html_url: 'https://github.com/kripple/poke-vue',
     description: null,
@@ -663,10 +679,11 @@ export const repos = {
     size: 86,
     language: 'JavaScript',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  'poke-app': {
+  {
+    id: 102915934,
     name: 'poke-app',
     html_url: 'https://github.com/kripple/poke-app',
     description: null,
@@ -677,10 +694,11 @@ export const repos = {
     size: 61,
     language: 'TypeScript',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  'hugo-site': {
+  {
+    id: 99754240,
     name: 'hugo-site',
     html_url: 'https://github.com/kripple/hugo-site',
     description: null,
@@ -691,10 +709,11 @@ export const repos = {
     size: 2099,
     language: 'CSS',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  'hugo-blog': {
+  {
+    id: 92559792,
     name: 'hugo-blog',
     html_url: 'https://github.com/kripple/hugo-blog',
     description: null,
@@ -705,10 +724,11 @@ export const repos = {
     size: 1,
     language: null,
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  GameOfLife: {
+  {
+    id: 87600330,
     name: 'GameOfLife',
     html_url: 'https://github.com/kripple/GameOfLife',
     description: null,
@@ -719,10 +739,11 @@ export const repos = {
     size: 78,
     language: 'TypeScript',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  'angular-sandbox': {
+  {
+    id: 81906664,
     name: 'angular-sandbox',
     html_url: 'https://github.com/kripple/angular-sandbox',
     description: null,
@@ -733,10 +754,11 @@ export const repos = {
     size: 0,
     language: null,
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  ChartBuildr: {
+  {
+    id: 78301693,
     name: 'ChartBuildr',
     html_url: 'https://github.com/kripple/ChartBuildr',
     description: null,
@@ -747,10 +769,11 @@ export const repos = {
     size: 2,
     language: 'HTML',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  'angular2-hello-world': {
+  {
+    id: 71923887,
     name: 'angular2-hello-world',
     html_url: 'https://github.com/kripple/angular2-hello-world',
     description: null,
@@ -761,10 +784,11 @@ export const repos = {
     size: 3,
     language: 'JavaScript',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  'my-favorite-foods': {
+  {
+    id: 69179403,
     name: 'my-favorite-foods',
     html_url: 'https://github.com/kripple/my-favorite-foods',
     description: null,
@@ -775,10 +799,11 @@ export const repos = {
     size: 2,
     language: 'Ruby',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  'all-of-the-caches': {
+  {
+    id: 67908358,
     name: 'all-of-the-caches',
     html_url: 'https://github.com/kripple/all-of-the-caches',
     description: 'Sandbox repo to explore simple caching strategies.',
@@ -789,10 +814,11 @@ export const repos = {
     size: 2023,
     language: 'JavaScript',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  pushy: {
+  {
+    id: 62130942,
     name: 'pushy',
     html_url: 'https://github.com/kripple/pushy',
     description:
@@ -804,10 +830,11 @@ export const repos = {
     size: 262,
     language: 'CSS',
     has_pages: false,
-    license: other,
+    license: licenses['other'],
     default_branch: 'master',
   },
-  lanyon: {
+  {
+    id: 62099868,
     name: 'lanyon',
     html_url: 'https://github.com/kripple/lanyon',
     description: 'A content-first, sliding sidebar theme for Jekyll.',
@@ -818,10 +845,11 @@ export const repos = {
     size: 499,
     language: 'HTML',
     has_pages: false,
-    license: other,
+    license: licenses['other'],
     default_branch: 'master',
   },
-  nerdtree: {
+  {
+    id: 61810121,
     name: 'nerdtree',
     html_url: 'https://github.com/kripple/nerdtree',
     description: 'A tree explorer plugin for vim.',
@@ -832,10 +860,11 @@ export const repos = {
     size: 1629,
     language: 'VimL',
     has_pages: false,
-    license: wtfpl,
+    license: licenses['wtfpl'],
     default_branch: 'master',
   },
-  'vim-monokai': {
+  {
+    id: 61764799,
     name: 'vim-monokai',
     html_url: 'https://github.com/kripple/vim-monokai',
     description: 'Monokai color scheme for Vim converted from Textmate theme',
@@ -846,10 +875,11 @@ export const repos = {
     size: 22,
     language: 'VimL',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  'jekyll-blog': {
+  {
+    id: 61460993,
     name: 'jekyll-blog',
     html_url: 'https://github.com/kripple/jekyll-blog',
     description: 'Personal blogging platform ',
@@ -860,10 +890,11 @@ export const repos = {
     size: 32233,
     language: 'HTML',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  'iframe-resizer': {
+  {
+    id: 60747190,
     name: 'iframe-resizer',
     html_url: 'https://github.com/kripple/iframe-resizer',
     description:
@@ -875,10 +906,11 @@ export const repos = {
     size: 3041,
     language: 'JavaScript',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  'd3-sandbox': {
+  {
+    id: 55818343,
     name: 'd3-sandbox',
     html_url: 'https://github.com/kripple/d3-sandbox',
     description: 'Basic setup to play around with D3.js',
@@ -889,10 +921,11 @@ export const repos = {
     size: 18,
     language: 'JavaScript',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  'jekyll-blog-source': {
+  {
+    id: 55322511,
     name: 'jekyll-blog-source',
     html_url: 'https://github.com/kripple/jekyll-blog-source',
     description: 'Personal blogging platform ',
@@ -903,10 +936,11 @@ export const repos = {
     size: 50482,
     language: 'HTML',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  'bti-watson': {
+  {
+    id: 54280644,
     name: 'bti-watson',
     html_url: 'https://github.com/kripple/bti-watson',
     description: 'Teammate codebase for the Watson Developer Challenge',
@@ -917,10 +951,11 @@ export const repos = {
     size: 34788,
     language: 'Swift',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  airsonos: {
+  {
+    id: 53050861,
     name: 'airsonos',
     html_url: 'https://github.com/kripple/airsonos',
     description: 'AirPlay to Sonos',
@@ -931,10 +966,11 @@ export const repos = {
     size: 764,
     language: 'JavaScript',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  'fun-with-jira': {
+  {
+    id: 51020413,
     name: 'fun-with-jira',
     html_url: 'https://github.com/kripple/fun-with-jira',
     description: 'JIRA Sandbox',
@@ -945,10 +981,11 @@ export const repos = {
     size: 3670,
     language: 'HTML',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  jekyll: {
+  {
+    id: 48821348,
     name: 'jekyll',
     html_url: 'https://github.com/kripple/jekyll',
     description:
@@ -960,10 +997,11 @@ export const repos = {
     size: 20196,
     language: 'Ruby',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  poole: {
+  {
+    id: 48821173,
     name: 'poole',
     html_url: 'https://github.com/kripple/poole',
     description: 'The Jekyll Butler.',
@@ -974,10 +1012,11 @@ export const repos = {
     size: 18929,
     language: 'CSS',
     has_pages: false,
-    license: other,
+    license: licenses['other'],
     default_branch: 'master',
   },
-  hyde: {
+  {
+    id: 48819891,
     name: 'hyde',
     html_url: 'https://github.com/kripple/hyde',
     description: 'A brazen two-column theme for Jekyll.',
@@ -988,10 +1027,11 @@ export const repos = {
     size: 671,
     language: 'HTML',
     has_pages: true,
-    license: other,
+    license: licenses['other'],
     default_branch: 'master',
   },
-  'node-todo': {
+  {
+    id: 48404688,
     name: 'node-todo',
     html_url: 'https://github.com/kripple/node-todo',
     description: 'A simple Node/MongoDB/Angular todo app',
@@ -1002,10 +1042,11 @@ export const repos = {
     size: 886,
     language: 'JavaScript',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  'mean-seed': {
+  {
+    id: 48342366,
     name: 'mean-seed',
     html_url: 'https://github.com/kripple/mean-seed',
     description: null,
@@ -1016,10 +1057,11 @@ export const repos = {
     size: 958,
     language: 'JavaScript',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  'angular-seed': {
+  {
+    id: 48341744,
     name: 'angular-seed',
     html_url: 'https://github.com/kripple/angular-seed',
     description: 'A simple seed for awesomeness!',
@@ -1033,7 +1075,8 @@ export const repos = {
     license: null,
     default_branch: 'master',
   },
-  'playlist-app': {
+  {
+    id: 48203794,
     name: 'playlist-app',
     html_url: 'https://github.com/kripple/playlist-app',
     description: null,
@@ -1044,10 +1087,11 @@ export const repos = {
     size: 5921,
     language: 'JavaScript',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  moodring: {
+  {
+    id: 45875660,
     name: 'moodring',
     html_url: 'https://github.com/kripple/moodring',
     description: 'Graph mood trends in the news',
@@ -1061,7 +1105,8 @@ export const repos = {
     license: null,
     default_branch: 'master',
   },
-  'contactually-lite': {
+  {
+    id: 44692825,
     name: 'contactually-lite',
     html_url: 'https://github.com/kripple/contactually-lite',
     description: null,
@@ -1075,7 +1120,8 @@ export const repos = {
     license: null,
     default_branch: 'master',
   },
-  carrat: {
+  {
+    id: 44205969,
     name: 'carrat',
     html_url: 'https://github.com/kripple/carrat',
     description: 'New and improved loyalty rewards program',
@@ -1089,7 +1135,8 @@ export const repos = {
     license: null,
     default_branch: 'master',
   },
-  'washpo-code-challenge': {
+  {
+    id: 44183782,
     name: 'washpo-code-challenge',
     html_url: 'https://github.com/kripple/washpo-code-challenge',
     description: null,
@@ -1100,10 +1147,11 @@ export const repos = {
     size: 183,
     language: 'JavaScript',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  'pokemon-rails-patterns': {
+  {
+    id: 43915043,
     name: 'pokemon-rails-patterns',
     html_url: 'https://github.com/kripple/pokemon-rails-patterns',
     description: 'Pokemon good times showing Rails patterns and refactoring',
@@ -1117,7 +1165,8 @@ export const repos = {
     license: null,
     default_branch: 'master',
   },
-  'project-inspire': {
+  {
+    id: 43908882,
     name: 'project-inspire',
     html_url: 'https://github.com/kripple/project-inspire',
     description: 'A social network for finding and creating inspiration',
@@ -1128,10 +1177,11 @@ export const repos = {
     size: 116,
     language: null,
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  'rails-blog': {
+  {
+    id: 43844052,
     name: 'rails-blog',
     html_url: 'https://github.com/kripple/rails-blog',
     description: null,
@@ -1142,10 +1192,11 @@ export const repos = {
     size: 2765,
     language: 'CSS',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  whopperflow: {
+  {
+    id: 43657661,
     name: 'whopperflow',
     html_url: 'https://github.com/kripple/whopperflow',
     description: 'StackOverflow clone, team Whopper Jr.',
@@ -1156,10 +1207,11 @@ export const repos = {
     size: 779,
     language: 'Ruby',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  'api-challenge': {
+  {
+    id: 43514082,
     name: 'api-challenge',
     html_url: 'https://github.com/kripple/api-challenge',
     description: null,
@@ -1173,7 +1225,8 @@ export const repos = {
     license: null,
     default_branch: 'master',
   },
-  'coffee-friends': {
+  {
+    id: 43513961,
     name: 'coffee-friends',
     html_url: 'https://github.com/kripple/coffee-friends',
     description: 'Send coffee to your friends!',
@@ -1187,7 +1240,8 @@ export const repos = {
     license: null,
     default_branch: 'master',
   },
-  'javascript-sandbox': {
+  {
+    id: 42784591,
     name: 'javascript-sandbox',
     html_url: 'https://github.com/kripple/javascript-sandbox',
     description: null,
@@ -1198,10 +1252,11 @@ export const repos = {
     size: 140,
     language: 'HTML',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-  'personal-projects': {
+  {
+    id: 39708952,
     name: 'personal-projects',
     html_url: 'https://github.com/kripple/personal-projects',
     description: null,
@@ -1215,7 +1270,8 @@ export const repos = {
     license: null,
     default_branch: 'master',
   },
-  'first-blog': {
+  {
+    id: 36194807,
     name: 'first-blog',
     html_url: 'https://github.com/kripple/first-blog',
     description: null,
@@ -1226,12 +1282,21 @@ export const repos = {
     size: 1364,
     language: 'HTML',
     has_pages: false,
-    license: mit,
+    license: licenses['mit'],
     default_branch: 'master',
   },
-} as const;
+] as const;
 
-export const isRepo = (name: unknown): name is keyof typeof repos => {
-  if (typeof name !== 'string') return false;
-  return Object.keys(repos).includes(name);
-};
+// export const isRepo = (name: unknown): name is keyof typeof repos => {
+//   if (typeof name !== 'string') return false;
+//   return Object.keys(repos).includes(name);
+// };
+
+// console.log(
+//   repos.map((r) => {
+//     return {
+//       ...r,
+//       license: r.license?.key ? r.license.key : r.license,
+//     };
+//   }),
+// );

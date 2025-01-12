@@ -1,15 +1,16 @@
 // import { useRepo } from '@/hooks/useRepo';
 import type { MouseEventHandler } from 'react';
-import { useRef, useState } from 'react';
+// import { useRef, useState } from 'react';
 
 import type { Repo as RepoType } from '@/api/types';
 import { SvgIcon } from '@/components/SvgIcon';
-import { useEffectOnce } from '@/hooks/useEffectOnce';
+// import { useEffectOnce } from '@/hooks/useEffectOnce';
 
 import '@/components/repo.css';
 
 export function Repo({
   data: {
+    id,
     name,
     html_url,
     description,
@@ -24,7 +25,7 @@ export function Repo({
   },
   hide,
   highlight,
-  order,
+  // order,
   selected,
   select,
   close,
@@ -37,19 +38,20 @@ export function Repo({
   select: OnClick;
   close: OnClick;
 }) {
-  const handler = useRef<NodeJS.Timeout>(null);
-  const [show, setShow] = useState<boolean>(false);
+  const show = true;
+  // const handler = useRef<NodeJS.Timeout>(null);
+  // const [show, setShow] = useState<boolean>(false);
   // const { currentData } = useRepo(name);
 
-  useEffectOnce(() => {
-    handler.current = setTimeout(() => {
-      setShow(true);
-    }, 70 * order);
+  // useEffectOnce(() => {
+  //   handler.current = setTimeout(() => {
+  //     setShow(true);
+  //   }, 70 * order);
 
-    return () => {
-      handler.current && clearTimeout(handler.current);
-    };
-  });
+  //   return () => {
+  //     handler.current && clearTimeout(handler.current);
+  //   };
+  // });
 
   const __html = highlight
     ? name.replace(
@@ -67,7 +69,7 @@ export function Repo({
         className="repo-contents"
         dangerouslySetInnerHTML={{ __html }}
         onClick={select as unknown as MouseEventHandler<HTMLButtonElement>}
-        value={name}
+        value={id}
       ></button>
       <div className="repo-details">
         {description ? (

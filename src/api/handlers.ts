@@ -4,7 +4,7 @@ import { ErrorResponse } from '@/api/errorResponse';
 import { imageData } from '@/data/avatar';
 import { isPage, pages } from '@/data/pages';
 import { profile } from '@/data/profile';
-import { isRepo, repos } from '@/data/repos';
+import { repos } from '@/data/repos';
 import { toArrayBuffer } from '@/utils/toArrayBuffer';
 
 const enable: { [key: string]: boolean } = {
@@ -52,14 +52,14 @@ export const handlers = (() => {
       return HttpResponse.arrayBuffer(toArrayBuffer(imageData));
     }),
 
-    http.get('https://api.github.com/repos/:username/:name', ({ params }) => {
-      if (enable.rateLimit) return ErrorResponse.RateLimit();
+    // http.get('https://api.github.com/repos/:username/:name', ({ params }) => {
+    //   if (enable.rateLimit) return ErrorResponse.RateLimit();
 
-      const name = params.name; // path params
-      if (!isRepo(name)) return ErrorResponse.NotFound();
+    //   const name = params.name; // path params
+    //   if (!isRepo(name)) return ErrorResponse.NotFound();
 
-      return HttpResponse.json(repos[name]);
-    }),
+    //   return HttpResponse.json(repos[name]);
+    // }),
   ];
   if (enable.passthrough) {
     items.unshift(passthroughHandler);
