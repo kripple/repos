@@ -6,7 +6,7 @@ export function Theme({ children, id }: { children: ReactNode; id: string }) {
   return (
     <>
       <input
-        aria-hidden={true}
+        aria-label="theme toggle"
         id={id}
         style={{ display: 'none' }}
         type="checkbox"
