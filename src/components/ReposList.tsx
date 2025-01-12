@@ -3,6 +3,7 @@ import { useMemo, useState } from 'react';
 import { Repo } from '@/components/Repo';
 import { SvgIcon } from '@/components/SvgIcon';
 import { useRepos } from '@/hooks/useRepos';
+import type { SortDirection, SortKey } from '@/types/sorting';
 
 import '@/components/repos-list.css';
 
@@ -14,14 +15,16 @@ export function ReposList({ itemsMax }: { itemsMax?: number }) {
 
   // filter
   const [searchTerm, setSearchTerm] = useState<string>();
-  const [selectedRepo, setSelectedRepo] = useState<string>();
+  const [selectedRepo, setSelectedRepo] = useState<string | undefined>();
   const [linksFilter, setLinksFilter] = useState<boolean>(false);
 
   // sort
-  type SortKey = 'name' | 'updatedAt';
-  type SortDirection = 'initial' | 'reverse';
-  const [sortKey, setSortKey] = useState<SortKey>('name');
+
+  const [sortKey, _setSortKey] = useState<SortKey>('name');
   const [sortDirection, setSortDirection] = useState<SortDirection>('initial');
+  const setSortKey = (value?: SortKey) => {
+    _setSortKey(value || 'name');
+  };
 
   const { currentData, isLoading } = useRepos({
     itemsMax,
@@ -46,7 +49,7 @@ export function ReposList({ itemsMax }: { itemsMax?: number }) {
   const sortedIds: typeof ids = (() => {
     if (sortKey === 'name') {
       return ids; // this is the initial sort order
-    } else if (sortKey === 'updatedAt') {
+    } else if (sortKey === 'updated_at') {
       return sortedByUpdatedAt;
     } else {
       return ids;
@@ -110,12 +113,12 @@ export function ReposList({ itemsMax }: { itemsMax?: number }) {
           <button
             className="filter-button"
             onClick={() => {
-              if (sortKey === 'updatedAt') {
+              if (sortKey === 'updated_at') {
                 setSortDirection((current) =>
                   current === 'initial' ? 'reverse' : 'initial',
                 );
               } else {
-                setSortKey('updatedAt');
+                setSortKey('updated_at');
                 setSortDirection('initial');
               }
             }}
@@ -138,18 +141,15 @@ export function ReposList({ itemsMax }: { itemsMax?: number }) {
 
         return (
           <Repo
-            close={() => {
-              setSelectedRepo(undefined);
-            }}
             data={repo}
             hide={hide}
             highlight={match ? searchTerm : undefined}
             key={repo.name}
             order={index}
-            select={(event) => {
-              setSelectedRepo(event.target.value);
-            }}
             selected={selected}
+            setSelected={setSelectedRepo}
+            showLink={linksFilter}
+            showUpdatedAt={sortKey === 'updated_at'}
           />
         );
       })}

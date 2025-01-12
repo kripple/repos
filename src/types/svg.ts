@@ -33,4 +33,4 @@ export const Svg = {
 };
 
 export type Icon = keyof typeof Svg;
-export type DrawPath = valueof<typeof Svg>;
+export type DrawPath = ValueOf<typeof Svg>;

@@ -1,15 +1,31 @@
-// import { useRepo } from '@/hooks/useRepo';
-import type { MouseEventHandler } from 'react';
-// import { useRef, useState } from 'react';
+import { useEffect } from 'react';
 
 import type { Repo as RepoType } from '@/api/types';
 import { SvgIcon } from '@/components/SvgIcon';
-// import { useEffectOnce } from '@/hooks/useEffectOnce';
+import { useLanguages } from '@/hooks/useLanguages';
+import { format } from '@/utils/format';
 
 import '@/components/repo.css';
 
 export function Repo({
-  data: {
+  data,
+  hide,
+  highlight,
+  showLink,
+  showUpdatedAt,
+  selected,
+  setSelected,
+}: {
+  data: RepoType;
+  hide?: boolean;
+  highlight?: string;
+  order: number;
+  showLink?: boolean;
+  showUpdatedAt?: boolean;
+  selected?: boolean;
+  setSelected: SetState<string | undefined>;
+}) {
+  const {
     id,
     name,
     html_url,
@@ -17,41 +33,17 @@ export function Repo({
     created_at,
     updated_at,
     homepage,
-    size,
     language,
     has_pages,
     license,
     default_branch,
-  },
-  hide,
-  highlight,
-  // order,
-  selected,
-  select,
-  close,
-}: {
-  data: RepoType;
-  hide?: boolean;
-  highlight?: string;
-  selected?: boolean;
-  order: number;
-  select: OnClick;
-  close: OnClick;
-}) {
-  const show = true;
-  // const handler = useRef<NodeJS.Timeout>(null);
-  // const [show, setShow] = useState<boolean>(false);
-  // const { currentData } = useRepo(name);
+  } = data;
+  const { currentData } = useLanguages(name, { selected });
+  const pagesUrl = `https://kellyripple.com/${name}`;
 
-  // useEffectOnce(() => {
-  //   handler.current = setTimeout(() => {
-  //     setShow(true);
-  //   }, 70 * order);
-
-  //   return () => {
-  //     handler.current && clearTimeout(handler.current);
-  //   };
-  // });
+  useEffect(() => {
+    currentData && console.log({ currentData });
+  }, [currentData]);
 
   const __html = highlight
     ? name.replace(
@@ -60,17 +52,35 @@ export function Repo({
       )
     : name;
 
+  const subtitle = showUpdatedAt ? `(${format(updated_at)})` : undefined;
+  const showPagesLinkButton = has_pages && showLink;
+
   return (
     <div
-      className={`repo${selected ? ' selected' : ''}${show ? ' show' : ''}`}
+      className={`repo${selected ? ' selected' : ''}`}
       style={hide ? { display: 'none' } : undefined}
     >
+      {showPagesLinkButton ? (
+        <a
+          className="repo-button"
+          href={pagesUrl}
+          rel="noreferrer"
+          tabIndex={0}
+          target="_blank"
+        >
+          <SvgIcon icon="link" />
+        </a>
+      ) : null}
       <button
-        className="repo-contents"
-        dangerouslySetInnerHTML={{ __html }}
-        onClick={select as unknown as MouseEventHandler<HTMLButtonElement>}
+        className="repo-title"
+        onClick={(event) => {
+          setSelected(event.currentTarget.value);
+        }}
         value={id}
-      ></button>
+      >
+        <span className="repo-name" dangerouslySetInnerHTML={{ __html }}></span>
+        {subtitle ? <span className="repo-subtitle">{subtitle}</span> : null}
+      </button>
       <div className="repo-details">
         {description ? (
           <div>
@@ -94,14 +104,9 @@ export function Repo({
         ) : null}
 
         {has_pages ? (
-          <a
-            href={`https://kellyripple.com/${name}`}
-            rel="noreferrer"
-            tabIndex={0}
-            target="_blank"
-          >
+          <a href={pagesUrl} rel="noreferrer" tabIndex={0} target="_blank">
             <span className="label">Pages Site: </span>
-            {`kellyripple.com/${name}`}
+            {pagesUrl.replace('https://', '')}
           </a>
         ) : null}
 
@@ -117,10 +122,10 @@ export function Repo({
           {default_branch}
         </div>
 
-        <div>
+        {/* <div>
           <span className="label">Size: </span>
           {size}
-        </div>
+        </div> */}
 
         <div>
           <span className="label">Created On: </span>
@@ -139,7 +144,9 @@ export function Repo({
       </div>
       <button
         className="close-button"
-        onClick={close as unknown as MouseEventHandler<HTMLButtonElement>}
+        onClick={() => {
+          setSelected(undefined);
+        }}
       >
         <SvgIcon icon="close" />
       </button>

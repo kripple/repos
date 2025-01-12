@@ -1,4 +1,3 @@
-declare type OnClick = (event: { target: { value: string } }) => void;
+declare type Union<T extends Array<string>> = T[number];
 
-// declare type valueof<T> = T[number];
-declare type valueof<T> = T[keyof T];
+declare type ValueOf<T> = T[keyof T];

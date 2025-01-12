@@ -8,52 +8,15 @@ export type Profile = {
   public_repos: number;
 };
 
+export type Language = {
+  [key: string]: number;
+};
+
 export type License = {
   key: string;
   name: string;
   spdx_id: string;
   url: string;
-};
-
-export type RateLimit = {
-  resources: {
-    core: {
-      limit: number;
-      remaining: number;
-      reset: number;
-      used: number;
-      resource: string;
-    };
-    graphql: {
-      limit: number;
-      remaining: number;
-      reset: number;
-      used: number;
-      resource: string;
-    };
-    integration_manifest: {
-      limit: number;
-      remaining: number;
-      reset: number;
-      used: number;
-      resource: string;
-    };
-    search: {
-      limit: number;
-      remaining: number;
-      reset: number;
-      used: number;
-      resource: string;
-    };
-  };
-  // This object is deprecated, use 'core' instead.
-  // rate: {
-  //   limit: number;
-  //   remaining: number;
-  //   reset: number;
-  //   used: number;
-  //   resource: string;
-  // };
 };
 
 export type Repo = {
@@ -71,5 +34,3 @@ export type Repo = {
   license: License | null;
   default_branch: string;
 };
-
-export type CacheKey = string | undefined;

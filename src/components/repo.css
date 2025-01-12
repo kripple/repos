@@ -1,10 +1,12 @@
 .repo {
   display: flex;
-  flex-direction: column;
+  flex-direction: row-reverse;
   flex-grow: 1;
   justify-content: center;
-  opacity: 0;
   position: relative;
+}
+.repo.selected {
+  flex-direction: column;
 }
 
 .search-tools,
@@ -18,7 +20,8 @@
 .repo.selected,
 .search-tools input,
 .search-tools label,
-.repo button.repo-contents {
+.repo button.repo-title,
+.repo-name {
   box-sizing: border-box;
   font-size: var(--font-size);
   line-height: var(--line-height);
@@ -34,26 +37,52 @@
   order: 1;
 }
 
-button.repo-contents {
+button.repo-title,
+.repo-button {
   align-items: center;
   background-color: var(--background-color);
   border: 1px solid var(--border-color);
-  border-radius: 50px;
   box-sizing: border-box;
-  color: var(--text-color);
   cursor: pointer;
   display: flex;
-  flex-grow: 1;
-  /* flex-wrap: nowrap; */
-  font-family: 'Courier New', Courier, monospace;
-  font-size: inherit;
   justify-content: center;
   padding: var(--offset) var(--padding);
   position: relative;
+}
+
+.repo-button {
+  /* aspect-ratio: 1; */
+  border-bottom-right-radius: 50px;
+  border-left: none;
+  border-top-right-radius: 50px;
+  flex-grow: 1;
+}
+
+button.repo-title {
+  border-radius: 50px;
+  color: var(--text-color);
+  flex-direction: column;
+  flex-grow: 1;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: inherit;
+  gap: 4px;
   white-space: normal;
   /* word-wrap: break-word; */
 }
-.repo.selected button.repo-contents {
+.repo-name {
+  /* align-items: center;
+  display: flex;
+  justify-content: center; */
+  /* flex-grow: 1; */
+}
+
+.repo-button ~ button.repo-title {
+  /* background-color: blue !important; */
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.repo.selected button.repo-title {
   border-bottom: none;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
@@ -71,7 +100,7 @@ button.repo-contents {
   border-bottom-right-radius: 25px;
 }
 
-.repo.selected .repo-contents {
+.repo.selected .repo-title {
   color: var(--title-color);
   cursor: default;
 }
@@ -96,11 +125,15 @@ button.repo-contents {
   right: 0;
   top: 0;
 }
+
 .repo.selected .close-button svg {
-  fill: var(--text-color);
   height: var(--offset);
   opacity: 0.67;
   width: var(--offset);
+}
+.repo.selected .close-button svg,
+.repo-button svg {
+  fill: var(--text-color);
 }
 
 .repo-details {
@@ -123,4 +156,14 @@ button.repo-contents {
 }
 .repo.selected .repo-details .label {
   font-weight: bold;
+}
+
+.repo-subtitle {
+  color: var(--text-accent-color);
+  font-size: 12px;
+  line-height: 14px;
+}
+.repo.selected .repo-subtitle,
+.repo.selected .repo-button {
+  display: none;
 }
