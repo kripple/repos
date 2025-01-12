@@ -1,7 +1,5 @@
-/* eslint-disable react/jsx-no-bind */
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 
-import type { Repo as RepoType } from '@/api/types';
 import { Repo } from '@/components/Repo';
 import { SvgIcon } from '@/components/SvgIcon';
 import { useRepos } from '@/hooks/useRepos';
@@ -11,82 +9,132 @@ import '@/components/repos-list.css';
 export function ReposList({ itemsMax }: { itemsMax?: number }) {
   if (itemsMax === 0) throw Error('no.');
 
-  const [selectedRepo, setSelectedRepo] = useState<string>();
+  // visual state
   const [isFocused, setIsFocused] = useState<boolean>(false);
-  const [repos, setRepos] = useState<{
-    [key: string]: RepoType & {
-      hide?: boolean;
-      highlight?: string;
-    };
-  }>({});
 
-  const { currentData } = useRepos({
+  // filter
+  const [searchTerm, setSearchTerm] = useState<string>();
+  const [selectedRepo, setSelectedRepo] = useState<string>();
+  const [linksFilter, setLinksFilter] = useState<boolean>(false);
+
+  // sort
+  type SortKey = 'name' | 'updatedAt';
+  type SortDirection = 'initial' | 'reverse';
+  const [sortKey, setSortKey] = useState<SortKey>('name');
+  const [sortDirection, setSortDirection] = useState<SortDirection>('initial');
+
+  const { currentData, isLoading } = useRepos({
     itemsMax,
   });
-  const isDisabled = Object.keys(repos).length === 0;
+  type RepoEntitys = NonNullable<typeof currentData>['entities'];
+  const ids = currentData?.ids || [];
+  const repos: RepoEntitys = currentData?.entities || {};
+  const isDisabled = isLoading || !ids || ids.length === 0;
 
-  useEffect(() => {
-    if (!currentData || currentData.length === 0) return;
+  const sortedByUpdatedAt = useMemo(
+    () =>
+      Object.values(repos)
+        .sort(({ updated_at: a }, { updated_at: b }) => {
+          if (a > b) return -1;
+          if (a < b) return 1;
+          return 0;
+        })
+        .map(({ id }) => id),
+    [repos],
+  );
 
-    setRepos((current) => {
-      const draft = { ...current };
-      currentData.map((data) => {
-        draft[data.name] = data;
-      });
-      return draft;
-    });
-
-    // const names = currentData.map(({ name }) => name);
-    // setSortOrder(names);
-  }, [currentData]);
+  const sortedIds: typeof ids = (() => {
+    if (sortKey === 'name') {
+      return ids; // this is the initial sort order
+    } else if (sortKey === 'updatedAt') {
+      return sortedByUpdatedAt;
+    } else {
+      return ids;
+    }
+  })();
+  const displayIds =
+    sortDirection === 'reverse' ? [...sortedIds].reverse() : sortedIds;
+  const searchInputId = 'search';
 
   return (
     <div className="repos-list">
       <div
-        className={`search-bar${isFocused ? ' focus-visible' : ''}${isDisabled ? ' disabled' : ''}`}
+        className="search-tools"
         style={selectedRepo ? { display: 'none' } : undefined}
       >
-        <div className="search-bar-contents">
-          <label htmlFor="search-bar">
+        <div
+          className={`search-bar${isFocused ? ' focus-visible' : ''}${isDisabled ? ' disabled' : ''}`}
+        >
+          <label htmlFor={searchInputId}>
             <SvgIcon icon="search" />
           </label>
           <input
             autoComplete="off"
             disabled={isDisabled}
-            id="search-bar"
+            id={searchInputId}
             onBlur={() => setIsFocused(false)}
             onChange={(event) => {
-              const searchInputValue = event.target.value;
-
-              setRepos((current) => {
-                const draft: typeof current = {};
-
-                Object.values(current).map((item) => {
-                  const match = item.name.includes(event.target.value);
-                  draft[item.name] = {
-                    ...current[item.name],
-                    highlight: match ? searchInputValue : undefined,
-                    hide: !match,
-                  };
-                });
-
-                return {
-                  ...current,
-                  ...draft,
-                };
-              });
+              setSearchTerm(event.target.value);
             }}
             onFocus={() => setIsFocused(true)}
             placeholder={isFocused ? undefined : 'Search'}
             type="search"
           ></input>
         </div>
-        {/* <button></button>
-        <button></button>
-        <button></button> */}
+        <div className="button-set">
+          <button
+            className="filter-button"
+            onClick={() => {
+              setLinksFilter((current) => !current);
+            }}
+            title={linksFilter ? 'show all projects' : 'show deployed projects'}
+          >
+            <SvgIcon icon="link" size="medium" />
+          </button>
+          <button
+            className="filter-button"
+            onClick={() => {
+              if (sortKey === 'name') {
+                setSortDirection((current) =>
+                  current === 'initial' ? 'reverse' : 'initial',
+                );
+              } else {
+                setSortKey('name');
+                setSortDirection('initial');
+              }
+            }}
+            title="sort by name"
+          >
+            <SvgIcon icon="sortByAlphabet" size="medium" />
+          </button>
+          <button
+            className="filter-button"
+            onClick={() => {
+              if (sortKey === 'updatedAt') {
+                setSortDirection((current) =>
+                  current === 'initial' ? 'reverse' : 'initial',
+                );
+              } else {
+                setSortKey('updatedAt');
+                setSortDirection('initial');
+              }
+            }}
+            title="sort by last updated"
+          >
+            <SvgIcon icon="sortByTime" size="medium" />
+          </button>
+        </div>
       </div>
-      {Object.values(repos)?.map((repo, index) => {
-        const selected = repo.name === selectedRepo;
+      {displayIds.map((id, index) => {
+        const repo = repos[id];
+
+        const selected = id.toString() === selectedRepo;
+
+        const match = searchTerm && repo.name.includes(searchTerm);
+
+        const filterHasNoMatch = Boolean(searchTerm) && !match;
+        const filterLinks = linksFilter && !repo.has_pages;
+        const hide = filterHasNoMatch || filterLinks;
 
         return (
           <Repo
@@ -94,8 +142,8 @@ export function ReposList({ itemsMax }: { itemsMax?: number }) {
               setSelectedRepo(undefined);
             }}
             data={repo}
-            hide={repo.hide}
-            highlight={repo.highlight}
+            hide={hide}
+            highlight={match ? searchTerm : undefined}
             key={repo.name}
             order={index}
             select={(event) => {

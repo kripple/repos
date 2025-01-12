@@ -7,17 +7,17 @@
   position: relative;
 }
 
-.search-bar,
+.search-tools,
 .repo.selected {
   margin-bottom: calc(var(--padding) * 2);
   width: 100%;
 }
 
 .repo,
-.search-bar,
+.search-tools,
 .repo.selected,
-.search-bar input,
-.search-bar label,
+.search-tools input,
+.search-tools label,
 .repo button.repo-contents {
   box-sizing: border-box;
   font-size: var(--font-size);
@@ -27,7 +27,7 @@
 .repo {
   order: 3;
 }
-.search-bar {
+.search-tools {
   order: 2;
 }
 .repo.selected {

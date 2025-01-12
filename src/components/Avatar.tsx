@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-bind */
 import { useState } from 'react';
 
 import { useProfile } from '@/hooks/useProfile';
