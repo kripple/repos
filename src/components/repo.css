@@ -38,10 +38,12 @@
 }
 
 button.repo-title,
-.repo-button {
+.repo-data-button,
+.repo-link-button {
   align-items: center;
   background-color: var(--background-color);
   border: 1px solid var(--border-color);
+  box-shadow: var(--box-shadow);
   box-sizing: border-box;
   cursor: pointer;
   display: flex;
@@ -50,15 +52,26 @@ button.repo-title,
   position: relative;
 }
 
-.repo-button {
+.repo-link-button {
   border-bottom-right-radius: 50px;
   border-left: none;
   border-top-right-radius: 50px;
-  flex-grow: 1;
+}
+
+.repo-data-button {
+  border-bottom-left-radius: 50px;
+  border-right: none;
+  border-top-left-radius: 50px;
+  color: var(--text-accent-color);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
 }
 
 button.repo-title {
-  border-radius: 50px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 50px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 50px;
   color: var(--text-color);
   flex-direction: column;
   flex-grow: 1;
@@ -68,7 +81,7 @@ button.repo-title {
   white-space: normal;
 }
 
-.repo-button ~ button.repo-title {
+.repo-link-button ~ button.repo-title {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
@@ -79,6 +92,7 @@ button.repo-title {
   border-bottom-right-radius: 0;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
+  box-shadow: none;
   font-size: inherit;
   font-weight: bold;
   line-height: inherit;
@@ -123,7 +137,7 @@ button.repo-title {
   width: var(--offset);
 }
 .repo.selected .close-button svg,
-.repo-button svg {
+.repo-link-button svg {
   fill: var(--text-color);
 }
 
@@ -149,12 +163,7 @@ button.repo-title {
   font-weight: bold;
 }
 
-.repo-subtitle {
-  color: var(--text-accent-color);
-  font-size: 12px;
-  line-height: 14px;
-}
-.repo.selected .repo-subtitle,
-.repo.selected .repo-button {
+.repo.selected .repo-link-button,
+.repo.selected .repo-data-button {
   display: none;
 }

@@ -8,10 +8,11 @@ import type { Language, Profile, Repo } from '@/api/types';
 /**
  * TODO:
  *
- * normalize & transform responses
  * add db
  * add fallback api
  * investigate using async-mutex to lock requests until rate limit is reset
+ * sort repos by size
+ * sort repo languages by size
  */
 
 export const api = createApi({

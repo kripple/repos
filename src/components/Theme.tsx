@@ -1,39 +1,31 @@
 import type { ReactNode } from 'react';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import '@/components/theme.css';
 
 export function Theme({ children, id }: { children: ReactNode; id: string }) {
   const storageKey = 'reposTheme' as const;
-  const ref = useRef<HTMLDivElement>(null);
 
   const [savedTheme] = useState(
     document.documentElement.getAttribute('data-theme'),
   );
 
-  useEffect(() => {
-    if (!savedTheme || !['light', 'dark'].includes(savedTheme)) return;
-    window['localStorage'].setItem(storageKey, savedTheme);
-  }, [savedTheme]);
-
-  useEffect(() => {
-    if (!ref.current) return;
-    const themeColor = window.getComputedStyle(ref.current).backgroundColor;
+  const setTheme = useCallback((theme: 'light' | 'dark') => {
+    const themeColor =
+      theme === 'light' ? 'var(--light-mode)' : 'var(--dark-mode)';
     document.documentElement.style.backgroundColor = themeColor;
-    document.documentElement.removeAttribute('data-theme');
-  }, [ref]);
+    window.localStorage.setItem(storageKey, theme);
+  }, []);
 
   const onChange = useCallback((event: ChangeEvent) => {
-    const theme = event.target.checked ? 'light' : 'dark';
-    const current = ref.current;
-
-    window['localStorage'].setItem(storageKey, theme);
-    const style = current && window.getComputedStyle(current);
-    const themeColor = style?.backgroundColor;
-    if (themeColor) {
-      document.documentElement.style.backgroundColor = themeColor;
-    }
+    setTheme(event.target.checked ? 'light' : 'dark');
   }, []);
+
+  useEffect(() => {
+    if (!savedTheme) return;
+    setTheme(savedTheme === 'light' ? 'light' : 'dark');
+    document.documentElement.removeAttribute('data-theme');
+  }, [savedTheme]);
 
   return (
     <>
@@ -45,9 +37,7 @@ export function Theme({ children, id }: { children: ReactNode; id: string }) {
         style={{ display: 'none' }}
         type="checkbox"
       />
-      <div className="app theme" ref={ref}>
-        {children}
-      </div>
+      <div className="app theme">{children}</div>
     </>
   );
 }

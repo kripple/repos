@@ -3,6 +3,7 @@ import { useCallback } from 'react';
 
 import { SvgIcon } from '@/components/SvgIcon';
 import { useFocus } from '@/hooks/useFocus';
+import type { SortKey } from '@/types/sorting';
 
 import '@/components/search-tools.css';
 
@@ -13,6 +14,7 @@ export function SearchTools({
   showLinks,
   sortByAlphabet,
   sortByTime,
+  sortKey,
   toggleShowLinks,
 }: {
   disabled: boolean;
@@ -21,6 +23,7 @@ export function SearchTools({
   showLinks: boolean;
   sortByAlphabet: () => void;
   sortByTime: () => void;
+  sortKey: SortKey;
   toggleShowLinks: () => void;
 }) {
   const searchInputId = 'search' as const;
@@ -54,21 +57,25 @@ export function SearchTools({
       </div>
       <div className="button-set">
         <button
-          className="filter-button"
+          className={classNames('filter-button', { active: showLinks })}
           onClick={toggleShowLinks}
           title={showLinks ? 'show all projects' : 'show deployed projects'}
         >
           <SvgIcon icon="link" size="medium" />
         </button>
         <button
-          className="filter-button"
+          className={classNames('filter-button', {
+            active: sortKey === 'name',
+          })}
           onClick={sortByAlphabet}
           title="sort by name"
         >
           <SvgIcon icon="sortByAlphabet" size="medium" />
         </button>
         <button
-          className="filter-button"
+          className={classNames('filter-button', {
+            active: sortKey === 'updated_at',
+          })}
           onClick={sortByTime}
           title="sort by last updated"
         >

@@ -16,7 +16,6 @@ export function Repo({
   hide,
   highlight,
   showLink,
-  showUpdatedAt,
   selected,
   setSelected,
 }: {
@@ -25,7 +24,6 @@ export function Repo({
   highlight?: string;
   order: number;
   showLink?: boolean;
-  showUpdatedAt?: boolean;
   selected?: boolean;
   setSelected: SetState<string | undefined>;
 }) {
@@ -45,8 +43,6 @@ export function Repo({
   const { currentData } = useLanguages(name, { selected });
   const languages = currentData ? Object.keys(currentData) : undefined;
   const pagesUrl = `https://kellyripple.com/${name}`;
-
-  const subtitle = showUpdatedAt ? `(${format(updated_at)})` : undefined;
   const showPagesLinkButton = has_pages && showLink;
 
   const selectRepo = useCallback((event: ClickEvent) => {
@@ -62,7 +58,7 @@ export function Repo({
     <div className={classNames('repo', { selected })}>
       {showPagesLinkButton ? (
         <a
-          className="repo-button"
+          className="repo-link-button"
           href={pagesUrl}
           rel="noreferrer"
           tabIndex={0}
@@ -73,7 +69,9 @@ export function Repo({
       ) : null}
       <button className="repo-title" onClick={selectRepo} value={id}>
         <Highlight highlight={highlight} name={name} />
-        {subtitle ? <span className="repo-subtitle">{subtitle}</span> : null}
+      </button>
+      <button className="repo-data-button" onClick={selectRepo} value={id}>
+        {format(updated_at)}
       </button>
       <div className="repo-details">
         <Text label="Description">{description}</Text>

@@ -21,7 +21,7 @@ export function ReposList({ itemsMax }: { itemsMax?: number }) {
   }, []);
 
   // sort
-  const [sortKey, _setSortKey] = useState<SortKey>('name');
+  const [sortKey, _setSortKey] = useState<SortKey>('updated_at');
   const [sortDirection, setSortDirection] = useState<SortDirection>('initial');
   const setSortKey = (value?: SortKey) => {
     _setSortKey(value || 'name');
@@ -81,6 +81,7 @@ export function ReposList({ itemsMax }: { itemsMax?: number }) {
         showLinks={showLinks}
         sortByAlphabet={sortByAlphabet}
         sortByTime={sortByTime}
+        sortKey={sortKey}
         toggleShowLinks={toggleShowLinks}
       />
 
@@ -103,7 +104,6 @@ export function ReposList({ itemsMax }: { itemsMax?: number }) {
             selected={selected}
             setSelected={setSelectedRepo}
             showLink={showLinks}
-            showUpdatedAt={sortKey === 'updated_at'}
           />
         );
       })}

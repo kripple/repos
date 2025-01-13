@@ -35,9 +35,45 @@ html {
     --padding: 12px;
   }
 }
+@media screen and (max-width: 320px) {
+  :root {
+    --gap: 4px;
+    --padding: 8px;
+    --profile-height: 149px;
+  }
+}
+
+:root {
+  --lavender: #d6e3f8;
+  --seashell: #fef5ef;
+  --wenge: #4d424a;
+  --periwinkle: #ccccff;
+  --bone: #ccc7b9;
+  --french-gray: #cbcbd4;
+  --rose-quartz: #adaabf;
+  --english-violet: #49455f;
+  --taupe-gray: #92828d;
+  --pale-dogwood: #ceb5a7;
+  --munsell-blue: #2c8c99;
+  --celadon: #96e6b3;
+  --sunset: #fed18c;
+  --celeste: #a9f8fb;
+  --nyanza: #ddffd9;
+  --ecru: #d7b377;
+  --flax: #ecdd7b;
+  --night: #0f1214;
+
+  /* these are used to set the html background-color */
+  --dark-mode: var(--night);
+  --light-mode: rgba(255, 255, 255, 0.8);
+}
+
+html {
+  background-color: var(--test);
+}
 
 .theme {
-  --theme-color: rgb(15, 18, 20);
+  --theme-color: var(--dark-mode);
   --text-color: #cdd6e2;
   --light-color: var(--text-color);
   --title-color: #ffffff;
@@ -55,14 +91,11 @@ html {
     hsl(210, 14%, 7%) 100%
   );
   --overlay-color: hsla(0, 0%, 100%, 0.2);
-  /* --color-1: #beeffa;
-  --color-2: #4cc9f0;
-  --color-3: #4361ee; */
 }
 
 html[data-theme='light'],
 #root > input:checked ~ .theme {
-  --theme-color: rgba(255, 255, 255, 0.8);
+  --theme-color: var(--light-mode);
   --light-color: var(--theme-color);
   --text-color: #303741;
   --dark-color: var(--text-color);
@@ -80,9 +113,6 @@ html[data-theme='light'],
     hsl(210, 100%, 96%) 100%
   );
   --overlay-color: hsla(0, 0%, 0%, 0.2);
-  /* --color-1: #3f37c9;
-  --color-2: #7209b7;
-  --color-3: #480ca8; */
 }
 
 .theme {

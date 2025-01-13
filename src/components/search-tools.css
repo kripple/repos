@@ -42,8 +42,9 @@
 .filter-button {
   align-items: center;
   background-color: var(--theme-color);
-  border: 2px solid var(--text-color);
-  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  box-shadow: var(--box-shadow);
   box-sizing: border-box;
   color: var(--text-color);
   cursor: pointer;
@@ -61,9 +62,13 @@
 .filter-button svg {
   fill: var(--text-color);
 }
-/* .filter-button:hover svg {
-  fill: var(--text-accent-color);
-} */
+.filter-button:hover {
+  background-color: var(--hover-color);
+  border-color: var(--hover-border-color);
+}
+.filter-button.active {
+  border-color: var(--title-color);
+}
 
 .search-bar {
   align-items: center;
