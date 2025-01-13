@@ -7,16 +7,6 @@ import { useProfile } from '@/hooks/useProfile';
 
 import '@/components/app.css';
 
-// Comparing the object's location with the window object's parent location. Here, we simply compare the object's location with the window object's parent location. If the result is true, then the webpage is in an iFrame. If it is false, then it is not in an iFrame.
-
-// function inIframe () {
-//   try {
-//       return window.self !== window.top;
-//   } catch (e) {
-//       return true;
-//   }
-// }
-
 export function App() {
   const id = 'theme-toggle';
   const { currentData } = useProfile();

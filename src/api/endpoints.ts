@@ -12,7 +12,6 @@ import type { Language, Profile, Repo } from '@/api/types';
  * add db
  * add fallback api
  * investigate using async-mutex to lock requests until rate limit is reset
- * save theme to local storage
  */
 
 export const api = createApi({
