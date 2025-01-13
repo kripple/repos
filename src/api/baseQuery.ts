@@ -3,8 +3,6 @@ import { fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
 
 import { config } from '@/api/config';
 
-// TODO: investigate using async-mutex to lock requests until rate limit is reset
-
 export const baseQuery = retry(
   async (args: string | FetchArgs, api, extraOptions) => {
     const result = await fetchBaseQuery({ baseUrl: config.baseUrl })(

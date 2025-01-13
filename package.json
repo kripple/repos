@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.0",
+    "classnames": "^2.5.1",
     "just-debounce": "^1.1.0",
     "react": "*",
     "react-dom": "*",

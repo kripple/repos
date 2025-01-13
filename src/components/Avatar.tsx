@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { useCallback, useState } from 'react';
 
 import { useProfile } from '@/hooks/useProfile';
@@ -25,7 +26,7 @@ export function Avatar() {
           }}
         >
           <div
-            className={`avatar-shimmer${loaded ? ' loaded' : ''}`}
+            className={classNames('avatar-shimmer', { loaded })}
             onAnimationIteration={
               !isLoading && !lastShimmer ? unveil : undefined
             }

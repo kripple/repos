@@ -1,11 +1,10 @@
+import classNames from 'classnames';
 import { useCallback } from 'react';
 
 import { SvgIcon } from '@/components/SvgIcon';
 import { useFocus } from '@/hooks/useFocus';
 
 import '@/components/search-tools.css';
-
-// FIXME: search is case-sensitive
 
 export function SearchTools({
   disabled,
@@ -34,8 +33,10 @@ export function SearchTools({
   return (
     <div className="search-tools">
       <div
-        // FIXME: use classnames util
-        className={`search-bar${hasFocus ? ' focus-visible' : ''}${disabled ? ' disabled' : ''}`}
+        className={classNames('search-bar', {
+          'focus-visible': hasFocus,
+          disabled,
+        })}
       >
         <label htmlFor={searchInputId}>
           <SvgIcon icon="search" />

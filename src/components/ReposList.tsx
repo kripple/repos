@@ -87,7 +87,9 @@ export function ReposList({ itemsMax }: { itemsMax?: number }) {
       {displayIds.map((id, index) => {
         const repo = repos[id];
         const selected = id.toString() === selectedRepo;
-        const match = searchTerm && repo.name.includes(searchTerm);
+        const match =
+          searchTerm &&
+          repo.name.toLowerCase().includes(searchTerm.toLowerCase());
         const hide =
           (Boolean(searchTerm) && !match) || (showLinks && !repo.has_pages);
 

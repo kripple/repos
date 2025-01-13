@@ -1,6 +1,8 @@
+import classNames from 'classnames';
 import { useCallback } from 'react';
 
 import type { Repo as RepoType } from '@/api/types';
+import { Highlight } from '@/components/Highlight';
 import { SvgIcon } from '@/components/SvgIcon';
 import { Text } from '@/components/Text';
 import { TextLink } from '@/components/TextLink';
@@ -44,15 +46,6 @@ export function Repo({
   const languages = currentData ? Object.keys(currentData) : undefined;
   const pagesUrl = `https://kellyripple.com/${name}`;
 
-  // FIXME: highlights use dangerouslySetInnerHTML
-
-  const __html = highlight
-    ? name.replace(
-        highlight,
-        `<span style="color: var(--title-color); font-weight: 900">${highlight}</span>`,
-      )
-    : name;
-
   const subtitle = showUpdatedAt ? `(${format(updated_at)})` : undefined;
   const showPagesLinkButton = has_pages && showLink;
 
@@ -66,7 +59,7 @@ export function Repo({
 
   if (hide) return null;
   return (
-    <div className={`repo${selected ? ' selected' : ''}`}>
+    <div className={classNames('repo', { selected })}>
       {showPagesLinkButton ? (
         <a
           className="repo-button"
@@ -79,7 +72,7 @@ export function Repo({
         </a>
       ) : null}
       <button className="repo-title" onClick={selectRepo} value={id}>
-        <span className="repo-name" dangerouslySetInnerHTML={{ __html }}></span>
+        <Highlight highlight={highlight} name={name} />
         {subtitle ? <span className="repo-subtitle">{subtitle}</span> : null}
       </button>
       <div className="repo-details">
