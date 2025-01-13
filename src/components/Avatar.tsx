@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { useProfile } from '@/hooks/useProfile';
 
@@ -10,6 +10,10 @@ export function Avatar() {
 
   const [lastShimmer, setLastShimmer] = useState<boolean>(false);
   const loaded = !isLoading && avatarUrl && lastShimmer;
+
+  const unveil = useCallback(() => {
+    setLastShimmer(true);
+  }, []);
 
   return (
     <div className="avatar">
@@ -23,13 +27,7 @@ export function Avatar() {
           <div
             className={`avatar-shimmer${loaded ? ' loaded' : ''}`}
             onAnimationIteration={
-              !lastShimmer
-                ? () => {
-                    if (!isLoading) {
-                      setLastShimmer(true);
-                    }
-                  }
-                : undefined
+              !isLoading && !lastShimmer ? unveil : undefined
             }
           ></div>
         </div>
