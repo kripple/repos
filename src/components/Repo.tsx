@@ -1,7 +1,9 @@
-import { useEffect } from 'react';
+import { useCallback } from 'react';
 
 import type { Repo as RepoType } from '@/api/types';
 import { SvgIcon } from '@/components/SvgIcon';
+import { Text } from '@/components/Text';
+import { TextLink } from '@/components/TextLink';
 import { useLanguages } from '@/hooks/useLanguages';
 import { format } from '@/utils/format';
 
@@ -39,11 +41,10 @@ export function Repo({
     default_branch,
   } = data;
   const { currentData } = useLanguages(name, { selected });
+  const languages = currentData ? Object.keys(currentData) : undefined;
   const pagesUrl = `https://kellyripple.com/${name}`;
 
-  useEffect(() => {
-    currentData && console.log({ currentData });
-  }, [currentData]);
+  // FIXME: highlights use dangerouslySetInnerHTML
 
   const __html = highlight
     ? name.replace(
@@ -55,11 +56,17 @@ export function Repo({
   const subtitle = showUpdatedAt ? `(${format(updated_at)})` : undefined;
   const showPagesLinkButton = has_pages && showLink;
 
+  const selectRepo = useCallback((event: ClickEvent) => {
+    setSelected(event.currentTarget.value);
+  }, []);
+
+  const deselectRepo = useCallback(() => {
+    setSelected(undefined);
+  }, []);
+
+  if (hide) return null;
   return (
-    <div
-      className={`repo${selected ? ' selected' : ''}`}
-      style={hide ? { display: 'none' } : undefined}
-    >
+    <div className={`repo${selected ? ' selected' : ''}`}>
       {showPagesLinkButton ? (
         <a
           className="repo-button"
@@ -71,78 +78,34 @@ export function Repo({
           <SvgIcon icon="link" />
         </a>
       ) : null}
-      <button
-        className="repo-title"
-        onClick={(event) => {
-          setSelected(event.currentTarget.value);
-        }}
-        value={id}
-      >
+      <button className="repo-title" onClick={selectRepo} value={id}>
         <span className="repo-name" dangerouslySetInnerHTML={{ __html }}></span>
         {subtitle ? <span className="repo-subtitle">{subtitle}</span> : null}
       </button>
       <div className="repo-details">
-        {description ? (
-          <div>
-            <span className="label">Description: </span>
-            {description}
-          </div>
-        ) : null}
-
-        {language ? (
-          <div>
-            <span className="label">Language: </span>
-            {language}
-          </div>
-        ) : null}
-
-        {license ? (
-          <a href={license.url} rel="noreferrer" tabIndex={0} target="_blank">
-            <span className="label">License: </span>
-            {license.name}
-          </a>
-        ) : null}
-
-        {has_pages ? (
-          <a href={pagesUrl} rel="noreferrer" tabIndex={0} target="_blank">
-            <span className="label">Pages Site: </span>
-            {pagesUrl.replace('https://', '')}
-          </a>
-        ) : null}
-
-        {homepage ? (
-          <a href={homepage} rel="noreferrer" tabIndex={0} target="_blank">
-            <span className="label">Website: </span>
-            {homepage.replace('https://', '')}
-          </a>
-        ) : null}
-
-        <div>
-          <span className="label">Default Branch: </span>
-          {default_branch}
-        </div>
-
-        <div>
-          <span className="label">Created On: </span>
-          {created_at}
-        </div>
-
-        <div>
-          <span className="label">Last Updated: </span>
-          {updated_at}
-        </div>
-
-        <a href={html_url} rel="noreferrer" tabIndex={0} target="_blank">
-          <SvgIcon icon="octocat" />
-          <span className="label">View on Github</span>
-        </a>
+        <Text label="Description">{description}</Text>
+        <Text
+          label={languages && languages.length > 1 ? 'Languages' : 'Language'}
+        >
+          {languages ? languages.join(', ') : language}
+        </Text>
+        <TextLink label="License" url={license?.url}>
+          {license?.name}
+        </TextLink>
+        <TextLink label="Pages Site" url={has_pages ? pagesUrl : undefined}>
+          {pagesUrl?.replace('https://', '')}
+        </TextLink>
+        <TextLink label="Website" url={homepage}>
+          {homepage?.replace('https://', '')}
+        </TextLink>
+        <Text label="Default Branch">{default_branch}</Text>
+        <Text label="Created On">{created_at}</Text>
+        <Text label="Last Updated">{updated_at}</Text>
+        <TextLink icon="octocat" url={html_url}>
+          View on Github
+        </TextLink>
       </div>
-      <button
-        className="close-button"
-        onClick={() => {
-          setSelected(undefined);
-        }}
-      >
+      <button className="close-button" onClick={deselectRepo}>
         <SvgIcon icon="close" />
       </button>
     </div>

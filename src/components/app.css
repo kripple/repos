@@ -48,3 +48,14 @@ a:hover svg {
   flex-direction: column;
   gap: calc(var(--padding) * 2);
 }
+
+.label {
+  flex-wrap: nowrap;
+  font-weight: bold;
+  word-wrap: nowrap;
+}
+
+.label,
+.text {
+  flex-shrink: 0;
+}

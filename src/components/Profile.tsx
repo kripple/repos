@@ -1,5 +1,6 @@
 import { Avatar } from '@/components/Avatar';
-import { SvgIcon } from '@/components/SvgIcon';
+import { Text } from '@/components/Text';
+import { TextLink } from '@/components/TextLink';
 import { useProfile } from '@/hooks/useProfile';
 
 import '@/components/profile.css';
@@ -21,26 +22,16 @@ export function Profile() {
       <Avatar />
       <div className="profile-contents">
         <div className="title">{name}</div>
-
         <div className="details">
-          <div>
-            <SvgIcon icon="location" />
-            <span className="label">Location: </span>
-            <span className="text">{location}</span>
-          </div>
-
-          <div>
-            <SvgIcon icon="repo" />
-            <span className="label">Repos: </span>
-            <span className="text">{repos}</span>
-            {/* <span className="text"></span> */}
-          </div>
-
-          <a href={websiteUrl} rel="noreferrer" tabIndex={0} target="_blank">
-            <SvgIcon icon="link" />
-            <span className="label">Website: </span>
-            <span className="text">{websiteUrl?.replace('https://', '')}</span>
-          </a>
+          <Text icon="location" label="Location">
+            {location}
+          </Text>
+          <Text icon="repo" label="Repos">
+            {repos?.toString()}
+          </Text>
+          <TextLink icon="link" label="Website" url={websiteUrl}>
+            {websiteUrl?.replace('https://', '')}
+          </TextLink>
         </div>
       </div>
     </div>

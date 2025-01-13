@@ -5,7 +5,13 @@ import { reposAdapter } from '@/api/adapters';
 import { baseQuery } from '@/api/baseQuery';
 import type { Language, Profile, Repo } from '@/api/types';
 
-// TODO: normalize & transform responses
+/**
+ * TODO:
+ *
+ * 1. normalize & transform responses
+ * 2. add db
+ * 3. add fallback api
+ */
 
 export const api = createApi({
   baseQuery,

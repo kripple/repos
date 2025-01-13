@@ -34,3 +34,4 @@ export type Repo = {
   license: License | null;
   default_branch: string;
 };
+export type RepoEntities = Record<number, Repo>;
