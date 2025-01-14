@@ -32,9 +32,11 @@ export function SearchTools({
     setSearchTerm(event.target.value);
   }, []);
 
-  if (selectedRepo) return null;
   return (
-    <div className="search-tools">
+    <div
+      className="search-tools"
+      style={selectedRepo ? { display: 'none' } : undefined}
+    >
       <div
         className={classNames('search-bar', {
           'focus-visible': hasFocus,
