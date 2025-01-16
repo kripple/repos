@@ -76,6 +76,7 @@ export function ReposList({ itemsMax }: { itemsMax?: number }) {
     <div className="repos-list">
       <SearchTools
         disabled={isLoading || !ids || ids.length === 0}
+        searchTerm={searchTerm}
         selectedRepo={selectedRepo}
         setSearchTerm={setSearchTerm}
         showLinks={showLinks}

@@ -10,6 +10,7 @@ import '@/components/search-tools.css';
 export function SearchTools({
   disabled,
   selectedRepo,
+  searchTerm,
   setSearchTerm,
   showLinks,
   sortByAlphabet,
@@ -19,6 +20,7 @@ export function SearchTools({
 }: {
   disabled: boolean;
   selectedRepo: string | undefined;
+  searchTerm: string | undefined;
   setSearchTerm: SetState<string | undefined>;
   showLinks: boolean;
   sortByAlphabet: () => void;
@@ -48,6 +50,7 @@ export function SearchTools({
         </label>
         <input
           autoComplete="off"
+          defaultValue={searchTerm}
           disabled={disabled}
           id={searchInputId}
           onBlur={onBlur}
