@@ -37,6 +37,7 @@ export function SearchTools({
   return (
     <div
       className="search-tools"
+      data-testid="SearchTools"
       style={selectedRepo ? { display: 'none' } : undefined}
     >
       <div
@@ -57,6 +58,7 @@ export function SearchTools({
           onChange={onChange}
           onFocus={onFocus}
           placeholder={hasFocus ? undefined : 'Search'}
+          role="search"
           type="search"
         ></input>
       </div>

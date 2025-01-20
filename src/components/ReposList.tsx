@@ -73,7 +73,7 @@ export function ReposList({ itemsMax }: { itemsMax?: number }) {
   }, [sortKey]);
 
   return (
-    <div className="repos-list">
+    <div className="repos-list" data-testid="ReposList">
       <SearchTools
         disabled={isLoading || !ids || ids.length === 0}
         searchTerm={searchTerm}

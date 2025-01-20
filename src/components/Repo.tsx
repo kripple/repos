@@ -55,7 +55,7 @@ export function Repo({
 
   if (hide) return null;
   return (
-    <div className={classNames('repo', { selected })}>
+    <div className={classNames('repo', { selected })} data-testid="Repo">
       {showPagesLinkButton ? (
         <a
           className="repo-link-button"

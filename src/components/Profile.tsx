@@ -18,7 +18,7 @@ export function Profile() {
   } = currentData || {};
 
   return (
-    <div className="profile">
+    <div className="profile" data-testid="Profile">
       <Avatar />
       <div className="profile-contents">
         <div className="title">{name}</div>
