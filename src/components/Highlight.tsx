@@ -25,11 +25,7 @@ export function Highlight({
   return (
     <span className="repo-name">
       {before}
-      {highlight ? (
-        <span className="highlight">{highlight}</span>
-      ) : (
-        <span className="repo-name">{name}</span>
-      )}
+      {highlight ? <span className="highlight">{highlight}</span> : name}
       {after}
     </span>
   );
