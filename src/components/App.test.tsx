@@ -57,7 +57,6 @@ test.todo('repos are selectable', async () => {
 
   user.click(repo);
 
-
   // click it
   // check that it is expanded
   // check that search bar is hidden
