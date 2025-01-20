@@ -16,7 +16,7 @@ async function enableMocking() {
     },
   };
 
-  const { worker } = await import('./api/server');
+  const { worker } = await import('./api/worker');
   return worker.start(workerStartOptions);
 }
 

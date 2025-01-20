@@ -8,6 +8,8 @@
     "build": "tsc && vite build",
     "lint": "eslint . && stylelint '**/*.css' && prettier --check .",
     "preview": "vite preview",
+    "test": "vitest run",
+    "report": "vitest run --coverage",
     "redraw": "tsx src/utils/redrawSvg"
   },
   "dependencies": {
@@ -19,18 +21,26 @@
     "react-redux": "^9.2.0"
   },
   "devDependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "*",
+    "@testing-library/react": "^16.2.0",
+    "@testing-library/user-event": "*",
     "@types/node": "*",
-    "@types/react": "*",
-    "@types/react-dom": "*",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
     "@typescript-eslint/eslint-plugin": "7.16.1",
     "@typescript-eslint/parser": "7.16.1",
     "@vitejs/plugin-react": "*",
+    "@vitest/browser": "*",
+    "@vitest/coverage-v8": "*",
     "eslint": "8.56.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-react": "7.37.2",
     "eslint-plugin-react-hooks": "5.0.0",
     "eslint-plugin-react-refresh": "0.4.14",
+    "happy-dom": "*",
+    "just-random": "^3.2.0",
     "msw": "^2.7.0",
     "pathfit": "^1.0.4",
     "prettier": "*",
@@ -40,7 +50,8 @@
     "stylelint-prettier": "*",
     "tsx": "*",
     "typescript": "*",
-    "vite": "*"
+    "vite": "*",
+    "vitest": "*"
   },
   "msw": {
     "workerDirectory": "repos"

@@ -3,7 +3,7 @@ import dns from 'dns';
 import { resolve } from 'path';
 
 import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 
 dns.setDefaultResultOrder('verbatim');
 
@@ -35,5 +35,9 @@ export default defineConfig({
   },
   server: {
     open: true,
+  },
+  test: {
+    environment: 'happy-dom',
+    setupFiles: './src/test/setup.ts',
   },
 });
