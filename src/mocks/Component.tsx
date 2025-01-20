@@ -1,4 +1,4 @@
-import { cart } from '@/test/mocks/cart';
+import { cart } from '@/mocks/cart';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export function Component({ hook }: { hook?: Function }) {

@@ -1,11 +1,11 @@
 import { render } from '@testing-library/react';
 import { describe, expect, test, vi } from 'vitest';
 
-import { Component } from '@/test/Component';
-import { cart as externalCart } from '@/test/mocks/cart';
-import { market } from '@/test/mocks/market';
+import { cart as externalCart } from '@/mocks/cart';
+import { Component } from '@/mocks/Component';
+import { market } from '@/mocks/market';
 
-vi.mock(import('@/test/mocks/cart'), async (importOriginal) => {
+vi.mock(import('@/mocks/cart'), async (importOriginal) => {
   const { cart: actual } = await importOriginal(); // type is inferred
   return {
     cart: {
