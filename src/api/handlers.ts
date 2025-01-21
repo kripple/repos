@@ -56,14 +56,11 @@ export const handlers = (() => {
       return HttpResponse.arrayBuffer(toArrayBuffer(imageData));
     }),
 
-    http.get(
-      'https://api.github.com/repos/:username/:repo/languages',
-      () => {
-        return enable.rateLimit
-          ? ErrorResponse.RateLimit()
-          : HttpResponse.json(languages);
-      },
-    ),
+    http.get('https://api.github.com/repos/:username/:repo/languages', () => {
+      return enable.rateLimit
+        ? ErrorResponse.RateLimit()
+        : HttpResponse.json(languages);
+    }),
 
     // http.get('https://api.github.com/repos/:username/:name', ({ params }) => {
     //   if (enable.rateLimit) return ErrorResponse.RateLimit();
