@@ -2,6 +2,7 @@ import { useCallback, useMemo, useState } from 'react';
 
 import { Repo } from '@/components/Repo';
 import { SearchTools } from '@/components/SearchTools';
+import { useDefaultValue } from '@/hooks/useDefaultValue';
 import { useRepos } from '@/hooks/useRepos';
 import type { SortDirection, SortKey } from '@/types/sorting';
 import { sortByKey } from '@/utils/sort';
@@ -23,22 +24,21 @@ export function ReposList({ itemsMax }: { itemsMax?: number }) {
   // sort
   const [sortKey, _setSortKey] = useState<SortKey>('updated_at');
   const [sortDirection, setSortDirection] = useState<SortDirection>('initial');
-  const setSortKey = (value?: SortKey) => {
+  const setSortKey = useCallback((value?: SortKey) => {
     _setSortKey(value || 'name');
-  };
+  }, []);
 
-  const { currentData, isLoading } = useRepos({
+  const { currentData } = useRepos({
     itemsMax,
   });
-  const ids = currentData?.ids || [];
-  const repos = currentData?.entities || {};
-
+  const ids = useDefaultValue([], currentData?.ids);
+  const repos = useDefaultValue({}, currentData?.entities);
   const sortedByUpdatedAt = useMemo(
     () => sortByKey(repos, 'updated_at'),
     [repos],
   );
 
-  const sortedIds: typeof ids = (() => {
+  const sortedIds: typeof ids = useMemo(() => {
     if (sortKey === 'name') {
       return ids; // this is the initial sort order
     } else if (sortKey === 'updated_at') {
@@ -46,9 +46,12 @@ export function ReposList({ itemsMax }: { itemsMax?: number }) {
     } else {
       return ids;
     }
-  })();
+  }, [sortKey, ids, sortedByUpdatedAt]);
+
   const displayIds =
-    sortDirection === 'reverse' ? [...sortedIds].reverse() : sortedIds;
+    sortedIds && sortDirection === 'reverse'
+      ? [...sortedIds].reverse()
+      : sortedIds;
 
   const sortByAlphabet = useCallback(() => {
     if (sortKey === 'name') {
@@ -75,7 +78,6 @@ export function ReposList({ itemsMax }: { itemsMax?: number }) {
   return (
     <div className="repos-list" data-testid="ReposList">
       <SearchTools
-        disabled={isLoading || !ids || ids.length === 0}
         searchTerm={searchTerm}
         selectedRepo={selectedRepo}
         setSearchTerm={setSearchTerm}
@@ -86,7 +88,7 @@ export function ReposList({ itemsMax }: { itemsMax?: number }) {
         toggleShowLinks={toggleShowLinks}
       />
 
-      {displayIds.map((id, index) => {
+      {displayIds?.map((id, index) => {
         const repo = repos[id];
         const selected = id.toString() === selectedRepo;
         const match =

@@ -1,10 +1,12 @@
-import type { ReactNode } from 'react';
 import { useCallback, useEffect, useState } from 'react';
+
+import { App } from '@/components/App';
 
 import '@/components/theme.css';
 
-export function Theme({ children, id }: { children: ReactNode; id: string }) {
+export function Theme() {
   const storageKey = 'reposTheme' as const;
+  const id = 'theme-toggle' as const;
 
   const [savedTheme] = useState(
     document.documentElement.getAttribute('data-theme'),
@@ -37,7 +39,9 @@ export function Theme({ children, id }: { children: ReactNode; id: string }) {
         style={{ display: 'none' }}
         type="checkbox"
       />
-      <div className="app theme">{children}</div>
+      <div className="app theme">
+        <App id={id} />
+      </div>
     </>
   );
 }

@@ -56,7 +56,7 @@ export function Repo({
   if (hide) return null;
   return (
     <div className={classNames('repo', { selected })} data-testid="Repo">
-      {showPagesLinkButton ? (
+      {!selected && showPagesLinkButton ? (
         <a
           className="repo-link-button"
           href={pagesUrl}
@@ -67,38 +67,53 @@ export function Repo({
           <SvgIcon icon="link" />
         </a>
       ) : null}
-      <button className="repo-title" onClick={selectRepo} value={id}>
+
+      <button
+        className="repo-title"
+        data-testid="SelectRepoButton"
+        onClick={selectRepo}
+        value={id}
+      >
         <Highlight highlight={highlight} name={name} />
       </button>
-      <button className="repo-data-button" onClick={selectRepo} value={id}>
-        {format(updated_at)}
-      </button>
-      <div className="repo-details">
-        <Text label="Description">{description}</Text>
-        <Text
-          label={languages && languages.length > 1 ? 'Languages' : 'Language'}
-        >
-          {languages ? languages.join(', ') : language}
-        </Text>
-        <TextLink label="License" url={license?.url}>
-          {license?.name}
-        </TextLink>
-        <TextLink label="Pages Site" url={has_pages ? pagesUrl : undefined}>
-          {pagesUrl?.replace('https://', '')}
-        </TextLink>
-        <TextLink label="Website" url={homepage}>
-          {homepage?.replace('https://', '')}
-        </TextLink>
-        <Text label="Default Branch">{default_branch}</Text>
-        <Text label="Created On">{created_at}</Text>
-        <Text label="Last Updated">{updated_at}</Text>
-        <TextLink icon="octocat" url={html_url}>
-          View on Github
-        </TextLink>
-      </div>
-      <button className="close-button" onClick={deselectRepo}>
-        <SvgIcon icon="close" />
-      </button>
+
+      {!selected ? (
+        <button className="repo-data-button" onClick={selectRepo} value={id}>
+          {format(updated_at)}
+        </button>
+      ) : null}
+
+      {selected ? (
+        <div className="repo-details">
+          <Text label="Description">{description}</Text>
+          <Text
+            label={languages && languages.length > 1 ? 'Languages' : 'Language'}
+          >
+            {languages ? languages.join(', ') : language}
+          </Text>
+          <TextLink label="License" url={license?.url}>
+            {license?.name}
+          </TextLink>
+          <TextLink label="Pages Site" url={has_pages ? pagesUrl : undefined}>
+            {pagesUrl?.replace('https://', '')}
+          </TextLink>
+          <TextLink label="Website" url={homepage}>
+            {homepage?.replace('https://', '')}
+          </TextLink>
+          <Text label="Default Branch">{default_branch}</Text>
+          <Text label="Created On">{created_at}</Text>
+          <Text label="Last Updated">{updated_at}</Text>
+          <TextLink icon="octocat" url={html_url}>
+            View on Github
+          </TextLink>
+        </div>
+      ) : null}
+
+      {selected ? (
+        <button className="close-button" onClick={deselectRepo}>
+          <SvgIcon icon="close" />
+        </button>
+      ) : null}
     </div>
   );
 }

@@ -8,7 +8,6 @@ import type { SortKey } from '@/types/sorting';
 import '@/components/search-tools.css';
 
 export function SearchTools({
-  disabled,
   selectedRepo,
   searchTerm,
   setSearchTerm,
@@ -18,7 +17,6 @@ export function SearchTools({
   sortKey,
   toggleShowLinks,
 }: {
-  disabled: boolean;
   selectedRepo: string | undefined;
   searchTerm: string | undefined;
   setSearchTerm: SetState<string | undefined>;
@@ -43,7 +41,6 @@ export function SearchTools({
       <div
         className={classNames('search-bar', {
           'focus-visible': hasFocus,
-          disabled,
         })}
       >
         <label htmlFor={searchInputId}>
@@ -52,7 +49,6 @@ export function SearchTools({
         <input
           autoComplete="off"
           defaultValue={searchTerm}
-          disabled={disabled}
           id={searchInputId}
           onBlur={onBlur}
           onChange={onChange}

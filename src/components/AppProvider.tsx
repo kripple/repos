@@ -1,12 +1,13 @@
 import { ApiProvider } from '@reduxjs/toolkit/query/react';
 
 import { api } from '@/api/endpoints';
-import { App } from '@/components/App';
+import { Theme } from '@/components/Theme';
 
 export function AppProvider() {
+
   return (
     <ApiProvider api={api}>
-      <App />
+      <Theme />
     </ApiProvider>
   );
 }

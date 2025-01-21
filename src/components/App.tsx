@@ -2,18 +2,16 @@ import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { Profile } from '@/components/Profile';
 import { ReposList } from '@/components/ReposList';
-import { Theme } from '@/components/Theme';
 import { useProfile } from '@/hooks/useProfile';
 
 import '@/components/app.css';
 
-export function App() {
-  const id = 'theme-toggle';
+export function App({ id }: { id: string }) {
   const { currentData } = useProfile();
   const itemsMax = currentData?.public_repos;
 
   return (
-    <Theme id={id}>
+    <>
       <Header id={id} />
       <main className="main">
         <div className="main-contents">
@@ -22,6 +20,6 @@ export function App() {
         </div>
       </main>
       <Footer />
-    </Theme>
+    </>
   );
 }

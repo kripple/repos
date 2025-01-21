@@ -8,7 +8,7 @@ export function Highlight({
   name: string;
 }) {
   const getSubstrings = () => {
-    if (!searchTerm) return {};
+    if (!searchTerm) return;
 
     const start = name.toLowerCase().indexOf(searchTerm.toLowerCase());
     const end = start + searchTerm.length;
@@ -19,14 +19,17 @@ export function Highlight({
 
     return { before, highlight, after };
   };
-
-  const { before, highlight, after } = getSubstrings();
+  const substrings = getSubstrings();
 
   return (
     <span className="repo-name">
-      {before}
-      {highlight ? <span className="highlight">{highlight}</span> : name}
-      {after}
+      {substrings?.before}
+      {substrings?.highlight ? (
+        <span className="highlight">{substrings.highlight}</span>
+      ) : (
+        name
+      )}
+      {substrings?.after}
     </span>
   );
 }
