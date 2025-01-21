@@ -10,14 +10,14 @@ export function Avatar() {
   const avatarUrl = currentData?.avatar_url;
 
   const [lastShimmer, setLastShimmer] = useState<boolean>(false);
-  const loaded = !isLoading && avatarUrl && lastShimmer;
+  const loaded = Boolean(!isLoading && avatarUrl && lastShimmer);
 
   const unveil = useCallback(() => {
     setLastShimmer(true);
   }, []);
 
   return (
-    <div className="avatar">
+    <div className="avatar" data-loaded={!isLoading} data-testid="Avatar">
       <div className="circle-crop fancy-hover-effect">
         <div
           className="image"
@@ -27,6 +27,7 @@ export function Avatar() {
         >
           <div
             className={classNames('avatar-shimmer', { loaded })}
+            data-testid="AvatarShimmer"
             onAnimationIteration={
               !isLoading && !lastShimmer ? unveil : undefined
             }

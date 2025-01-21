@@ -110,7 +110,11 @@ export function Repo({
       ) : null}
 
       {selected ? (
-        <button className="close-button" onClick={deselectRepo}>
+        <button
+          className="close-button"
+          data-testid="CloseButton"
+          onClick={deselectRepo}
+        >
           <SvgIcon icon="close" />
         </button>
       ) : null}

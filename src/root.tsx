@@ -1,5 +1,4 @@
 import type { StartOptions } from 'msw/browser';
-import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import { AppProvider } from '@/components/AppProvider';
@@ -11,19 +10,16 @@ async function enableMocking() {
   if (!dev) return;
 
   const workerStartOptions: StartOptions = {
+    onUnhandledRequest: 'error',
     serviceWorker: {
       url: './mockServiceWorker.js',
     },
   };
 
-  const { worker } = await import('./mocks/browser');
+  const { worker } = await import('./mocks/worker');
   return worker.start(workerStartOptions);
 }
 
 enableMocking().then(() => {
-  root.render(
-    <StrictMode>
-      <AppProvider />
-    </StrictMode>,
-  );
+  root.render(<AppProvider />);
 });

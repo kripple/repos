@@ -2,17 +2,18 @@ import * as matchers from '@testing-library/jest-dom/matchers';
 import { cleanup } from '@testing-library/react';
 import { afterAll, afterEach, beforeAll, beforeEach, expect, vi } from 'vitest';
 
-import { server } from '@/mocks/node';
+import { server } from '@/mocks/server';
 
 // Use custom jest matchers with vitest.
 import '@testing-library/jest-dom/vitest'; // <-- very important
 expect.extend(matchers);
 
 beforeAll(() => {
-  server.listen();
+  server.listen({ onUnhandledRequest: 'error' });
 });
 afterEach(() => {
   server.resetHandlers();
+  server.events.removeAllListeners();
 });
 afterAll(() => {
   server.close();

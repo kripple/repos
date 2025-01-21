@@ -1,67 +1,110 @@
 import { render as reactRender, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import random from 'just-random';
-import { expect, test } from 'vitest';
+import { describe, expect, test } from 'vitest';
 
 import { AppProvider } from '@/components/AppProvider';
+import { addRequestListeners } from '@/mocks/server';
 
 const render = () => ({
   user: userEvent.setup(),
   ...reactRender(<AppProvider />),
 });
 
-test('displays profile', () => {
-  const { getByTestId } = render();
-
-  expect(getByTestId('Profile')).toBeTruthy();
-});
-
-test('displays list of repos', () => {
-  const { getByTestId } = render();
-
-  expect(getByTestId('ReposList')).toBeTruthy();
-});
-
-test('displays search tools', () => {
-  const { getByTestId, getByRole } = render();
-
-  expect(getByTestId('SearchTools')).toBeTruthy();
-
-  const search = getByRole('search');
-  expect(search).toBeTruthy();
-});
-
-test('repos list is searchable', async () => {
-  const { findAllByTestId, getByRole, user } = render();
-
-  expect(await findAllByTestId('Repo')).toHaveLength(85);
-
-  const search = getByRole('search').closest('input');
-  if (!search) throw Error('expect input to be in the document');
-  await user.type(search, 'et');
-
-  await waitFor(async () => {
-    expect(search.value).toBe('et');
-    expect(await findAllByTestId('Repo')).toHaveLength(3);
+describe('App', () => {
+  test('displays profile', () => {
+    const { getByTestId } = render();
+    expect(getByTestId('Profile')).toBeInTheDocument();
   });
-});
 
-test.todo('repos are selectable', async () => {
-  const { findAllByTestId, user } = render();
+  test('displays avatar', () => {
+    const { getByTestId } = render();
+    expect(getByTestId('Avatar')).toBeInTheDocument();
+  });
 
-  const list = await findAllByTestId('Repo');
-  const repo = random(list);
-  if (!repo) throw Error('something went wrong');
+  test('displays list of repos', () => {
+    const { getByTestId } = render();
+    expect(getByTestId('ReposList')).toBeInTheDocument();
+  });
 
-  // const button = repo.querySelector('')
+  test('displays search tools', () => {
+    const { getByTestId, getByRole } = render();
+    expect(getByTestId('SearchTools')).toBeInTheDocument();
 
-  user.click(repo);
+    const search = getByRole('search');
+    expect(search).toBeInTheDocument();
+  });
 
-  // click it
-  // check that it is expanded
-  // check that search bar is hidden
-  // click on close button
-  // check that it is no longer expanded
-  // check that search bar is visible
-  // check value of search input to verify that it is persisted
+  test('mocks requests', async () => {
+    const promise = addRequestListeners({ expected: 2 });
+    const { getByTestId, getByRole } = render();
+
+    expect(getByTestId('Profile')).toBeInTheDocument();
+    expect(getByTestId('ReposList')).toBeInTheDocument();
+    expect(getByTestId('SearchTools')).toBeInTheDocument();
+    expect(getByRole('search')).toBeInTheDocument();
+
+    const result = await promise;
+
+    expect(result.ids).toHaveLength(2);
+    const expected = [
+      'https://api.github.com/users/kripple',
+      'https://api.github.com/users/kripple/repos?per_page=85&page=1&sort=updated',
+    ];
+    result.ids.map((id) => {
+      const actual = result.entities[id];
+      expect(expected).includes(actual);
+    });
+  });
+
+  test('repos list is searchable', async () => {
+    const { findAllByTestId, getByRole, user } = render();
+    expect(await findAllByTestId('Repo')).toHaveLength(85);
+
+    const search = getByRole('search').closest('input');
+    if (!search) throw Error('expect input to be in the document');
+    await user.type(search, 'et');
+
+    await waitFor(async () => {
+      expect(search.value).toBe('et');
+      expect(await findAllByTestId('Repo')).toHaveLength(3);
+    });
+  });
+
+  test('select a repo', async () => {
+    const { findAllByTestId, queryByRole, user } = render();
+
+    const list = await findAllByTestId('Repo');
+    const repo = random(list);
+    const button: HTMLButtonElement | undefined | null = repo?.querySelector(
+      `button[data-testid="SelectRepoButton"]`,
+    );
+    if (!repo || !button) throw Error('something went wrong');
+    expect(repo).not.toHaveClass('selected');
+    expect(queryByRole('search')).toBeInTheDocument();
+    user.click(button);
+
+    // check that it is expanded
+    await waitFor(async () => {
+      expect(repo).toHaveClass('selected');
+    });
+
+    // check that search bar is hidden
+    expect(queryByRole('search')).toBe(null);
+
+    // click on close button
+    const closeButton: HTMLButtonElement | null = repo.querySelector(
+      `button[data-testid="CloseButton"]`,
+    );
+    if (!closeButton) throw Error('something went wrong');
+    user.click(closeButton);
+
+    // check that it is no longer expanded
+    await waitFor(async () => {
+      expect(repo).not.toHaveClass('selected');
+    });
+
+    // check that search bar is visible
+    expect(queryByRole('search')).toBeInTheDocument();
+  });
 });

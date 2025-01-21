@@ -2,28 +2,32 @@ import { HttpResponse, delay, http, passthrough } from 'msw';
 
 import { ErrorResponse } from '@/api/errorResponse';
 import { imageData } from '@/data/avatar';
+import { languages } from '@/data/languages';
 import { isPage, pages } from '@/data/pages';
 import { profile } from '@/data/profile';
 import { repos } from '@/data/repos';
+import { test } from '@/utils/env';
 import { toArrayBuffer } from '@/utils/toArrayBuffer';
 
+const enabled = !test;
 const enable: { [key: string]: boolean } = {
-  // rateLimit: true,
-  // infiniteLoading: true,
-  // passthrough: true,
+  allowUnusedVars: enabled,
+  // delay: enabled,
+  // infiniteLoading: enabled,
+  // rateLimit: enabled,
+  // passthrough: enabled,
 };
 
 const passthroughHandler = http.all('*', () => {
-  console.log('[MSW] Passthrough enabled.');
   return passthrough();
+});
+
+const delayHandler = http.all('*', async () => {
+  await delay(enable.infiniteLoading ? 'infinite' : 'real');
 });
 
 export const handlers = (() => {
   const items = [
-    http.all('*', async () => {
-      await delay(enable.infiniteLoading ? 'infinite' : 'real');
-    }),
-
     http.get('https://api.github.com/users/:username', () => {
       return enable.rateLimit
         ? ErrorResponse.RateLimit()
@@ -52,6 +56,15 @@ export const handlers = (() => {
       return HttpResponse.arrayBuffer(toArrayBuffer(imageData));
     }),
 
+    http.get(
+      'https://api.github.com/repos/:username/:repo/languages',
+      () => {
+        return enable.rateLimit
+          ? ErrorResponse.RateLimit()
+          : HttpResponse.json(languages);
+      },
+    ),
+
     // http.get('https://api.github.com/repos/:username/:name', ({ params }) => {
     //   if (enable.rateLimit) return ErrorResponse.RateLimit();
 
@@ -61,7 +74,12 @@ export const handlers = (() => {
     //   return HttpResponse.json(repos[name]);
     // }),
   ];
+  if (enable.delay) {
+    console.log('%c[MSW] Delay enabled.', 'color: red');
+    items.unshift(delayHandler);
+  }
   if (enable.passthrough) {
+    console.log('%c[MSW] Passthrough enabled.', 'color: red');
     items.unshift(passthroughHandler);
   }
   return items;
