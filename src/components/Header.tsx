@@ -7,7 +7,7 @@ export function Header({ id }: { id: string }) {
     <header className="header">
       <div className="contents">
         <label
-          aria-hidden="true"
+          aria-label="theme toggle"
           className="theme-toggle-label"
           htmlFor={id}
           tabIndex={0}

@@ -32,7 +32,7 @@ export function Theme() {
   return (
     <>
       <input
-        aria-label="theme toggle"
+        aria-hidden={true}
         defaultChecked={savedTheme === 'light'}
         id={id}
         onChange={onChange}
