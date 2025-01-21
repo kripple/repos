@@ -9,7 +9,7 @@
     "postbuild": "rm docs/mockServiceWorker.js",
     "lint": "eslint . && stylelint '**/*.css' && prettier --check .",
     "preview": "vite preview",
-    "test": "vitest run",
+    "test": "vitest run --disable-console-intercept",
     "report": "vitest run --coverage",
     "redraw": "tsx src/utils/redrawSvg"
   },
