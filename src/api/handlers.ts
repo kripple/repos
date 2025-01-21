@@ -28,6 +28,10 @@ const delayHandler = http.all('*', async () => {
 
 export const handlers = (() => {
   const items = [
+    http.get('/repos/', () => {
+      return passthrough();
+    }),
+
     http.get('https://api.github.com/users/:username', () => {
       return enable.rateLimit
         ? ErrorResponse.RateLimit()
