@@ -78,7 +78,6 @@ export function ReposList({ itemsMax }: { itemsMax?: number }) {
   return (
     <div className="repos-list" data-testid="ReposList">
       <SearchTools
-        searchTerm={searchTerm}
         selectedRepo={selectedRepo}
         setSearchTerm={setSearchTerm}
         showLinks={showLinks}
