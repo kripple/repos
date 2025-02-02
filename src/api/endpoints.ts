@@ -8,7 +8,6 @@ import type { Language, Profile, Repo } from '@/api/types';
 /**
  * TODO:
  *
- * add testing
  * make icons buttons into buttons with words
  * turn the sort buttons into a joined toggle button
  * add db
