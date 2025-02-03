@@ -3,10 +3,8 @@ import { useCallback } from 'react';
 
 import type { Repo as RepoType } from '@/api/types';
 import { Highlight } from '@/components/Highlight';
+import { SelectedRepo } from '@/components/SelectedRepo';
 import { SvgIcon } from '@/components/SvgIcon';
-import { Text } from '@/components/Text';
-import { TextLink } from '@/components/TextLink';
-import { useLanguages } from '@/hooks/useLanguages';
 import { format } from '@/utils/format';
 
 import '@/components/repo.css';
@@ -19,44 +17,38 @@ export function Repo({
   selected,
   setSelected,
 }: {
-  data: RepoType;
-  hide?: boolean;
+  data?: RepoType;
+  hide: boolean;
   highlight?: string;
   order: number;
   showLink?: boolean;
   selected?: boolean;
-  setSelected: SetState<string | undefined>;
+  setSelected?: SetState<string | undefined>;
 }) {
-  const {
-    id,
-    name,
-    html_url,
-    description,
-    created_at,
-    updated_at,
-    homepage,
-    language,
-    has_pages,
-    license,
-    default_branch,
-  } = data;
-  const { currentData } = useLanguages(name, { selected });
-  const languages = currentData ? Object.keys(currentData) : undefined;
-  const pagesUrl = `https://kellyripple.com/${name}`;
+  const { id, name, has_pages, updated_at } = data
+    ? data
+    : {
+        id: -1,
+      };
+  const pagesUrl =
+    has_pages && name ? `https://kellyripple.com/${name}` : undefined;
   const showPagesLinkButton = has_pages && showLink;
 
-  const selectRepo = useCallback((event: ClickEvent) => {
-    setSelected(event.currentTarget.value);
-  }, []);
+  const selectRepo = useCallback(
+    (event: ClickEvent) => {
+      setSelected?.(event.currentTarget.value);
+    },
+    [setSelected],
+  );
 
   const deselectRepo = useCallback(() => {
-    setSelected(undefined);
-  }, []);
+    setSelected?.(undefined);
+  }, [setSelected]);
 
-  if (hide) return null;
-  return (
-    <div className={classNames('repo', { selected })} data-testid="Repo">
-      {!selected && showPagesLinkButton ? (
+  // memoize?
+  const shared = (
+    <>
+      {showPagesLinkButton ? (
         <a
           className="repo-link-button"
           href={pagesUrl}
@@ -67,57 +59,40 @@ export function Repo({
           <SvgIcon icon="link" />
         </a>
       ) : null}
-
       <button
         className="repo-title"
         data-testid="SelectRepoButton"
+        disabled={!name || !setSelected || id < 0}
         onClick={selectRepo}
         value={id}
       >
-        <Highlight highlight={highlight} name={name} />
+        <Highlight highlight={highlight} name={name || ''} />
       </button>
+      <button
+        className="repo-data-button"
+        disabled={!setSelected}
+        onClick={selectRepo}
+        value={id}
+      >
+        {updated_at ? format(updated_at) : 'MM/DD/YY'}
+      </button>
+    </>
+  );
 
-      {!selected ? (
-        <button className="repo-data-button" onClick={selectRepo} value={id}>
-          {format(updated_at)}
-        </button>
-      ) : null}
-
-      {selected ? (
-        <div className="repo-details">
-          <Text label="Description">{description}</Text>
-          <Text
-            label={languages && languages.length > 1 ? 'Languages' : 'Language'}
-          >
-            {languages ? languages.join(', ') : language}
-          </Text>
-          <TextLink label="License" url={license?.url}>
-            {license?.name}
-          </TextLink>
-          <TextLink label="Pages Site" url={has_pages ? pagesUrl : undefined}>
-            {pagesUrl?.replace('https://', '')}
-          </TextLink>
-          <TextLink label="Website" url={homepage}>
-            {homepage?.replace('https://', '')}
-          </TextLink>
-          <Text label="Default Branch">{default_branch}</Text>
-          <Text label="Created On">{created_at}</Text>
-          <Text label="Last Updated">{updated_at}</Text>
-          <TextLink icon="octocat" url={html_url}>
-            View on Github
-          </TextLink>
-        </div>
-      ) : null}
-
-      {selected ? (
-        <button
-          className="close-button"
-          data-testid="CloseButton"
-          onClick={deselectRepo}
+  if (hide) return null;
+  return (
+    <div className={classNames('repo', { selected })} data-testid="Repo">
+      {data && selected ? (
+        <SelectedRepo
+          data={data}
+          deselectRepo={deselectRepo}
+          pagesUrl={pagesUrl}
         >
-          <SvgIcon icon="close" />
-        </button>
-      ) : null}
+          {shared}
+        </SelectedRepo>
+      ) : (
+        shared
+      )}
     </div>
   );
 }

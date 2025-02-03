@@ -11,6 +11,8 @@ import '@/components/repos-list.css';
 
 export function ReposList({ itemsMax }: { itemsMax?: number }) {
   if (itemsMax === 0) throw Error('no.');
+  const placeholder = 'placeholder' as const;
+  const empty: { [key in string]?: undefined } = {} as const;
 
   // filter
   const [searchTerm, setSearchTerm] = useState<string>();
@@ -49,9 +51,13 @@ export function ReposList({ itemsMax }: { itemsMax?: number }) {
   }, [sortKey, ids, sortedByUpdatedAt]);
 
   const displayIds =
-    sortedIds && sortDirection === 'reverse'
-      ? [...sortedIds].reverse()
-      : sortedIds;
+    itemsMax && sortedIds.length < itemsMax
+      ? itemsMax
+        ? Array.from({ length: itemsMax }, () => placeholder)
+        : []
+      : sortedIds && sortDirection === 'reverse'
+        ? [...sortedIds].reverse()
+        : sortedIds;
 
   const sortByAlphabet = useCallback(() => {
     if (sortKey === 'name') {
@@ -87,21 +93,23 @@ export function ReposList({ itemsMax }: { itemsMax?: number }) {
         toggleShowLinks={toggleShowLinks}
       />
 
-      {displayIds?.map((id, index) => {
-        const repo = repos[id];
+      {displayIds.map((id, index) => {
+        const repo = id === placeholder ? undefined : repos[id];
+        const repoData = repo || empty;
         const selected = id.toString() === selectedRepo;
         const match =
           searchTerm &&
-          repo.name.toLowerCase().includes(searchTerm.toLowerCase());
+          repoData.name?.toLowerCase().includes(searchTerm.toLowerCase());
         const hide =
-          (Boolean(searchTerm) && !match) || (showLinks && !repo.has_pages);
+          (Boolean(searchTerm) && !match) || (showLinks && !repoData.has_pages);
+        const key = repoData.name || `${placeholder}-${index}`;
 
         return (
           <Repo
             data={repo}
             hide={hide}
             highlight={match ? searchTerm : undefined}
-            key={repo.name}
+            key={key}
             order={index}
             selected={selected}
             setSelected={setSelectedRepo}
