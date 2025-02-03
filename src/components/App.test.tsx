@@ -71,43 +71,6 @@ describe('App', () => {
     });
   });
 
-  test('select a repo', async () => {
-    const { findAllByTestId, queryByRole, user } = render();
-
-    const list = await findAllByTestId('Repo');
-    const repo = random(list);
-    const button: HTMLButtonElement | undefined | null = repo?.querySelector(
-      `button[data-testid="SelectRepoButton"]`,
-    );
-    if (!repo || !button) throw Error('something went wrong');
-    expect(repo).not.toHaveClass('selected');
-    expect(queryByRole('search')).toBeInTheDocument();
-    user.click(button);
-
-    // check that it is expanded
-    await waitFor(async () => {
-      expect(repo).toHaveClass('selected');
-    });
-
-    // check that search bar is hidden
-    expect(queryByRole('search')).toBe(null);
-
-    // click on close button
-    const closeButton: HTMLButtonElement | null = repo.querySelector(
-      `button[data-testid="CloseButton"]`,
-    );
-    if (!closeButton) throw Error('something went wrong');
-    user.click(closeButton);
-
-    // check that it is no longer expanded
-    await waitFor(async () => {
-      expect(repo).not.toHaveClass('selected');
-    });
-
-    // check that search bar is visible
-    expect(queryByRole('search')).toBeInTheDocument();
-  });
-
   test('input is persisted', async () => {
     const { findAllByTestId, queryByRole, user } = render();
 
@@ -123,6 +86,8 @@ describe('App', () => {
     if (!repo || !button) throw Error('something went wrong');
     expect(repo).not.toHaveClass('selected');
     expect(queryByRole('search')).toBeInTheDocument();
+
+    expect(button).toBeEnabled();
     user.click(button);
 
     // check that it is expanded

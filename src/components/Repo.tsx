@@ -23,7 +23,7 @@ export function Repo({
   order: number;
   showLink?: boolean;
   selected?: boolean;
-  setSelected?: SetState<string | undefined>;
+  setSelected: SetState<string | undefined>;
 }) {
   const { id, name, has_pages, updated_at } = data
     ? data
@@ -62,7 +62,7 @@ export function Repo({
       <button
         className="repo-title"
         data-testid="SelectRepoButton"
-        disabled={!name || !setSelected || id < 0}
+        disabled={!name || id < 0}
         onClick={selectRepo}
         value={id}
       >
@@ -70,7 +70,7 @@ export function Repo({
       </button>
       <button
         className="repo-data-button"
-        disabled={!setSelected}
+        disabled={!name || id < 0}
         onClick={selectRepo}
         value={id}
       >
