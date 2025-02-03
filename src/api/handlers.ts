@@ -11,12 +11,18 @@ import { toArrayBuffer } from '@/utils/toArrayBuffer';
 
 const enabled = !test;
 const enable: { [key: string]: boolean } = {
-  allowUnusedVars: enabled,
   // delay: enabled,
   // infiniteLoading: enabled,
   // rateLimit: enabled,
   // passthrough: enabled,
 };
+if (enabled && Object.keys(enable).length > 0) {
+  console.debug(
+    `[MSW] Current handler options: ${Object.keys(enable)
+      .filter((key) => enable[key])
+      .join(', ')}`,
+  );
+}
 
 const passthroughHandler = http.all('*', () => {
   return passthrough();
@@ -38,22 +44,27 @@ export const handlers = (() => {
         : HttpResponse.json(profile);
     }),
 
-    http.get('https://api.github.com/users/:username/repos', ({ request }) => {
-      if (enable.rateLimit) return ErrorResponse.RateLimit();
+    http.get(
+      'https://api.github.com/users/:username/repos',
+      async ({ request }) => {
+        if (enable.rateLimit) return ErrorResponse.RateLimit();
 
-      const url = new URL(request.url); // search params
-      const page = url.searchParams.get('page');
-      if (!isPage(page)) return ErrorResponse.NotFound();
+        enabled && (await delay(2500));
 
-      const currentPage = pages[page];
-      const itemsPerPage = url.searchParams.get('per_page') || '0';
+        const url = new URL(request.url); // search params
+        const page = url.searchParams.get('page');
+        if (!isPage(page)) return ErrorResponse.NotFound();
 
-      if (page === '1' && parseInt(itemsPerPage) > currentPage.length) {
-        return HttpResponse.json(Object.values(repos));
-      } else {
-        return HttpResponse.json(pages[page]);
-      }
-    }),
+        const currentPage = pages[page];
+        const itemsPerPage = url.searchParams.get('per_page') || '0';
+
+        if (page === '1' && parseInt(itemsPerPage) > currentPage.length) {
+          return HttpResponse.json(Object.values(repos));
+        } else {
+          return HttpResponse.json(pages[page]);
+        }
+      },
+    ),
 
     http.get('https://avatars.githubusercontent.com/u/11916341', () => {
       if (enable.rateLimit) return ErrorResponse.RateLimit();
