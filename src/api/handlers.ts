@@ -34,7 +34,7 @@ const delayHandler = http.all('*', async () => {
 
 export const handlers = (() => {
   const items = [
-    http.get('/repos/', () => {
+    http.get('/repos/*', () => {
       return passthrough();
     }),
 
