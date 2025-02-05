@@ -8,7 +8,7 @@ export type Profile = {
   public_repos: number;
 };
 
-export type Language = {
+export type Languages = {
   [key: string]: number;
 };
 
