@@ -5,18 +5,6 @@ import { reposAdapter } from '@/api/adapters';
 import { baseQuery } from '@/api/baseQuery';
 import type { Language, Profile, Repo } from '@/api/types';
 
-/**
- * TODO:
- *
- * make icons buttons into buttons with words
- * turn the sort buttons into a joined toggle button
- * add db
- * add fallback api
- * investigate using async-mutex to lock requests until rate limit is reset
- * sort repos by size
- * sort repo languages by size
- */
-
 export const api = createApi({
   baseQuery,
   endpoints: (build) => ({
