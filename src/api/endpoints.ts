@@ -8,6 +8,12 @@ import type { Language, Profile, Repo } from '@/api/types';
 export const api = createApi({
   baseQuery,
   endpoints: (build) => ({
+    getLanguages: build.query<Language, { repo: string; username: string }>({
+      query: ({ repo, username }) => `/repos/${username}/${repo}/languages`,
+    }),
+    getProfile: build.query<Profile, { username: string }>({
+      query: ({ username }) => `/users/${username}`,
+    }),
     getRepos: build.query<
       EntityState<Repo, number>,
       { itemsPerPage: number; page: number; username: string }
@@ -17,12 +23,6 @@ export const api = createApi({
       transformResponse(response: Repo[]) {
         return reposAdapter.addMany(reposAdapter.getInitialState(), response);
       },
-    }),
-    getLanguages: build.query<Language, { repo: string; username: string }>({
-      query: ({ repo, username }) => `/repos/${username}/${repo}/languages`,
-    }),
-    getProfile: build.query<Profile, { username: string }>({
-      query: ({ username }) => `/users/${username}`,
     }),
   }),
 });
