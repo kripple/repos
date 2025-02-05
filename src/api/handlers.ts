@@ -38,6 +38,10 @@ export const handlers = (() => {
       return passthrough();
     }),
 
+    http.get(`${import.meta.env.VITE_CLOUDFLARE_WORKER_URL}/*`, () => {
+      return passthrough();
+    }),
+
     http.get('https://api.github.com/users/:username', () => {
       return enable.rateLimit
         ? ErrorResponse.RateLimit()
