@@ -8,12 +8,20 @@
   width: var(--profile-height);
 }
 
-.avatar .image {
-  background-position: center;
-  background-size: var(--image-size) var(--image-size);
+.image-frame {
+  align-items: center;
+  display: flex;
   height: var(--frame-size);
+  justify-content: center;
+  overflow: hidden;
   position: relative;
   width: var(--frame-size);
+}
+
+.image {
+  border-radius: 50%;
+  height: var(--image-size);
+  width: var(--image-size);
 }
 
 .circle-crop {

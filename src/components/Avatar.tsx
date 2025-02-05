@@ -2,33 +2,45 @@ import classNames from 'classnames';
 import { useCallback, useState } from 'react';
 
 import fallbackImage from '@/assets/avatar.png';
+import { Image } from '@/components/Image';
 import { useProfile } from '@/hooks/useProfile';
 
 import '@/components/avatar.css';
 
 export function Avatar() {
-  const { currentData, isLoading } = useProfile();
+  const { currentData, isLoading: profileIsLoading } = useProfile();
   const avatarUrl = currentData?.avatar_url;
-  const url = !isLoading && !avatarUrl ? fallbackImage : avatarUrl;
 
   const [lastShimmer, setLastShimmer] = useState<boolean>(false);
-  const loaded = Boolean(!isLoading && url && lastShimmer);
-
-  const backgroundImage = loaded ? `url(${url})` : undefined;
+  const [isLoadingImage, setIsLoadingImage] = useState<boolean>(true);
 
   const unveil = useCallback(() => {
     setLastShimmer(true);
   }, []);
 
   return (
-    <div className="avatar" data-loaded={!isLoading} data-testid="Avatar">
-      <div className="circle-crop fancy-hover-effect">
-        <div className="image" style={{ backgroundImage }}>
+    <div
+      className="avatar"
+      data-loaded={!profileIsLoading}
+      data-testid="Avatar"
+    >
+      <div className="circle-crop">
+        <div className="image-frame">
+          {avatarUrl ? (
+            <Image
+              className="image"
+              fallback={fallbackImage}
+              setIsLoading={setIsLoadingImage}
+              src={avatarUrl}
+            ></Image>
+          ) : null}
           <div
-            className={classNames('avatar-shimmer', { loaded })}
+            className={classNames('avatar-shimmer', {
+              loaded: !isLoadingImage && lastShimmer,
+            })}
             data-testid="AvatarShimmer"
             onAnimationIteration={
-              !isLoading && !lastShimmer ? unveil : undefined
+              !profileIsLoading && !lastShimmer ? unveil : undefined
             }
           ></div>
         </div>
