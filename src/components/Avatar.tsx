@@ -28,6 +28,7 @@ export function Avatar() {
         <div className="image-frame">
           {avatarUrl ? (
             <Image
+              alt="Avatar"
               className="image"
               fallback={fallbackImage}
               setIsLoading={setIsLoadingImage}

@@ -24,6 +24,7 @@ export function Image({
   src,
   ...props
 }: {
+  alt: string;
   className?: string;
   fallback: string;
   setIsLoading: SetState<boolean>;
@@ -40,20 +41,27 @@ export function Image({
     }
   }, [imageIsLoaded, fallbackIsLoaded]);
 
+  const shared = {
+    ...props,
+    role: 'img',
+  };
+
   return (
     <>
       {image.isLoading || fallbackImage.isError || imageIsLoaded ? null : (
         <img
+          data-loaded={imageIsLoaded}
           src={fallback}
-          {...props}
+          {...shared}
           onError={fallbackImage.onError}
           onLoad={fallbackImage.onLoad}
         ></img>
       )}
       {image.isError ? null : (
         <img
+          data-loaded={fallbackIsLoaded}
           src={src}
-          {...props}
+          {...shared}
           onError={image.onError}
           onLoad={image.onLoad}
         ></img>
