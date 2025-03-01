@@ -31,7 +31,7 @@ export function Repo({
         id: -1,
       };
   const pagesUrl =
-    has_pages && name ? `https://kellyripple.com/${name}` : undefined;
+    has_pages && name ? `https://kripple.github.io/${name}` : undefined;
   const showPagesLinkButton = has_pages && showLink;
 
   const selectRepo = useCallback(

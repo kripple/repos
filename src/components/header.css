@@ -26,3 +26,7 @@
   background-color: var(--hover-color);
   border-color: var(--hover-border-color);
 }
+
+.theme-toggle-label {
+  cursor: pointer;
+}
