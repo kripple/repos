@@ -1,6 +1,6 @@
 .profile {
   border: 1px solid var(--border-color);
-  border-radius: 6px;
+  border-radius: var(--border-radius);
   display: flex;
   flex-wrap: wrap;
   gap: var(--offset);
