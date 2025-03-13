@@ -16,7 +16,7 @@ export function SvgIcon({
   id?: string;
   size?: keyof typeof Size;
 }) {
-  const drawPath = Svg[icon];
+  const { drawPath, viewBox } = Svg[icon];
   const size = sizeKey ? Size[sizeKey] : Size.small;
 
   return (
@@ -26,8 +26,7 @@ export function SvgIcon({
       focusable="false"
       height={size}
       id={id}
-      viewBox="0 0 24 24"
-      width={size}
+      viewBox={viewBox}
     >
       <path d={drawPath}></path>
     </svg>
