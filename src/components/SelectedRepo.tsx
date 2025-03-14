@@ -3,7 +3,6 @@ import { SvgIcon } from '@/components/SvgIcon';
 import { Text } from '@/components/Text';
 import { TextLink } from '@/components/TextLink';
 import { useLanguages } from '@/hooks/useLanguages';
-import { useOnKeyDown } from '@/hooks/useOnKeyDown';
 import { formatDateTime } from '@/utils/format';
 
 export function SelectedRepo({
@@ -29,7 +28,6 @@ export function SelectedRepo({
     default_branch,
   } = data;
   const { currentData } = useLanguages(name);
-  const onKeyDown = useOnKeyDown();
   const languages = currentData ? Object.keys(currentData) : undefined;
 
   return (
@@ -62,7 +60,8 @@ export function SelectedRepo({
       <button
         className="close-button"
         data-testid="CloseButton"
-        disabled={true}
+        onClick={deselectRepo}
+        tabIndex={-1}
       >
         <SvgIcon icon="close" />
       </button>

@@ -92,6 +92,7 @@ button.repo-title {
 }
 
 .repo-title {
+  border-radius: inherit;
   color: var(--text-color);
   display: flex;
   flex-direction: column;
@@ -99,9 +100,14 @@ button.repo-title {
   font-family: 'Courier New', Courier, monospace;
   font-size: inherit;
   gap: 4px;
-  /* padding-left: 25px; */
   white-space: wrap;
   word-break: break-all;
+}
+
+.repo.loading {
+  flex-grow: 0;
+  height: 40px;
+  width: 40px;
 }
 
 .repo.selected .repo-title {
@@ -118,8 +124,6 @@ button.repo-title {
   font-weight: bold;
   justify-content: center;
   line-height: inherit;
-  /* padding-left: 45px;
-  padding-right: 45px; */
 }
 
 .repo-details {

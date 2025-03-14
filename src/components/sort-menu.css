@@ -1,0 +1,62 @@
+:root {
+  --menu-border-color: #333333cc;
+}
+
+.sort-menu {
+  background-color: white;
+  border: 1px solid var(--menu-border-color);
+  border-radius: var(--border-radius);
+  box-shadow:
+    rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  width: 298px;
+  z-index: 1;
+}
+
+.sort-menu-title {
+  font-weight: 600;
+}
+
+.sort-menu-item {
+  align-items: center;
+  display: flex;
+  height: 36px;
+  justify-content: space-between;
+  list-style: none;
+  padding: 0;
+  padding-left: 16px;
+}
+
+.sort-menu-item + .sort-menu-item {
+  border-top: 1px solid var(--menu-border-color);
+}
+
+.sort-menu-item:not(.sort-menu-title) {
+  padding-left: 40px;
+}
+
+button.close-sort-menu {
+  background-color: transparent;
+  border-radius: var(--border-radius);
+  border-style: none;
+  padding: 12px;
+}
+
+.close-sort-menu {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+}
+
+.close-sort-menu svg {
+  color: black;
+  height: 12px;
+  width: 12px;
+}

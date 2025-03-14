@@ -1,6 +1,7 @@
 import classNames from 'classnames';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
+import { SortMenu } from '@/components/SortMenu';
 import { SvgIcon } from '@/components/SvgIcon';
 import { useFocus } from '@/hooks/useFocus';
 import { useOnKeyDown } from '@/hooks/useOnKeyDown';
@@ -30,6 +31,10 @@ export function SearchTools({
     setSearchTerm(event.target.value);
   }, []);
 
+  const onClick = useCallback(() => setShowMenu((current) => !current), []);
+
+  const [showMenu, setShowMenu] = useState<boolean>(false);
+
   return (
     <div
       className="search-tools"
@@ -56,28 +61,11 @@ export function SearchTools({
           type="search"
         ></input>
       </div>
-      <div className="button-set">
-        <button className="sort-button" onKeyDown={onKeyDown}>
+      <div className="sort-tools">
+        <button className="sort-button" onClick={onClick} onKeyDown={onKeyDown}>
           Sort <SvgIcon icon="arrowDown" />
         </button>
-        {/* <button
-          className={classNames('filter-button', {
-            active: sortKey === 'name',
-          })}
-          onClick={sortByAlphabet}
-          title="sort by name"
-        >
-          <SvgIcon icon="sortByAlphabet" size="medium" />
-        </button> */}
-        {/* <button
-          className={classNames('filter-button', {
-            active: sortKey === 'updated_at',
-          })}
-          onClick={sortByTime}
-          title="sort by last updated"
-        >
-          <SvgIcon icon="sortByTime" size="medium" />
-        </button> */}
+        {showMenu ? <SortMenu closeMenu={onClick} /> : null}
       </div>
     </div>
   );

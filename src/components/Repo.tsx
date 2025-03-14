@@ -4,9 +4,9 @@ import { useCallback } from 'react';
 import type { Repo as RepoType } from '@/api/types';
 import { Highlight } from '@/components/Highlight';
 import { SelectedRepo } from '@/components/SelectedRepo';
-import { SvgIcon } from '@/components/SvgIcon';
+// import { SvgIcon } from '@/components/SvgIcon';
 import { useOnKeyDown } from '@/hooks/useOnKeyDown';
-import { formatDate } from '@/utils/format';
+// import { formatDate } from '@/utils/format';
 
 import '@/components/repo.css';
 
@@ -25,7 +25,13 @@ export function Repo({
   setSelected: SetState<string | undefined>;
 }) {
   const onKeyDown = useOnKeyDown();
-  const { id, name, has_pages, updated_at, html_url } = data
+  const {
+    id,
+    name,
+    has_pages,
+    //  updated_at,
+    // html_url,
+  } = data
     ? data
     : {
         id: -1,
@@ -92,7 +98,10 @@ export function Repo({
 
   if (hide) return null;
   return (
-    <div className={classNames('repo', { selected })} data-testid="Repo">
+    <div
+      className={classNames('repo', { selected, loading: !name })}
+      data-testid="Repo"
+    >
       {data && selected ? (
         <SelectedRepo
           data={data}
