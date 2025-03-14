@@ -3,6 +3,7 @@ import { useCallback } from 'react';
 
 import { SvgIcon } from '@/components/SvgIcon';
 import { useFocus } from '@/hooks/useFocus';
+import { useOnKeyDown } from '@/hooks/useOnKeyDown';
 import type { SortKey } from '@/types/sorting';
 
 import '@/components/search-tools.css';
@@ -10,7 +11,6 @@ import '@/components/search-tools.css';
 export function SearchTools({
   selectedRepo,
   setSearchTerm,
-  showLinks,
   sortByAlphabet,
   sortByTime,
   sortKey,
@@ -18,7 +18,6 @@ export function SearchTools({
 }: {
   selectedRepo: string | undefined;
   setSearchTerm: SetState<string | undefined>;
-  showLinks: boolean;
   sortByAlphabet: () => void;
   sortByTime: () => void;
   sortKey: SortKey;
@@ -26,6 +25,7 @@ export function SearchTools({
 }) {
   const searchInputId = 'search' as const;
   const { hasFocus, onBlur, onFocus } = useFocus();
+  const onKeyDown = useOnKeyDown();
   const onChange = useCallback((event: ChangeEvent) => {
     setSearchTerm(event.target.value);
   }, []);
@@ -50,20 +50,17 @@ export function SearchTools({
           onBlur={onBlur}
           onChange={onChange}
           onFocus={onFocus}
+          onKeyDown={onKeyDown}
           placeholder={hasFocus ? undefined : 'Search'}
           role="search"
           type="search"
         ></input>
       </div>
       <div className="button-set">
-        <button
-          className={classNames('filter-button', { active: showLinks })}
-          onClick={toggleShowLinks}
-          title={showLinks ? 'show all projects' : 'show deployed projects'}
-        >
-          <SvgIcon icon="link" size="medium" />
+        <button className="sort-button" onKeyDown={onKeyDown}>
+          Sort <SvgIcon icon="arrowDown" />
         </button>
-        <button
+        {/* <button
           className={classNames('filter-button', {
             active: sortKey === 'name',
           })}
@@ -71,8 +68,8 @@ export function SearchTools({
           title="sort by name"
         >
           <SvgIcon icon="sortByAlphabet" size="medium" />
-        </button>
-        <button
+        </button> */}
+        {/* <button
           className={classNames('filter-button', {
             active: sortKey === 'updated_at',
           })}
@@ -80,7 +77,7 @@ export function SearchTools({
           title="sort by last updated"
         >
           <SvgIcon icon="sortByTime" size="medium" />
-        </button>
+        </button> */}
       </div>
     </div>
   );

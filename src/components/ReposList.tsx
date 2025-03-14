@@ -86,7 +86,6 @@ export function ReposList({ itemsMax }: { itemsMax?: number }) {
       <SearchTools
         selectedRepo={selectedRepo}
         setSearchTerm={setSearchTerm}
-        showLinks={showLinks}
         sortByAlphabet={sortByAlphabet}
         sortByTime={sortByTime}
         sortKey={sortKey}
@@ -113,7 +112,6 @@ export function ReposList({ itemsMax }: { itemsMax?: number }) {
             order={index}
             selected={selected}
             setSelected={setSelectedRepo}
-            showLink={showLinks}
           />
         );
       })}

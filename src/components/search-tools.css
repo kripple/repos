@@ -39,11 +39,12 @@
   fill: black;
 }
 
-.filter-button {
+.sort-button {
   align-items: center;
   background-color: var(--theme-color);
   border: 1px solid var(--border-color);
-  border-radius: 14px;
+  border-radius: var(--border-radius);
+  border-radius: 50px;
   box-shadow: var(--box-shadow);
   box-sizing: border-box;
   color: var(--text-color);
@@ -51,22 +52,24 @@
   display: flex;
   flex-shrink: 0;
   flex-wrap: nowrap;
-  font-size: 18px;
+  font-size: 16px;
+  gap: 8px;
   height: var(--button-size);
   justify-content: center;
   letter-spacing: 1px;
+  padding: 0 20px;
   user-select: none;
   white-space: nowrap;
-  width: var(--button-size);
+  /* width: var(--button-size); */
 }
-.filter-button svg {
+.sort-button svg {
   fill: var(--text-color);
 }
-.filter-button:hover {
+.sort-button:hover {
   background-color: var(--hover-color);
   border-color: var(--hover-border-color);
 }
-.filter-button.active {
+.sort-button.active {
   border-color: var(--title-color);
 }
 

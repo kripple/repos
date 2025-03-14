@@ -3,6 +3,8 @@ import { SvgIcon } from '@/components/SvgIcon';
 import { Text } from '@/components/Text';
 import { TextLink } from '@/components/TextLink';
 import { useLanguages } from '@/hooks/useLanguages';
+import { useOnKeyDown } from '@/hooks/useOnKeyDown';
+import { formatDateTime } from '@/utils/format';
 
 export function SelectedRepo({
   children,
@@ -27,6 +29,7 @@ export function SelectedRepo({
     default_branch,
   } = data;
   const { currentData } = useLanguages(name);
+  const onKeyDown = useOnKeyDown();
   const languages = currentData ? Object.keys(currentData) : undefined;
 
   return (
@@ -39,18 +42,19 @@ export function SelectedRepo({
         >
           {languages ? languages.join(', ') : language}
         </Text>
-        <TextLink label="License" url={license?.url}>
+        {/* <TextLink label="License" url={license?.url}>
           {license?.name}
-        </TextLink>
-        <TextLink label="Pages Site" url={pagesUrl}>
+        </TextLink> */}
+        <Text label="License">{license?.name}</Text>
+        <TextLink label="GitHub Pages URL" url={pagesUrl}>
           {pagesUrl?.replace('https://', '')}
         </TextLink>
-        <TextLink label="Website" url={homepage}>
+        <TextLink label="URL" url={homepage}>
           {homepage?.replace('https://', '')}
         </TextLink>
         <Text label="Default Branch">{default_branch}</Text>
-        <Text label="Created On">{created_at}</Text>
-        <Text label="Last Updated">{updated_at}</Text>
+        <Text label="Created On">{formatDateTime(created_at)}</Text>
+        <Text label="Last Updated">{formatDateTime(updated_at)}</Text>
         <TextLink icon="octocat" url={html_url}>
           View on Github
         </TextLink>
@@ -58,8 +62,7 @@ export function SelectedRepo({
       <button
         className="close-button"
         data-testid="CloseButton"
-        disabled={!deselectRepo}
-        onClick={deselectRepo}
+        disabled={true}
       >
         <SvgIcon icon="close" />
       </button>

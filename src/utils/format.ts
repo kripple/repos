@@ -1,7 +1,7 @@
-export const format = (string: string) =>
+export const formatDate = (string: string) =>
   new Date(string).toLocaleString('en-US', {
-    year: '2-digit',
-    month: '2-digit',
-    day: '2-digit',
-    hour12: false,
+    year: 'numeric',
+    month: 'long',
   });
+
+export const formatDateTime = (string: string) => string.substring(0, 10);

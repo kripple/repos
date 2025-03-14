@@ -26,7 +26,7 @@ a svg {
   fill: var(--text-color);
 }
 a:hover svg {
-  fill: var(--text-accent-color);
+  opacity: 1;
 }
 
 .app {
@@ -62,4 +62,11 @@ a:hover svg {
 .label,
 .text {
   flex-shrink: 0;
+}
+
+.text {
+  align-items: center;
+  display: flex;
+  font-size: 16px;
+  line-height: 16px;
 }
