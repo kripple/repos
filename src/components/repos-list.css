@@ -1,6 +1,8 @@
 .repos-list {
   display: flex;
+  flex-grow: 1;
   flex-wrap: wrap;
   gap: var(--gap);
+  justify-content: center;
   width: 100%;
 }

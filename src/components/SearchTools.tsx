@@ -10,17 +10,15 @@ import type { SortKey } from '@/types/sorting';
 import '@/components/search-tools.css';
 
 export function SearchTools({
-  selectedRepo,
+  // selectedRepo,
   setSearchTerm,
-  sortByAlphabet,
-  sortByTime,
+  setSortKey,
   sortKey,
-  toggleShowLinks,
+  // toggleShowLinks,
 }: {
   selectedRepo: string | undefined;
   setSearchTerm: SetState<string | undefined>;
-  sortByAlphabet: () => void;
-  sortByTime: () => void;
+  setSortKey: (value?: SortKey) => void;
   sortKey: SortKey;
   toggleShowLinks: () => void;
 }) {
@@ -33,14 +31,20 @@ export function SearchTools({
 
   const onClick = useCallback(() => setShowMenu((current) => !current), []);
 
+  const sortByName = useCallback(() => {
+    setSortKey('name');
+    setShowMenu(false);
+  }, []);
+
+  const sortByLastUpdated = useCallback(() => {
+    setSortKey('updated_at');
+    setShowMenu(false);
+  }, []);
+
   const [showMenu, setShowMenu] = useState<boolean>(false);
 
   return (
-    <div
-      className="search-tools"
-      data-testid="SearchTools"
-      style={selectedRepo ? { display: 'none' } : undefined}
-    >
+    <div className="search-tools" data-testid="SearchTools">
       <div
         className={classNames('search-bar', {
           'focus-visible': hasFocus,
@@ -65,7 +69,14 @@ export function SearchTools({
         <button className="sort-button" onClick={onClick} onKeyDown={onKeyDown}>
           Sort <SvgIcon icon="arrowDown" />
         </button>
-        {showMenu ? <SortMenu closeMenu={onClick} /> : null}
+        {showMenu ? (
+          <SortMenu
+            closeMenu={onClick}
+            sortByLastUpdated={sortByLastUpdated}
+            sortByName={sortByName}
+            sortKey={sortKey}
+          />
+        ) : null}
       </div>
     </div>
   );

@@ -1,47 +1,51 @@
 import classNames from 'classnames';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
+import { useInterval } from 'usehooks-ts';
 
 import type { Repo as RepoType } from '@/api/types';
+import { DateBadge } from '@/components/DateBadge';
 import { Highlight } from '@/components/Highlight';
-import { SelectedRepo } from '@/components/SelectedRepo';
 // import { SvgIcon } from '@/components/SvgIcon';
 import { useOnKeyDown } from '@/hooks/useOnKeyDown';
-// import { formatDate } from '@/utils/format';
 
 import '@/components/repo.css';
 
 export function Repo({
   data,
-  hide,
   highlight,
-  selected,
+  order,
+  repoCount,
+  // selected,
   setSelected,
 }: {
   data?: RepoType;
-  hide: boolean;
   highlight?: string;
   order: number;
+  repoCount: number;
   selected?: boolean;
   setSelected: SetState<string | undefined>;
 }) {
+  const [toggle, setToggle] = useState<boolean>(true);
+  const delay = 0.07 as const;
+  const duration = 0.6 as const;
   const onKeyDown = useOnKeyDown();
   const {
     id,
     name,
-    has_pages,
-    //  updated_at,
+    // has_pages,
+    updated_at,
     // html_url,
-  } = data
-    ? data
-    : {
-        id: -1,
-      };
-  const pagesUrl =
-    name === 'kripple.github.io'
-      ? 'https://kripple.github.io'
-      : has_pages && name
-        ? `https://kripple.github.io/${name}`
-        : undefined;
+  } = data ? data : {};
+  const loading = !name;
+  
+
+  const ms = (delay * repoCount + duration * 2) * 1000;
+  useInterval(
+    () => {
+      setToggle((value) => !value);
+    },
+    loading ? ms : null,
+  );
 
   const selectRepo = useCallback(
     (event: ClickEvent) => {
@@ -50,13 +54,20 @@ export function Repo({
     [setSelected],
   );
 
-  const deselectRepo = useCallback(() => {
-    setSelected?.(undefined);
-  }, [setSelected]);
+  // const deselectRepo = useCallback(() => {
+  //   setSelected?.(undefined);
+  // }, [setSelected]);
 
-  // memoize?
-  const shared = (
-    <>
+  return (
+    <div
+      className={classNames('repo', { loading })}
+      data-testid="Repo"
+      style={{
+        animationName: toggle ? 'bounce' : 'bounce-repeat',
+        animationDelay: `${delay * order}s`,
+        animationDuration: `${duration}s`,
+      }}
+    >
       {/* <a
         className="repo-source-button"
         href={html_url}
@@ -70,16 +81,16 @@ export function Repo({
       <button
         className="repo-title"
         data-testid="SelectRepoButton"
-        disabled={!name || id < 0}
-        onClick={selected ? deselectRepo : selectRepo}
+        disabled={!name || !id}
+        onClick={selectRepo}
         onKeyDown={onKeyDown}
         tabIndex={0}
         value={id}
       >
+        <div className="repo-date">
+          <DateBadge date={updated_at} />
+        </div>
         <Highlight highlight={highlight} name={name || ''} />
-        {/* <div className="repo-date">
-          {updated_at ? formatDate(updated_at) : 'MM/DD/YY'}
-        </div> */}
       </button>
       {/* {pagesUrl ? (
         <a
@@ -93,26 +104,6 @@ export function Repo({
           <SvgIcon icon="link" />
         </a>
       ) : null} */}
-    </>
-  );
-
-  if (hide) return null;
-  return (
-    <div
-      className={classNames('repo', { selected, loading: !name })}
-      data-testid="Repo"
-    >
-      {data && selected ? (
-        <SelectedRepo
-          data={data}
-          deselectRepo={deselectRepo}
-          pagesUrl={pagesUrl}
-        >
-          {shared}
-        </SelectedRepo>
-      ) : (
-        shared
-      )}
     </div>
   );
 }

@@ -1,10 +1,12 @@
 import { useCallback, useMemo, useState } from 'react';
 
+import type { Repo as RepoType } from '@/api/types';
 import { Repo } from '@/components/Repo';
 import { SearchTools } from '@/components/SearchTools';
+import { SelectedRepo } from '@/components/SelectedRepo';
 import { useDefaultValue } from '@/hooks/useDefaultValue';
 import { useRepos } from '@/hooks/useRepos';
-import type { SortDirection, SortKey } from '@/types/sorting';
+import type { SortKey } from '@/types/sorting';
 import { sortByKey } from '@/utils/sort';
 
 import '@/components/repos-list.css';
@@ -13,11 +15,12 @@ export function ReposList({ itemsMax }: { itemsMax?: number }) {
   if (itemsMax === 0) throw Error('no.');
   const placeholder = 'placeholder' as const;
   const empty: { [key in string]?: undefined } = {} as const;
-
-  // filter
-  const [searchTerm, setSearchTerm] = useState<string>();
   const [selectedRepo, setSelectedRepo] = useState<string>();
 
+  // search
+  const [searchTerm, setSearchTerm] = useState<string>();
+
+  // filter
   const [showLinks, setShowLinks] = useState<boolean>(false);
   const toggleShowLinks = useCallback(() => {
     setShowLinks((current) => !current);
@@ -25,7 +28,6 @@ export function ReposList({ itemsMax }: { itemsMax?: number }) {
 
   // sort
   const [sortKey, _setSortKey] = useState<SortKey>('updated_at');
-  const [sortDirection, setSortDirection] = useState<SortDirection>('initial');
   const setSortKey = useCallback((value?: SortKey) => {
     _setSortKey(value || 'name');
   }, []);
@@ -55,61 +57,68 @@ export function ReposList({ itemsMax }: { itemsMax?: number }) {
       ? itemsMax
         ? Array.from({ length: itemsMax }, () => placeholder)
         : []
-      : sortedIds && sortDirection === 'reverse'
-        ? [...sortedIds].reverse()
-        : sortedIds;
+      : sortedIds;
 
-  const sortByAlphabet = useCallback(() => {
-    if (sortKey === 'name') {
-      setSortDirection((current) =>
-        current === 'initial' ? 'reverse' : 'initial',
-      );
-    } else {
-      setSortKey('name');
-      setSortDirection('initial');
-    }
-  }, [sortKey]);
+  const filtered = displayIds.filter((id) => {
+    const repo = id === placeholder ? undefined : repos[id];
+    const repoData = repo || empty;
+    const match =
+      searchTerm &&
+      repoData.name?.toLowerCase().includes(searchTerm.toLowerCase());
+    const hide =
+      (Boolean(searchTerm) && !match) || (showLinks && !repoData.has_pages);
+    return !hide;
+  });
 
-  const sortByTime = useCallback(() => {
-    if (sortKey === 'updated_at') {
-      setSortDirection((current) =>
-        current === 'initial' ? 'reverse' : 'initial',
-      );
-    } else {
-      setSortKey('updated_at');
-      setSortDirection('initial');
-    }
-  }, [sortKey]);
+  const selectedRepoData = filtered.reduce(
+    (result, id) => {
+      if (
+        selectedRepo &&
+        id !== placeholder &&
+        id.toString() === selectedRepo
+      ) {
+        result = repos[id];
+      }
+      return result;
+    },
+    undefined as RepoType | undefined,
+  );
+
+  const deselectRepo = useCallback(() => {
+    setSelectedRepo(undefined);
+  }, []);
 
   return (
     <div className="repos-list" data-testid="ReposList">
+      {selectedRepoData ? (
+        <SelectedRepo data={selectedRepoData} deselectRepo={deselectRepo} />
+      ) : null}
+
       <SearchTools
         selectedRepo={selectedRepo}
         setSearchTerm={setSearchTerm}
-        sortByAlphabet={sortByAlphabet}
-        sortByTime={sortByTime}
+        setSortKey={setSortKey}
         sortKey={sortKey}
         toggleShowLinks={toggleShowLinks}
       />
 
-      {displayIds.map((id, index) => {
+      {filtered.map((id, index) => {
         const repo = id === placeholder ? undefined : repos[id];
         const repoData = repo || empty;
         const selected = id.toString() === selectedRepo;
         const match =
           searchTerm &&
           repoData.name?.toLowerCase().includes(searchTerm.toLowerCase());
-        const hide =
-          (Boolean(searchTerm) && !match) || (showLinks && !repoData.has_pages);
-        const key = repoData.name || `${placeholder}-${index}`;
+        const order = index + 1;
+        const key = repoData.name || `${placeholder}-${order}`;
 
         return (
           <Repo
             data={repo}
-            hide={hide}
             highlight={match ? searchTerm : undefined}
             key={key}
-            order={index}
+            order={order}
+            repoCount={displayIds.length}
             selected={selected}
             setSelected={setSelectedRepo}
           />

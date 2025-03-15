@@ -3,7 +3,8 @@ body,
 #root,
 .theme {
   box-sizing: border-box;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   margin: 0;
   min-height: 100vh;
   padding: 0;
@@ -30,7 +31,7 @@ html {
   --line-height: calc(var(--font-size) + 2px);
   --button-size: 44px;
 }
-@media screen and (max-width: 400px) {
+/* @media screen and (max-width: 400px) {
   :root {
     --padding: 12px;
   }
@@ -42,7 +43,7 @@ html {
     --profile-height: 149px;
     --button-size: 36px;
   }
-}
+} */
 
 :root {
   --lavender: #d6e3f8;
@@ -63,14 +64,11 @@ html {
   --ecru: #d7b377;
   --flax: #ecdd7b;
   --night: #0f1214;
+  --risd-blue: #0059ff;
 
   /* these are used to set the html background-color */
   --dark-mode: var(--night);
   --light-mode: rgba(255, 255, 255, 0.8);
-}
-
-html {
-  background-color: var(--test);
 }
 
 .theme {

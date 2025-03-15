@@ -29,8 +29,8 @@ a:hover svg {
   opacity: 1;
 }
 
-.app {
-  grid-template-rows: max-content 1fr max-content;
+.main {
+  flex-grow: 1;
 }
 
 .footer {
@@ -69,4 +69,52 @@ a:hover svg {
   display: flex;
   font-size: 16px;
   line-height: 16px;
+}
+
+.button-primary,
+.button-secondary,
+.button-tertiary {
+  align-items: center;
+  border-radius: 999px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  font-size: 12px;
+  font-weight: bold;
+  justify-content: center;
+  padding: 6px 14px;
+  text-transform: uppercase;
+}
+
+.button-primary {
+  background-color: var(--risd-blue);
+  border: 1px solid var(--risd-blue);
+  color: white;
+}
+.button-primary:hover {
+  background-color: var(--risd-blue);
+  border: 1px solid var(--text-color);
+  color: white;
+}
+
+.button-secondary {
+  background-color: #d2e2ff;
+  border: 1px solid #d2e2ff;
+  color: var(--risd-blue);
+}
+.button-secondary:hover {
+  background-color: #d2e2ff;
+  border: 1px solid var(--text-accent-color);
+  color: var(--risd-blue);
+}
+
+.button-tertiary {
+  background-color: transparent;
+  border: 1px solid var(--text-color);
+  color: var(--text-color);
+}
+.button-tertiary:hover {
+  background-color: transparent;
+  border: 1px solid var(--text-color);
+  color: var(--text-color);
 }

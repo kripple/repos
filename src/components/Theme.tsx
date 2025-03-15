@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { App } from '@/components/App';
+import { ModalProvider } from '@/components/ModalProvider';
 
 import '@/components/theme.css';
 
@@ -40,7 +41,9 @@ export function Theme() {
         type="checkbox"
       />
       <div className="app theme">
-        <App id={id} />
+        <ModalProvider>
+          <App id={id} />
+        </ModalProvider>
       </div>
     </>
   );
