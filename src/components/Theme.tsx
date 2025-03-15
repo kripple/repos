@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { App } from '@/components/App';
 import { ModalProvider } from '@/components/ModalProvider';
 
+import '@/assets/mui.css';
 import '@/components/theme.css';
 
 export function Theme() {
