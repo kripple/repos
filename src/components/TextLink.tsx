@@ -15,7 +15,7 @@ export function TextLink({
 }) {
   const onKeyDown = useOnKeyDown();
   if (!children || !url) return null;
-  
+
   return (
     <a
       className="text"

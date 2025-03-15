@@ -37,7 +37,6 @@ export function Repo({
     // html_url,
   } = data ? data : {};
   const loading = !name;
-  
 
   const ms = (delay * repoCount + duration * 2) * 1000;
   useInterval(
