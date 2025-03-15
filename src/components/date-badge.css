@@ -1,0 +1,19 @@
+.date-badge {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.date-badge .month {
+  font-size: 11px;
+  letter-spacing: 0.7px;
+  line-height: 11px;
+}
+
+.date-badge .year {
+  font-size: 10px;
+  letter-spacing: -0.4px;
+  line-height: 10px;
+}
