@@ -27,21 +27,21 @@ describe('App', () => {
   });
 
   test('displays search tools', () => {
-    const { getByTestId, getByRole } = render();
+    const { getByTestId } = render();
     expect(getByTestId('SearchTools')).toBeInTheDocument();
 
-    const search = getByRole('search');
+    const search = getByTestId('Search');
     expect(search).toBeInTheDocument();
   });
 
   test('mocks requests', async () => {
     const promise = addRequestListeners({ expected: 2 });
-    const { getByTestId, getByRole } = render();
+    const { getByTestId } = render();
 
     expect(getByTestId('Profile')).toBeInTheDocument();
     expect(getByTestId('ReposList')).toBeInTheDocument();
     expect(getByTestId('SearchTools')).toBeInTheDocument();
-    expect(getByRole('search')).toBeInTheDocument();
+    expect(getByTestId('Search')).toBeInTheDocument();
 
     const result = await promise;
 
@@ -57,10 +57,10 @@ describe('App', () => {
   });
 
   test('repos list is searchable', async () => {
-    const { findAllByTestId, getByRole, user } = render();
+    const { findAllByTestId, getByTestId, user } = render();
     expect(await findAllByTestId('Repo')).toHaveLength(85);
 
-    const search = getByRole('search').closest('input');
+    const search = getByTestId('Search').closest('input');
     if (!search) throw Error('expect input to be in the document');
     await user.type(search, 'et');
 

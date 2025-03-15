@@ -55,13 +55,13 @@ export function SearchTools({
         </label>
         <input
           autoComplete="off"
+          data-testid="Search"
           id={searchInputId}
           onBlur={onBlur}
           onChange={onChange}
           onFocus={onFocus}
           onKeyDown={onKeyDown}
           placeholder={hasFocus ? undefined : 'Search'}
-          role="search"
           type="search"
         ></input>
       </div>
