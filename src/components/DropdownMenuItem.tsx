@@ -1,13 +1,8 @@
-/* eslint-disable react/jsx-no-bind */
 import Divider from '@mui/material/Divider';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import MenuList from '@mui/material/MenuList';
-// import Paper from '@mui/material/Paper';
-
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 
 import { SvgIcon } from '@/components/SvgIcon';
 
