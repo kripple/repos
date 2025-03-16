@@ -21,6 +21,7 @@
 .image {
   border-radius: 50%;
   height: var(--image-size);
+  user-select: none;
   width: var(--image-size);
 }
 
