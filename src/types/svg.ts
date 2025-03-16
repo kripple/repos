@@ -15,6 +15,12 @@ const close = {
   viewBox: '0 0 24 24',
 };
 
+const edit = {
+  drawPath:
+    'M3 17.25V21h3.75L17.81 9.94l-3.75-3.75zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75z',
+  viewBox: '3 0 18 24',
+};
+
 const launch = {
   drawPath:
     'M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3z',
@@ -67,6 +73,7 @@ export const Svg = {
   arrowDown,
   check,
   close,
+  edit,
   launch,
   link,
   location,

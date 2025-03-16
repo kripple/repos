@@ -31,19 +31,6 @@ html {
   --line-height: calc(var(--font-size) + 2px);
   --button-size: 44px;
 }
-/* @media screen and (max-width: 400px) {
-  :root {
-    --padding: 12px;
-  }
-}
-@media screen and (max-width: 320px) {
-  :root {
-    --gap: 4px;
-    --padding: 8px;
-    --profile-height: 149px;
-    --button-size: 36px;
-  }
-} */
 
 :root {
   --lavender: #d6e3f8;

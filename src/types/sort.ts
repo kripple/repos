@@ -1,6 +1,6 @@
 export type SortDirection = 'initial' | 'reverse';
 
-const sortKeys = ['name', 'updated_at'] as const;
+const sortKeys = ['name', 'updated_at', 'size'] as const;
 export type SortKey = Union<typeof sortKeys>;
 
 export const isSortKey = (value?: unknown): value is SortKey => {

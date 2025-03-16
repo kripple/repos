@@ -1,5 +1,5 @@
 import type { RepoEntities } from '@/api/types';
-import type { SortKey } from '@/types/sorting';
+import type { SortKey } from '@/types/sort';
 
 export const sortByKey = (collection: RepoEntities, key: SortKey) =>
   Object.values(collection)

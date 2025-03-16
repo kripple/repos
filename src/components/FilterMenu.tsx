@@ -8,7 +8,7 @@ import Paper from '@mui/material/Paper';
 import { SvgIcon } from '@/components/SvgIcon';
 import type { SortKey } from '@/types/sort';
 
-export function SortMenu({
+export function FilterMenu({
   closeMenu,
   sortByName,
   sortByLastUpdated,

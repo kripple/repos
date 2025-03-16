@@ -1,0 +1,50 @@
+.dropdown-menu {
+  margin-top: 16px;
+}
+
+.dropdown-menu svg {
+  fill: black;
+}
+
+.dropdown-menu .MuiList-root {
+  padding: 0;
+}
+
+.dropdown-menu-button {
+  align-items: center;
+  background-color: transparent;
+  border-radius: var(--border-radius);
+  border-style: none;
+  cursor: pointer;
+  display: flex;
+}
+
+.dropdown-menu-button svg {
+  height: 11px;
+  width: 11px;
+}
+
+.dropdown-menu-header .MuiTypography-root {
+  display: flex;
+  font-weight: 600;
+  justify-content: space-between;
+}
+
+.dropdown-menu-item.MuiListItemText-root,
+.dropdown-menu-item.MuiListItemText-root.MuiListItemText-dense {
+  min-width: 160px;
+  padding-bottom: 6px;
+  padding-top: 6px;
+}
+
+.dropdown-menu-item .MuiTypography-root {
+  font-size: 13px;
+}
+
+.dropdown-menu-divider.MuiDivider-root.MuiDivider-fullWidth {
+  margin: 0;
+}
+
+.dropdown-menu .dropdown-menu-icon.MuiListItemIcon-root {
+  min-width: 26px;
+}

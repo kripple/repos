@@ -1,26 +1,27 @@
 import classNames from 'classnames';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 
-import { SortMenu } from '@/components/SortMenu';
+import { DropdownButton } from '@/components/DropdownButton';
 import { SvgIcon } from '@/components/SvgIcon';
 import { useFocus } from '@/hooks/useFocus';
 import { useOnKeyDown } from '@/hooks/useOnKeyDown';
-import type { SortKey } from '@/types/sorting';
+import type { FilterKey } from '@/types/filter';
+import type { SortKey } from '@/types/sort';
 
 import '@/components/search-tools.css';
 
 export function SearchTools({
-  // selectedRepo,
   setSearchTerm,
   setSortKey,
   sortKey,
-  // toggleShowLinks,
+  setFilterKey,
+  filterKey,
 }: {
-  selectedRepo: string | undefined;
   setSearchTerm: SetState<string | undefined>;
   setSortKey: (value?: SortKey) => void;
   sortKey: SortKey;
-  toggleShowLinks: () => void;
+  setFilterKey: (value: FilterKey) => void;
+  filterKey: FilterKey;
 }) {
   const searchInputId = 'search' as const;
   const { hasFocus, onBlur, onFocus } = useFocus();
@@ -29,19 +30,41 @@ export function SearchTools({
     setSearchTerm(event.target.value);
   }, []);
 
-  const onClick = useCallback(() => setShowMenu((current) => !current), []);
+  const sortMenuItems = [
+    {
+      label: 'Last updated',
+      selected: sortKey === 'updated_at',
+      onClick: () => setSortKey('updated_at'),
+    },
+    {
+      label: 'Name',
+      selected: sortKey === 'name',
+      onClick: () => setSortKey('name'),
+    },
+    {
+      label: 'Size',
+      selected: sortKey === 'size',
+      onClick: () => setSortKey('size'),
+    },
+  ];
 
-  const sortByName = useCallback(() => {
-    setSortKey('name');
-    setShowMenu(false);
-  }, []);
-
-  const sortByLastUpdated = useCallback(() => {
-    setSortKey('updated_at');
-    setShowMenu(false);
-  }, []);
-
-  const [showMenu, setShowMenu] = useState<boolean>(false);
+  const filterMenuItems = [
+    {
+      label: 'None',
+      selected: filterKey === 'all',
+      onClick: () => setFilterKey('all'),
+    },
+    {
+      label: 'Has website',
+      selected: filterKey === 'has_pages',
+      onClick: () => setFilterKey('has_pages'),
+    },
+    // {
+    //   label: 'No license',
+    //   selected: filterKey === 'missing_license',
+    //   onClick: () => setFilterKey('missing_license'),
+    // },
+  ];
 
   return (
     <div className="search-tools" data-testid="SearchTools">
@@ -65,19 +88,17 @@ export function SearchTools({
           type="search"
         ></input>
       </div>
-      <div className="sort-tools">
-        <button className="sort-button" onClick={onClick} onKeyDown={onKeyDown}>
-          Sort <SvgIcon icon="arrowDown" />
-        </button>
-        {showMenu ? (
-          <SortMenu
-            closeMenu={onClick}
-            sortByLastUpdated={sortByLastUpdated}
-            sortByName={sortByName}
-            sortKey={sortKey}
-          />
-        ) : null}
-      </div>
+
+      <DropdownButton
+        label="Sort"
+        menuItems={sortMenuItems}
+        menuLabel="Select order"
+      />
+      <DropdownButton
+        label="Filter"
+        menuItems={filterMenuItems}
+        menuLabel="Select filter"
+      />
     </div>
   );
 }
